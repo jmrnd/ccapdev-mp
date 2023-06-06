@@ -80,7 +80,7 @@
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-color-rgb: 33, 37, 41;
-  --bs-body-bg: #fff;
+  --bs-body-bg: #e4e1e1;
   --bs-body-bg-rgb: 255, 255, 255;
   --bs-emphasis-color: #000;
   --bs-emphasis-color-rgb: 0, 0, 0;
@@ -191,6 +191,10 @@
 }
 
 /* Custom code starts here -Jamar*/
+
+.navbar-search {
+  background: white;
+}
 
 .create-post-link {
   cursor: text;
@@ -2160,7 +2164,7 @@ progress {
   font-weight: 400;
   line-height: 1.5;
   color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
+  background-color: white;
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   -webkit-appearance: none;
@@ -4335,7 +4339,7 @@ textarea.form-control-lg {
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: var(--bs-body-bg);
+  --bs-card-bg: #f5f5f5;
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -4380,6 +4384,7 @@ textarea.form-control-lg {
 }
 
 .card-title {
+  font-weight: 700;
   margin-bottom: var(--bs-card-title-spacer-y);
   color: var(--bs-card-title-color);
 }
