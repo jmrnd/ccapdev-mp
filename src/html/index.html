@@ -25,14 +25,16 @@
                 <img src="../images/globe.svg" alt="forum_icon" width="30" height="25">
                 <span class="forum-name">web forum</span>
             </a>
-            <div class="col-md-6" action="#">
-                <div class="input-group">
-                    <span class="input-group-text">
-                        <img src="../images/search.svg" width="20" height="20">
-                    </span>
-                    <input type="text" class="form-control navbar-search" placeholder="Search">
-                </div>
-            </div>
+            <div class="col-md-6">
+                <form action="/search" method="GET">
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <img src="../images/search.svg" width="20" height="20">
+                        </span>
+                        <input type="text" class="form-control navbar-search" placeholder="Search">
+                    </div>
+                </form>
+            </div>            
             <a href="#" class="nav-link d-sm-flex align-items-sm-center">
                 <img class="rounded-circle" src="../images/profile_picture.svg" alt="profile_picture" width="35"
                     height="35">
