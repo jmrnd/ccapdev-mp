@@ -7,6 +7,10 @@ body {
 
 .card-title {
     font-weight: 700;
+    font-size: x-large;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-body {
@@ -26,8 +30,13 @@ body {
 }
 
 .post-author {
+    white-space: nowrap;
     color: #676767;
     font-size: smaller;
+}
+
+.post-author-link {
+    color: inherit;
 }
 
 .post-num-comments {
