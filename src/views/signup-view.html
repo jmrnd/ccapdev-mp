@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/stylesheet.css">
+    <link rel="stylesheet" href="../css/signup-stylesheet.css">
+
+
+    <title>Sign up your Account</title>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top" >
+        <div class="container-fluid my-0 mx-auto px-5">
+            <a href="#" class="navbar-brand ">
+                <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
+            </a>
+           
+            <div class="navbar-nav">
+                <div class="nav-item">
+
+                    <button class="btn btn-sm rounded login-btn me-3 px-4 py-1" data-bs-target="#login-modal" data-bs-toggle="modal">Log in</button>
+
+                </div>
+                <div class="nav-item">
+                    <button class="btn btn-sm rounded signup-btn px-3 py-1" data-bs-target="#signup" data-bs-toggle="modal">Sign up</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="sign-up">
+        <div class="sign-up-container">
+
+            <div class="form-container">
+                
+                <form action="#" class="form-sign-up">
+                    <h2>Register</h2>
+
+                    <a href="#"></a>
+                    <label for="username">Username:</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username">
+
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email">
+
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password">
+
+                    <button type="submit">Sign up</button>
+                </form>
+            </div>
+
+            <div class="img">
+                <img src="../images/background-signup-img.jpg" alt="">
+                <div>The web where <br> everything start</div>
+                <img src="../images/logo assets/foroom-logo.png" alt="" id="poster-logo"> 
+                <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- MODAL FOR LOGIN -->
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Log in</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <input type="email" class="form-control" id="modal-email" placeholder="Enter your email">
+                    <input type="password" class="form-control" id="modal-password" placeholder="Enter your password">
+                    <a href="#">Forgot your password?</a>
+                    <button class="btn">Log in</button>
+                </div>
+                <div class="modal-footer">
+                    <a href="#">Dont have an account? Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
