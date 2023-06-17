@@ -114,3 +114,40 @@ body {
     vertical-align: baseline;
     margin-left: 10px;
 }
+
+/* view post */
+.comment-label{
+    font-size: large;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.post-title{
+    margin-top: 5px;
+    margin-left: 20px;
+    font-weight: 700;
+    font-size:xx-large;
+}
+
+.post-text{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 30px;
+}
+
+
+.comment-user{
+    font-size: medium;
+    font-weight: 500;
+
+}
+
+.comment-text{
+    text-indent: 43px;
+}
+
+.comment-footer{
+   margin-left: 40px;
+}
+
