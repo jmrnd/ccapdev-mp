@@ -51,7 +51,9 @@
             </ul>
         </div>
     </nav>
-    <div class="post-container">
+
+    <!--main post-->
+    <div class="container">
         <div class="row d-flex justify-content-center">
             <div class="col-md-7">
                 <div class="card mt-2 mb-0">
@@ -62,143 +64,188 @@
                             <a href="#"
                                 class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
                         </span>
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <p class="post-title">
-                                Bakit ba ang stupid ni Rafael Michael Sarmiento??
-                            </p>
-                        </div>
-                        
-                        <p class="post-text">
-                            Iku seisou kitai mo nai you na furi wo shita Hazukashige ni demo wakatteru, wakatteru, wakatteru To iu dakedo Sou kyokusen majiwaranai deita 
-                            Nani mo wakaranu mama mogutte wa, mogutte wa Fukaku iki mo suuenaide Madoromu shiranda hikari ga boku wo yonda Te wo nobashite kureru nara 
-                            Aa kokoro wa mada kotaerarenai mama Fukai umi nai de wa risou egaita ima Tada itai hodo negatte wasure wa shinai kara 
-                            Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta na Kimi to waratte
 
-                        </p>
+                            <div class="post-content">
+                                <div class="d-flex flex-row justify-content-start align-baseline">
+                                    <p class="post-title">
+                                        Bakit ba ang stupid ni Rafael Michael Sarmiento??
+                                    </p>
+                                </div>
+                                
+                                <p class="post-text">
+                                    Iku seisou kitai mo nai you na furi wo shita Hazukashige ni demo wakatteru, wakatteru, wakatteru To iu dakedo Sou kyokusen majiwaranai deita 
+                                    Nani mo wakaranu mama mogutte wa, mogutte wa Fukaku iki mo suuenaide Madoromu shiranda hikari ga boku wo yonda Te wo nobashite kureru nara 
+                                    Aa kokoro wa mada kotaerarenai mama Fukai umi nai de wa risou egaita ima Tada itai hodo negatte wasure wa shinai kara 
+                                    Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta na Kimi to waratte
 
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                            <span class="post-num-votes">16k</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">2 comments</span>
-                            </a>
+                                </p>
 
-                        </div>
-                        <hr style="width: 100%">
-                        <div class="comment-box">
-                            insert comment box here
-                        </div>
+                                <div class="post-footer d-inline-flex flex-row">
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                    <span class="post-num-votes">16k</span>
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <a href="#"
+                                        class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                        <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                        <span class="post-num-comments me-1">2 comments</span>
+                                    </a>
+
+                                </div>
+                                <hr style="width: 100%">
+                                <!--Comment box-->
+                               
+                                <div class="comment-box-container">
+                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."></textarea>
+                                        <input type="submit" value="The form has been submitted" hidden>
+                                        <input class="comment-button rounded" type="submit" value="comment">
+                                </div>
+                                    <!--Script for auto resize comment box-->
+                                    <script>
+                                        const textarea = document.querySelector("textarea");
+                                        textarea.addEventListener("keyup", e =>{
+                                            textarea.style.height = "102px";
+                                            let scHeight = e.target.scrollHeight;
+                                            textarea.style.height = `${scHeight}px`;
+                                        });
+                                    </script>
+                                    <!--end Script for auto resize comment box-->
+
+                            </div>
                     </div>
                 </div>
             </div>
+
+            <div class="comment-label row d-flex justify-content-start col-sm-6">Comments:</div>
+            
     </div>
 <!-- comments -->
-    <div class="comment-label row d-flex justify-content-center col-sm-6">Comments:</div>
-    
-    <!-- comment 1 -->
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <div class="card mt-2 mb-0">
-                <div class="card-body rounded">
-                    <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                    <span class="post-author ms-1 pt-2">                               
-                
-                        <a href="#"
-                            class="comment-user link-underline link-underline-opacity-0">another_user5</a>
-                    </span>
-                    <p class="comment-text">
-                        daarring daarring aishite okure!
+    <div class="comment-space">
 
-                    </p>
-                    <div class="comment-footer d-inline-flex flex-row ">
-                        <a href="#" class="d-sm-flex align-items-sm-center">
-                            <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                        <span class="post-num-votes">16k</span>
-                        <a href="#" class="d-sm-flex align-items-sm-center">
-                            <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                        </a>
-                        <a href="#"
-                            class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                            <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                            <span class="post-num-comments me-1">1 replies</span>
-                        </a>
+        <!--comment 1-->
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card mt-2 mb-0">
+                    <div class="card-body rounded">
+                        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+                            <span class="post-author ms-1 pt-2">                               
                         
-                    </div>
-                    <!-- comment 1 reply -->
-                    
-                    <div class="row d-flex justify-content-end">
-                        <div class="col-md-11">
-                            <div class="card mt-2 mb-0">
-                                <div class="card-body rounded">
-                                    <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                                    <span class="post-author ms-1 pt-2">                               
-                                
-                                        <a href="#"
-                                            class="comment-user link-underline link-underline-opacity-0">another_user5</a>
-                                    </span>
-                                    <p class="comment-text">
-                                        Ano hi kara bokura wa kyouhansha datta!
-                
-                                    </p>
-                                    <div class="comment-footer d-inline-flex flex-row">
-                                        <a href="#" class="d-sm-flex align-items-sm-center">
-                                            <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                                        <span class="post-num-votes">16k</span>
-                                        <a href="#" class="d-sm-flex align-items-sm-center">
-                                            <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                                        </a>
-                                        <a href="#"
-                                            class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                            <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                            <span class="post-num-comments me-1">0 replies</span>
-                                        </a>
+                                <a href="#"
+                                    class="comment-user link-underline link-underline-opacity-0">another_user5</a>
+                            </span>
+                            
+                            <div class="comment-content">
+                                <p class="comment-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
+                                    eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
+                                    malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
+                                    semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
+                                    faucibus eros, quis lacinia mauris viverra in. Vivamus auctor neque at sagittis eleifend.
+                                    Sed at leo tortor. Nullam eu ligula ac ex pretium faucibus. Vivamus gravida interdum lorem,
+                                    et congue sapien aliquam eu. In diam lorem, porta efficitur pretium suscipit, lacinia eu
+                                    velit. Suspendisse hendrerit quam at lectus gravida, at euismod metus lobortis. Cras ac
+                                    finibus erat, commodo consequat turpis. Nam rutrum pulvinar interdum. Aliquam aliquam
+                                    condimentum quam, non gravida dui hendrerit dictum.
+
+                                </p>
+                            
+                        
+                                <div class="d-inline-flex flex-row comment-footer">
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                    <span class="post-num-votes">12345</span>
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <a href="#"
+                                        class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                        <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                        <span class="post-num-comments me-1">678 comments</span>
+                                    </a>
+                                </div>
+                            </div>    
+                        <!-- comment 1 reply -->
+                            
+                        <div class="row d-flex justify-content-end">
+                            <div class="col-md-11">
+                                <div class="card mt-2 mb-0">
+                                    <div class="card-body rounded">
+                                        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+                                        <span class="post-author ms-1 pt-2">                               
+                                    
+                                            <a href="#"
+                                                class="comment-user link-underline link-underline-opacity-0">another_user5</a>
+                                        </span>
+
+                                        <div class="comment-content">
+                                            <p class="comment-text">
+                                                Ano hi kara bokura wa kyouhansha datta!
+                        
+                                            </p>
+                                            <div class="comment-footer d-inline-flex flex-row">
+                                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                                    <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                                <span class="post-num-votes">16k</span>
+                                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                                    <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                                </a>
+                                                <a href="#"
+                                                    class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                                    <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                                    <span class="post-num-comments me-1">0 replies</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <!--comment 1 reply end-->
                     </div>
+                  
+                </div>
             </div>
         </div>
-    </div>
-    <!--Comment 2-->
 
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <div class="card mt-2 mb-0">
-                <div class="card-body rounded">
-                    <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                    <span class="post-author ms-1 pt-2">                               
-                
-                        <a href="#"
-                            class="comment-user link-underline link-underline-opacity-0">another_user5</a>
-                    </span>
-                    <p class="comment-text">
-                        daarring daarring aishite okure!
+        <!--Comment 2-->
 
-                    </p>
-                    <div class="comment-footer d-inline-flex flex-row ">
-                        <a href="#" class="d-sm-flex align-items-sm-center">
-                            <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                        <span class="post-num-votes">16k</span>
-                        <a href="#" class="d-sm-flex align-items-sm-center">
-                            <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                        </a>
-                        <a href="#"
-                            class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                            <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                            <span class="post-num-comments me-1">0 replies</span>
-                        </a>
-                        
-                    </div>
+        <div class="row d-flex justify-content-center ">
+            <div class="col-md-7">
+                <div class="card mt-2 mb-0">
+                    <div class="card-body rounded">
+                        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+                        <span class="post-author ms-1 pt-2">                               
+                    
+                            <a href="#"
+                                class="comment-user link-underline link-underline-opacity-0">another_user5</a>
+                        </span>
+                        <div class="comment-content">
+                            <p class="comment-text">
+                                daarring daarring aishite okure!
+
+                            </p>
+                            <div class="comment-footer d-inline-flex flex-row ">
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                <span class="post-num-votes">16k</span>
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                </a>
+                                <a href="#"
+                                    class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                    <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                    <span class="post-num-comments me-1">0 replies</span>
+                                </a>
+                            </div>
+                        </div>
+                </div>
             </div>
         </div>
+            
     </div>
+    
     
 
 
