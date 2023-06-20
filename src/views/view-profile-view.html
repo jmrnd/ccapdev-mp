@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+    <!-- Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../css/stylesheet.css">
+    <link rel="stylesheet" href="../css/profile-stylesheet.css">
+
+    <title>foroom</title>
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top" >
+        <div class="container-fluid my-0 mx-auto px-5">
+            <a href="#" class="navbar-brand ">
+                <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
+            </a>
+            <form class="d-flex position-relative search-container">
+                <input type="text" class="form-control" placeholder="Search forum ..." >
+                <button type="submit" class="btn position-absolute end-0"><i
+                        class="fa fa-search search-icon-custom-color"></i></button>
+            </form>
+            <div class="navbar-nav">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="d-inline-block mb-0">
+                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+                            <span class="username fw-semibold ms-2 pt-5">username123</span>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item">Profile</a></li>
+                        <li><a href="#" class="dropdown-item">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- User Content -->
+    <div class="container-fluid border p-5">
+        <div class="row mx-3 mb-2 g-2">
+            <!-- Go Back Button-->
+            <div class="col">
+                <a href="#" class="btn btn-primary go-back-btn">&lt; Go back</a>
+            </div>
+        </div>
+        <div class="row mx-3 g-2">
+            <!-- User Profile Card-->
+            <div class="col-xl-3 col-lg-4 col-md-12">
+                <div class="card view-profile-card">
+                    <div class="card-header view-profile-card-header"></div>
+                    <div class="card-body text-center px-5">
+                        <div class="container-fluid">
+                            <div class="row justify-content-center align-items-center mb-4">
+                                <div class="col-xl-9 col-lg-9 col-md-4">
+                                    <img src="../images/profile-temp.jpg" alt="profile picture" class="profile-pic img-fluid">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col">
+                                    <a href="#" class="btn edit-profile-btn btn btn-primary">Edit Profile</a>
+                                </div>
+                            </div>
+                            <div class="row mb-0">
+                                <h5 class="card-title">Joolz Ryane</h5>
+                            </div>
+                            <div class="row mb-4">
+                                <h6 class="card-subtitle text-muted">@username123</h6>
+                            </div>
+                            <div class="row mb-4">
+                                <p class="card-text">
+                                    hello world! :&gt;
+                                </p>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <!-- User Latest Posts Card-->
+            <div class="col-xl-9 col-lg-8 col-md-12">
+                <div class="latest-post-card card p-4" style="background-color: rgb(248, 248, 248)">
+                <h2 class="latest-post-card-title">Latest Posts</h2>
+                <!-- Post Cards -->
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <div class="card mt-2 mb-0">
+                            <div class="card-body rounded">
+                                <div class="d-flex flex-row justify-content-start align-baseline">
+                                    <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                        Medium length sample post title
+                                    </a>
+                                    <span class="post-author ms-1 pt-2">
+                                        • Posted by
+                                        <a href="#"
+                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                    </span>
+                                </div>
+                                <p class="card-text custom-truncate">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
+                                    eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
+                                    malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
+                                    semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
+                                    faucibus eros, quis lacinia mauris viverra in. Vivamus auctor neque at sagittis eleifend.
+                                    Sed at leo tortor. Nullam eu ligula ac ex pretium faucibus. Vivamus gravida interdum lorem,
+                                    et congue sapien aliquam eu. In diam lorem, porta efficitur pretium suscipit, lacinia eu
+                                    velit. Suspendisse hendrerit quam at lectus gravida, at euismod metus lobortis. Cras ac
+                                    finibus erat, commodo consequat turpis. Nam rutrum pulvinar interdum. Aliquam aliquam
+                                    condimentum quam, non gravida dui hendrerit dictum.
+                                </p>
+                                <div class="d-inline-flex flex-row">
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                    <span class="post-num-votes">12345</span>
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <a href="#"
+                                        class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                        <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                        <span class="post-num-comments me-1">678 comments</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <div class="card mt-2 mb-0">
+                            <div class="card-body rounded">
+                                <div class="d-flex flex-row justify-content-start align-baseline">
+                                    <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                        Super duper long sample post title that should be truncated abcdefghijklmnopqrstuvwxyz
+                                    </a>
+                                    <span class="post-author ms-1 pt-2">
+                                        • Posted by
+                                        <a href="#"
+                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                    </span>
+                                </div>
+                                <p class="card-text custom-truncate">
+                                    Cras sodales efficitur dui. Mauris dignissim libero eget lacus aliquam molestie. Nullam
+                                    lacus tellus, vulputate in pellentesque sed, auctor sit amet augue. Quisque nibh est,
+                                    pellentesque sit amet sagittis nec, condimentum vitae nulla. Morbi non risus vitae elit
+                                    lacinia maximus et quis erat. Nullam suscipit enim vitae nisl iaculis condimentum. Sed
+                                    ornare commodo turpis, eu commodo dui scelerisque vitae. Aliquam in felis ornare,
+                                    pellentesque dui in, laoreet velit. Suspendisse potenti.
+                                </p>
+                                <div class="d-inline-flex flex-row">
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <span class="post-num-votes">12345</span>
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <a href="#"
+                                        class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                        <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                        <span class="post-num-comments me-1">678 comments</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <div class="card mt-2 mb-0">
+                            <div class="card-body rounded">
+                                <div class="d-flex flex-row justify-content-start align-baseline">
+                                    <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                        Another Super duper long sample post title that should be truncated
+                                        abcdefghijklmnopqrstuvwxyz
+                                    </a>
+                                    <span class="post-author ms-1 pt-2">
+                                        • Posted by
+                                        <a href="#"
+                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                    </span>
+                                </div>
+                                <p class="card-text custom-truncate">
+                                    In condimentum, massa in faucibus volutpat, lorem ex fermentum eros, in varius sapien
+                                    nunc vitae arcu. Morbi ligula libero, venenatis eget finibus quis, pulvinar non mi.
+                                    Maecenas luctus varius ex, non molestie turpis consequat consequat. Fusce erat orci,
+                                    aliquam ut arcu et, dapibus congue velit. Fusce suscipit mi tellus, a tempor lectus
+                                    accumsan a. Donec vestibulum feugiat aliquet. Praesent sit amet mi enim. Etiam maximus
+                                    ex sed semper interdum. Quisque bibendum elit a posuere fringilla.
+                                </p>
+                                <div class="d-inline-flex flex-row">
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <span class="post-num-votes">12345</span>
+                                    <a href="#" class="d-sm-flex align-items-sm-center">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                    </a>
+                                    <a href="#"
+                                        class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                        <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                        <span class="post-num-comments me-1">678 comments</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        <!-- View More Button -->
+        <div class="row d-flex flex-column">
+            <div class="col mt-2 text-end">
+                <a href="#" class="btn view-more-btn btn-primary">View more</a>
+            </div>
+        </div>
+        </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
