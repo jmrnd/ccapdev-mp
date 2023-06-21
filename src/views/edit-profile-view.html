@@ -18,9 +18,9 @@
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="../css/stylesheet.css">
-    <link rel="stylesheet" href="../css/profile-stylesheet.css">
+    <link rel="stylesheet" href="../css/edit-profile-stylesheet.css">
 
-    <title>foroom</title>
+    <title>Edit profile</title>
 
 </head>
 
@@ -31,43 +31,28 @@
             <a href="#" class="navbar-brand ">
                 <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
             </a>
-            <form class="d-flex position-relative search-container">
-                <input type="text" class="form-control" placeholder="Search forum ..." >
-                <button type="submit" class="btn position-absolute end-0"><i
-                        class="fa fa-search search-icon-custom-color"></i></button>
-            </form>
-            <div class="navbar-nav">
-                <div class="nav-item dropdown">
-                    <a href="#" class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <div class="d-inline-block mb-0">
-                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                            <span class="username fw-semibold ms-2 pt-5">username123</span>
-                        </div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Profile</a></li>
-                        <li><a href="#" class="dropdown-item">Logout</a></li>
-                    </ul>
-                </div>
-            </div>
+           
+        <div class="d-inline-block mb-0">
+        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+        <span class="username fw-semibold ms-2 pt-5">username123</span>
+        </div>
+
         </div>
     </nav>
 
     <!-- Edit Profile Card -->
-    <div class="container-md my-5">
-    <div class="card edit-profile-card ">
-        <div class="card-header edit-profile-card-header"><h1>Edit Profile</h1></div>
-        <div class="card-body">
+    <div class="container-md p-5"> 
+    <div class="card edit-profile-card rounded-5">
+        <div class="card-header edit-profile-card-header rounded-top-5 px-4 py-2"><h1>Edit Profile</h1></div>
+        <div class="card-body rounded-bottom-5 px-5">
         <div class="row p-5">
-            <div class="col-md-3 text-center">
+            <div class="col-3 text-center px-md-4">
                 <img src="../images/profile-temp.jpg" alt="profile picture" class="edit-profile-pic img-fluid">
                 <br>
                 <br>
                 <a href="#" class="btn btn-primary change-pic-btn">Change picture</a>
             </div>
             <div class="col-9 px-5">
-                <div class="edit-profile-container">
                     <div class="row">
                     <form action="#" class="edit-profile-form">
                         <label for="username">USERNAME</label>
@@ -84,9 +69,7 @@
 
                         <label for="password">PASSWORD</label>
                         <input type="password" name="password" id="password" placeholder="••••••••">
-
                     </form>
-                    </div>
                     <div class="row d-flex flex-column mt-2">
                         <div class="col text-end">
                             <a href="#" class="btn btn-outline-primary reset-btn">Reset</a>
@@ -94,10 +77,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
         </div>
         </div>
+    </div>
     </div>
         
 </body>

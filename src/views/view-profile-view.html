@@ -18,9 +18,9 @@
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="../css/stylesheet.css">
-    <link rel="stylesheet" href="../css/profile-stylesheet.css">
+    <link rel="stylesheet" href="../css/view-profile-stylesheet.css">
 
-    <title>foroom</title>
+    <title>View Profile</title>
 
 </head>
 
@@ -55,7 +55,7 @@
     </nav>
 
     <!-- User Content -->
-    <div class="container-fluid border p-5">
+    <div class="container-fluid p-5">
         <div class="row mx-3 mb-2 g-2">
             <!-- Go Back Button-->
             <div class="col">
@@ -65,38 +65,23 @@
         <div class="row mx-3 g-2">
             <!-- User Profile Card-->
             <div class="col-xl-3 col-lg-4 col-md-12">
-                <div class="card view-profile-card">
-                    <div class="card-header view-profile-card-header"></div>
-                    <div class="card-body text-center px-5">
-                        <div class="container-fluid">
-                            <div class="row justify-content-center align-items-center mb-4">
-                                <div class="col-xl-9 col-lg-9 col-md-4">
-                                    <img src="../images/profile-temp.jpg" alt="profile picture" class="profile-pic img-fluid">
-                                </div>
-                            </div>
-                            <div class="row mb-4">
-                                <div class="col">
-                                    <a href="#" class="btn edit-profile-btn btn btn-primary">Edit Profile</a>
-                                </div>
-                            </div>
-                            <div class="row mb-0">
-                                <h5 class="card-title">Joolz Ryane</h5>
-                            </div>
-                            <div class="row mb-4">
-                                <h6 class="card-subtitle text-muted">@username123</h6>
-                            </div>
-                            <div class="row mb-4">
-                                <p class="card-text">
-                                    hello world! :&gt;
-                                </p>
-                            </div>
-                        </div> 
+                <div class="card view-profile-card rounded-5">
+                    <div class="card-header view-profile-card-header rounded-top-5"></div>
+                    <div class="card-body text-center px-lg-5 px-md-2 rounded-bottom-5 mb-4">
+                        <img src="../images/profile-temp.jpg" alt="profile picture" class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+                        <a href="#" class="btn edit-profile-btn btn btn-primary my-4">Edit Profile</a>
+                        <h5 class="card-title">Joolz Ryane</h5>
+                        <h6 class="card-subtitle text-muted">@username123</h6>
+                        <br>
+                        <p class="card-text">
+                            hello world! :&gt;
+                        </p>
                     </div>
                 </div>
             </div>
             <!-- User Latest Posts Card-->
             <div class="col-xl-9 col-lg-8 col-md-12">
-                <div class="latest-post-card card p-4" style="background-color: rgb(248, 248, 248)">
+                <div class="latest-post-card card p-4 rounded-5" style="background-color: rgb(248, 248, 248)">
                 <h2 class="latest-post-card-title">Latest Posts</h2>
                 <!-- Post Cards -->
                 <div class="row d-flex justify-content-center">
