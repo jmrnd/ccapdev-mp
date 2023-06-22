@@ -159,26 +159,26 @@ body {
     margin-left: 10px;
 }
 
-.modal{
-    
-    align-items: center;
-}
+/* Modal */
 
+.modal-dialog{
+    width: 400px;
+}
 
 .modal-content{
     border-radius: 20px;
 }
 
 .modal-header{
-    padding: 15px 30px;
+    display: flex;
+    flex-direction: column;
 }
 
 .modal-header h2{
     color: #7b2cbf;
-}
-
-.modal-header button{
-    border-radius: 50%;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .modal-header button:hover{
@@ -186,15 +186,20 @@ body {
     background-color: #e4e1e1;
 }
 
+.modal-header img{
+    width: 110px;
+    margin-bottom: 10px;
+}
 
 .modal-body{
     display: flex;
     flex-direction: column;
+    padding: 1em 2em 1em;
 }
 
 .modal-body a{
     font-size: x-small;
-    margin: 15px 0px 20px;
+    margin: 15px 0px 5px;
     align-self: center;
     text-decoration: none;
     color: #7b2cbf;
@@ -205,6 +210,8 @@ body {
     background-color: #7b2cbf;
     outline: none;
     color: #e4e1e1;
+    width: 30%;
+    align-self: center;
 }
 
 .modal-body button:hover{
@@ -212,14 +219,16 @@ body {
     background-color: white;
     color: #7b2cbf;
     border: 1px solid #7b2cbf;
+    align-self: center;
+    width: 30%;
 }
-
 
 .modal-body .form-control{
     border-radius: 20px;
     margin: 5px 0px;
     height: 60px;
 }
+
 
 .modal-body .form-control:focus{
     border-radius: 20px;
@@ -229,15 +238,24 @@ body {
     box-shadow: inset 0px 0px 4px #7b2cbf;
 }
 
-
 .modal-footer{
     display: flex;
     flex-direction: column;
     font-size: small;
-    padding: 20px;
 }
 
 .modal-footer a{
     text-decoration: none;
+    color: #7b2cbf;
+}
+
+.check-box{
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
+
+.check-box label{
+    font-size: medium;
     color: #7b2cbf;
 }

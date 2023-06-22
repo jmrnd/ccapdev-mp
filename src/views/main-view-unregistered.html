@@ -283,20 +283,27 @@
 <!-- MODAL FOR LOGIN -->
     <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="modal-header">
-                    <h2>Log in</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="../images/logo assets/logo-grad2.png" alt="">
+                    <h2>Login</h2>
                 </div>
                 <div class="modal-body">
 
                     <input type="email" class="form-control" id="modal-email" placeholder="Enter your email">
                     <input type="password" class="form-control" id="modal-password" placeholder="Enter your password">
-                    <a href="#">Forgot your password?</a>
+
+                    <div class="check-box">
+                        <input type="checkbox" name="remember-me" id="check-box"> 
+                        <label for="remember-me">Remember me</label>
+                    </div>
+
                     <button class="btn">Log in</button>
+
+                    <a href="#">Forgot your password?</a>
                 </div>
                 <div class="modal-footer">
-                    <a href="#">Dont have an account? Sign up</a>
+                    <a href="../views/signup-view.html">Dont have an account? Sign up</a>
                 </div>
             </div>
         </div>

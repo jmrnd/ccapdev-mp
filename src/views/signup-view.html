@@ -18,18 +18,17 @@
     <link rel="stylesheet" href="../css/stylesheet.css">
     <link rel="stylesheet" href="../css/signup-stylesheet.css">
 
-
     <title>Sign up your Account</title>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg fixed-top" >
         <div class="container-fluid my-0 mx-auto px-5">
-            <a href="#" class="navbar-brand ">
+            <a href="../views/main-view-unregistered.html" class="navbar-brand ">
                 <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
             </a>
            
-            <div class="navbar-nav">
+            <!-- <div class="navbar-nav">
                 <div class="nav-item">
 
                     <button class="btn btn-sm rounded login-btn me-3 px-4 py-1" data-bs-target="#login-modal" data-bs-toggle="modal">Log in</button>
@@ -38,11 +37,10 @@
                 <div class="nav-item">
                     <button class="btn btn-sm rounded signup-btn px-3 py-1" data-bs-target="#signup" data-bs-toggle="modal">Sign up</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </nav>
     
-    <div class="sign-up">
         <div class="sign-up-container">
 
             <div class="form-container">
@@ -50,15 +48,16 @@
                 <form action="#" class="form-sign-up">
                     <h2>Register</h2>
 
-                    <a href="#"></a>
                     <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" placeholder="Enter your username">
+                    <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5" maxlength="20" required>
 
                     <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email">
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
                     <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password">
+                    <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6" maxlength="15" required>
+
+                    <a href="#login-modal" data-bs-target="#login-modal" data-bs-toggle="modal">Already have an account? Login</a>
 
                     <button type="submit">Sign up</button>
                 </form>
@@ -68,35 +67,40 @@
                 <img src="../images/background-signup-img.jpg" alt="">
                 <div>The web where <br> everything starts</div>
                 <img src="../images/logo assets/foroom-logo.png" alt="" id="poster-logo"> 
-                <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS -->
-            </div>
+                <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
+            </div> 
 
         </div>
-
-    </div>
 
     <!-- MODAL FOR LOGIN -->
     <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <div class="modal-content" >
                 <div class="modal-header">
-                    <h2>Log in</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <img src="../images/logo assets/logo-grad2.png" alt="">
+                    <h2>Login</h2>
                 </div>
                 <div class="modal-body">
 
                     <input type="email" class="form-control" id="modal-email" placeholder="Enter your email">
                     <input type="password" class="form-control" id="modal-password" placeholder="Enter your password">
-                    <a href="#">Forgot your password?</a>
+
+                    <div class="check-box">
+                        <input type="checkbox" name="remember-me" id="check-box"> 
+                        <label for="remember-me">Remember me</label>
+                    </div>
+
                     <button class="btn">Log in</button>
+
+                    <a href="#">Forgot your password?</a>
                 </div>
                 <div class="modal-footer">
-                    <a href="#">Dont have an account? Sign up</a>
+                    <a href="../views/signup-view.html">Dont have an account? Sign up</a>
                 </div>
             </div>
         </div>
     </div>
 
-    
+    <script src="../js/app.js"></script>
 </body>
 </html>
