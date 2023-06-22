@@ -15,15 +15,16 @@ body{
     border: 1px solid #676767;
 }
 
-.change-pic-btn{
+.change-pic-btn, .reset-btn {
     background-color: transparent;
     border-color: #a05cc0;
     color: #a05cc0;
 }
 
-.change-pic-btn:hover{
+.change-pic-btn:hover, .reset-btn:hover {
     background-color: #a05cc0;
     border-color: #a05cc0;
+    color: white;
 }
 
 .edit-profile-form {
@@ -51,16 +52,10 @@ body{
     font-size: 100;
 }
 
-.edit-profile-form input:hover{
+.edit-profile-form input:hover, .edit-profile-form textarea:hover{
     border-color: #b75cc0;
     box-shadow: inset 0px 0px 4px #7b2cbf;
 }
-
-.edit-profile-form textarea:hover{
-    border-color: #b75cc0;
-    box-shadow: inset 0px 0px 4px #7b2cbf;
-}
-
 
 .edit-profile-form label{
     font-size: small;
@@ -70,23 +65,14 @@ body{
     letter-spacing: 1px;
 }
 
-.reset-btn{
-    background-color: transparent;
-    border-color: #a05cc0;
-    color: #a05cc0;
-}
-
-.reset-btn:hover{
-    background-color: #a05cc0;
-    border-color: #a05cc0;
-}
-
 .save-btn {
     background-color: #7b2cbf;
     border-color: #7b2cbf;
+    color: white;
 }
 
 .save-btn:hover {
     background-color: #3c1b59;
     border-color: #3c1b59;
+    color: white;
 }

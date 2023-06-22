@@ -1,6 +1,11 @@
 /* Stylesheet for View Profile*/
 
 /* View Profile Card */
+
+.hidden {
+    visibility: hidden;
+}
+
 .edit-profile-btn {
     background-color: transparent;
     border-color: #a05cc0;
@@ -10,6 +15,7 @@
 .edit-profile-btn:hover {
     background-color: #a05cc0;
     border-color: #a05cc0;
+    color: white;
 }
 
 .view-profile-card-header {
@@ -25,29 +31,23 @@
     border: 1px solid #676767;
 }
 
-/* View Profile Buttons */
+.card-subtitle::before {
+    content: "@";
+}
 .view-profile-card {
     background-color: rgb(248, 248, 248);
 }
 
-.go-back-btn {
+.go-back-btn, .view-more-btn {
     background-color: #7b2cbf;
     border-color: #7b2cbf;
+    color: white;
 }
 
-.go-back-btn:hover {
+.go-back-btn:hover, .view-more-btn:hover {
     background-color: #3c1b59;
     border-color: #3c1b59;
-}
-
-.view-more-btn {
-    background-color: #7b2cbf;
-    border-color: #7b2cbf;
-}
-
-.view-more-btn:hover {
-    background-color: #3c1b59;
-    border-color: #3c1b59;
+    color: white;
 }
 
 /*Latest Posts Card*/
