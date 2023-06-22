@@ -17,10 +17,14 @@
 
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
 
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="../css/stylesheet.css">
     <link rel="stylesheet" href="../css/edit-profile-stylesheet.css">
 
-    <title>Edit profile</title>
+    <!-- Javascript -->
+    <script src="../js/profile_app.js"> </script>
+
+    <title>Edit profile</title> 
 
 </head>
 
@@ -33,8 +37,8 @@
             </a>
            
         <div class="d-inline-block mb-0">
-        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-        <span class="username fw-semibold ms-2 pt-5">username123</span>
+        <img src="../images/profilepic1.jpg" alt="profile_picture" width="35" height="35" class="rounded-4">
+        <span class="username fw-semibold ms-2 pt-5 username">joolzie123</span>
         </div>
 
         </div>
@@ -47,33 +51,33 @@
         <div class="card-body rounded-bottom-5 px-5">
         <div class="row p-5">
             <div class="col-3 text-center px-md-4">
-                <img src="../images/profile-temp.jpg" alt="profile picture" class="edit-profile-pic img-fluid">
+                <img src="../images/profilepic1.jpg" alt="profile picture" class="edit-profile-pic img-fluid">
                 <br>
                 <br>
-                <a href="#" class="btn btn-primary change-pic-btn">Change picture</a>
+                <a href="#" class="btn change-pic-btn">Change picture</a>
             </div>
             <div class="col-9 px-5">
                     <div class="row">
                     <form action="#" class="edit-profile-form">
                         <label for="username">USERNAME</label>
-                        <input type="text" name="username" id="username" placeholder="username123">
+                        <input type="text" name="username" id="username" placeholder="joolzie123">
 
-                        <label for="display name">DISPLAY NAME</label>
+                        <label for="display-name">DISPLAY NAME</label>
                         <input type="text" name="display-name" id="display-name" placeholder="Joolz Ryane">
 
                         <label for="description">DESCRIPTION</label>
                         <textarea id="description" name="description" rows="2" cols="50" placeholder="hello world! :>"></textarea>
 
                         <label for="email">EMAIL</label>
-                        <input type="email" name="email" id="email" placeholder="username@gmail.com">
+                        <input type="email" name="email" id="email" placeholder="joolzie123@gmail.com">
 
                         <label for="password">PASSWORD</label>
                         <input type="password" name="password" id="password" placeholder="••••••••">
                     </form>
                     <div class="row d-flex flex-column mt-2">
                         <div class="col text-end">
-                            <a href="#" class="btn btn-outline-primary reset-btn">Reset</a>
-                            <button type="submit" class="btn btn-primary save-btn">Save changes</button>
+                            <a href="view-profile-view.html" class="btn reset-btn">Back</a>
+                            <button type="submit" class="btn save-btn">Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -82,7 +86,7 @@
         </div>
     </div>
     </div>
-        
+
 </body>
 
 </html>

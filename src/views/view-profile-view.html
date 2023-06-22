@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="../css/stylesheet.css">
     <link rel="stylesheet" href="../css/view-profile-stylesheet.css">
 
+    <!-- Javascript -->
+    <script src="../js/profile_app.js"></script>
+
     <title>View Profile</title>
 
 </head>
@@ -41,12 +44,12 @@
                     <a href="#" class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="d-inline-block mb-0">
-                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                            <span class="username fw-semibold ms-2 pt-5">username123</span>
+                            <img src="../images/profilepic1.jpg" alt="profile_picture" width="35" height="35" class="rounded-4">
+                            <span class="username fw-semibold ms-2 pt-5">joolzie123</span>
                         </div>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" class="dropdown-item">Profile</a></li>
+                        <li><a href="view-profile-view.html" class="dropdown-item">Profile</a></li>
                         <li><a href="#" class="dropdown-item">Logout</a></li>
                     </ul>
                 </div>
@@ -59,7 +62,7 @@
         <div class="row mx-3 mb-2 g-2">
             <!-- Go Back Button-->
             <div class="col">
-                <a href="#" class="btn btn-primary go-back-btn">&lt; Go back</a>
+                <a href="#" class="btn go-back-btn">&lt; Go back</a>
             </div>
         </div>
         <div class="row mx-3 g-2">
@@ -67,15 +70,17 @@
             <div class="col-xl-3 col-lg-4 col-md-12">
                 <div class="card view-profile-card rounded-5">
                     <div class="card-header view-profile-card-header rounded-top-5"></div>
-                    <div class="card-body text-center px-lg-5 px-md-2 rounded-bottom-5 mb-4">
-                        <img src="../images/profile-temp.jpg" alt="profile picture" class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
-                        <a href="#" class="btn edit-profile-btn btn btn-primary my-4">Edit Profile</a>
-                        <h5 class="card-title">Joolz Ryane</h5>
-                        <h6 class="card-subtitle text-muted">@username123</h6>
+                    <div class="card-body text-center px-lg-5 px-md-2 rounded-bottom-5">
+                        <img src="../images/profilepic1.jpg" alt="profile picture" class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+                        <br><br>
+                        <a href="edit-profile-view.html" class="btn edit-profile-btn my-4">Edit Profile</a>
+                        <h5 class="card-title display-name">Joolz Ryane</h5>
+                        <h6 class="card-subtitle text-muted username">joolzie123</h6>
                         <br>
-                        <p class="card-text">
+                        <p class="card-text bio">
                             hello world! :&gt;
                         </p>
+                        <br><br>
                     </div>
                 </div>
             </div>
@@ -90,37 +95,30 @@
                             <div class="card-body rounded">
                                 <div class="d-flex flex-row justify-content-start align-baseline">
                                     <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                        Medium length sample post title
+                                        Check out this awesome HTML5 trick!
                                     </a>
                                     <span class="post-author ms-1 pt-2">
                                         • Posted by
                                         <a href="#"
-                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                            class="post-author-link link-underline link-underline-opacity-0">you</a>
                                     </span>
                                 </div>
                                 <p class="card-text custom-truncate">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
-                                    eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
-                                    malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
-                                    semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
-                                    faucibus eros, quis lacinia mauris viverra in. Vivamus auctor neque at sagittis eleifend.
-                                    Sed at leo tortor. Nullam eu ligula ac ex pretium faucibus. Vivamus gravida interdum lorem,
-                                    et congue sapien aliquam eu. In diam lorem, porta efficitur pretium suscipit, lacinia eu
-                                    velit. Suspendisse hendrerit quam at lectus gravida, at euismod metus lobortis. Cras ac
-                                    finibus erat, commodo consequat turpis. Nam rutrum pulvinar interdum. Aliquam aliquam
-                                    condimentum quam, non gravida dui hendrerit dictum.
+                                    Hey folks, just stumbled upon this cool HTML5 trick and wanted to share it with you all. Did you know that you
+                                    can use the &lt;video&gt; tag to embed videos directly into your web page? It's super easy and adds a nice touch to
+                                    your site. Give it a try!
                                 </p>
                                 <div class="d-inline-flex flex-row">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                                    <span class="post-num-votes">12345</span>
+                                    <span class="post-num-votes">2</span>
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
                                     </a>
                                     <a href="#"
                                         class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
                                         <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                        <span class="post-num-comments me-1">678 comments</span>
+                                        <span class="post-num-comments me-1">3 comments</span>
                                     </a>
                                 </div>
                             </div>
@@ -133,34 +131,32 @@
                             <div class="card-body rounded">
                                 <div class="d-flex flex-row justify-content-start align-baseline">
                                     <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                        Super duper long sample post title that should be truncated abcdefghijklmnopqrstuvwxyz
+                                        Laufey in Manila
                                     </a>
                                     <span class="post-author ms-1 pt-2">
                                         • Posted by
                                         <a href="#"
-                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                            class="post-author-link link-underline link-underline-opacity-0">you</a>
                                     </span>
                                 </div>
                                 <p class="card-text custom-truncate">
-                                    Cras sodales efficitur dui. Mauris dignissim libero eget lacus aliquam molestie. Nullam
-                                    lacus tellus, vulputate in pellentesque sed, auctor sit amet augue. Quisque nibh est,
-                                    pellentesque sit amet sagittis nec, condimentum vitae nulla. Morbi non risus vitae elit
-                                    lacinia maximus et quis erat. Nullam suscipit enim vitae nisl iaculis condimentum. Sed
-                                    ornare commodo turpis, eu commodo dui scelerisque vitae. Aliquam in felis ornare,
-                                    pellentesque dui in, laoreet velit. Suspendisse potenti.
+                                    Just got back from the Laufey concert in Manila and WOW! It was a mind blowing experience. I’ve been a fan for a while
+                                    now and it was surreal to see her perform live. Laufey's voice is even more enchanting in person. The atmosphere was electric
+                                    and everyone was singing along- Not to mention the set list was *chef’s kiss* Who else attended? Share your experience!
+
                                 </p>
                                 <div class="d-inline-flex flex-row">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
                                     </a>
-                                    <span class="post-num-votes">12345</span>
+                                    <span class="post-num-votes">4</span>
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
                                     </a>
                                     <a href="#"
                                         class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
                                         <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                        <span class="post-num-comments me-1">678 comments</span>
+                                        <span class="post-num-comments me-1">3 comments</span>
                                     </a>
                                 </div>
                             </div>
@@ -173,35 +169,30 @@
                             <div class="card-body rounded">
                                 <div class="d-flex flex-row justify-content-start align-baseline">
                                     <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                        Another Super duper long sample post title that should be truncated
-                                        abcdefghijklmnopqrstuvwxyz
+                                        Share Your Funniest Programming Jokes
                                     </a>
                                     <span class="post-author ms-1 pt-2">
                                         • Posted by
                                         <a href="#"
-                                            class="post-author-link link-underline link-underline-opacity-0">username123</a>
+                                            class="post-author-link link-underline link-underline-opacity-0">you</a>
                                     </span>
                                 </div>
                                 <p class="card-text custom-truncate">
-                                    In condimentum, massa in faucibus volutpat, lorem ex fermentum eros, in varius sapien
-                                    nunc vitae arcu. Morbi ligula libero, venenatis eget finibus quis, pulvinar non mi.
-                                    Maecenas luctus varius ex, non molestie turpis consequat consequat. Fusce erat orci,
-                                    aliquam ut arcu et, dapibus congue velit. Fusce suscipit mi tellus, a tempor lectus
-                                    accumsan a. Donec vestibulum feugiat aliquet. Praesent sit amet mi enim. Etiam maximus
-                                    ex sed semper interdum. Quisque bibendum elit a posuere fringilla.
+                                    Calling all coders with a sense of humor! Let's lighten up the coding world with some good-natured jokes. Share your funniest
+                                    programming jokes or hilarious coding anecdotes. It's time to bring a smile to our fellow developers' faces!
                                 </p>
                                 <div class="d-inline-flex flex-row">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
                                     </a>
-                                    <span class="post-num-votes">12345</span>
+                                    <span class="post-num-votes">2</span>
                                     <a href="#" class="d-sm-flex align-items-sm-center">
                                         <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
                                     </a>
                                     <a href="#"
                                         class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
                                         <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                        <span class="post-num-comments me-1">678 comments</span>
+                                        <span class="post-num-comments me-1">2 comments</span>
                                     </a>
                                 </div>
                             </div>
@@ -211,7 +202,7 @@
         <!-- View More Button -->
         <div class="row d-flex flex-column">
             <div class="col mt-2 text-end">
-                <a href="#" class="btn view-more-btn btn-primary">View more</a>
+                <button class="btn view-more-btn">View more</button>
             </div>
         </div>
         </div>
