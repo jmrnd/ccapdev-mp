@@ -161,6 +161,11 @@ body {
     margin-right: 20px;
 }
 
+.comment-thread{
+    border-left: 2px solid grey;
+    margin: 15px;
+}
+
 
 /* -----create a post----- */
 
