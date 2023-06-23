@@ -17,6 +17,10 @@
         <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
     
         <link rel="stylesheet" href="../css/stylesheet.css">
+
+        <!-- script-->
+        <script src="../js/edit_comment_post.js"> </script>   
+        
     
         <title>foroom</title>
     </head>
@@ -65,23 +69,25 @@
                                 class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
                         </span>
 
-                        
-                        <img class="pencil-ico" src="../images/profile_picture.svg" alt="profile_picture" width="25" height="25"> <!--pencil icon-->
-
+                        <a href="#" onclick="editPost()">
+                        <img class="pencil-ico" src="../images/profile_picture.svg" alt="profile_picture" width="25" height="25" > <!--pencil icon-->
+                        </a>
                             <div class="post-content">
-                                <div class="d-flex flex-row justify-content-start align-baseline">
-                                    <p class="post-title">
-                                        Bakit ba ang stupid ni Rafael Michael Sarmiento??
+                                <div class="d-flex flex-row justify-content-start align-baseline" id="title">
+<!--needs to be in here to remove the extra spaces when getting it in the function-->
+                                    <p class="post-title" id="postTitle">
+Bakit ba ang stupid ni Rafael Michael Sarmiento??
                                     </p>
                                 </div>
-                                
-                                <p class="post-text">
-                                    Iku seisou kitai mo nai you na furi wo shita Hazukashige ni demo wakatteru, wakatteru, wakatteru To iu dakedo Sou kyokusen majiwaranai deita 
-                                    Nani mo wakaranu mama mogutte wa, mogutte wa Fukaku iki mo suuenaide Madoromu shiranda hikari ga boku wo yonda Te wo nobashite kureru nara 
-                                    Aa kokoro wa mada kotaerarenai mama Fukai umi nai de wa risou egaita ima Tada itai hodo negatte wasure wa shinai kara 
-                                    Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta na Kimi to waratte
-
-                                </p>
+<!--same as here-->
+                                <div class="post-para" id="post">
+                                    <p class="post-text" id="postText">
+Iku seisou kitai mo nai you na furi wo shita Hazukashige ni demo wakatteru, wakatteru, wakatteru To iu dakedo Sou kyokusen majiwaranai deita 
+Nani mo wakaranu mama mogutte wa, mogutte wa Fukaku iki mo suuenaide Madoromu shiranda hikari ga boku wo yonda Te wo nobashite kureru nara 
+Aa kokoro wa mada kotaerarenai mama Fukai umi nai de wa risou egaita ima Tada itai hodo negatte wasure wa shinai kara 
+Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta na Kimi to waratte
+                                    </p>
+                                </div>    
 
                                 <div class="post-footer d-inline-flex flex-row">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
@@ -101,10 +107,10 @@
                                 <hr style="width: 100%">
                                 <!--Comment box-->
                                
-                                <div class=comment-box-container">
-                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."></textarea>
-                                        <input type="submit" value="The form has been submitted" hidden>
-                                        <input class="comment-button rounded" type="submit" value="comment">
+                                <div class="comment-box-container">
+                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..." ></textarea>
+                                        <!--<input type="submit" value="The form has been submitted" hidden>-->
+                                        <input class="comment-button rounded" type="submit" value="comment" onclick="editPost()">
                                 </div>
                                     <!--Script for auto resize comment box-->
                                     <script>
@@ -256,7 +262,6 @@
     
     
 
-
-        
+ 
 </body>
 </html>

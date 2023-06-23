@@ -173,19 +173,22 @@ body {
 /* -----create a post----- */
 
 .create-a-post-box{
-    height: 100px;
+    height: 300px;
     padding: 10px;
     max-height: 500px;
 }
 
 .create-post-button{  
     margin-top: 10px;
+    margin-bottom: 10px;
     float: right;
+
 }
 
 .create-a-post-title{
     padding: 10px;
     height: 45px;
+    width: 100%;
 }
 
 .create-post-content{
