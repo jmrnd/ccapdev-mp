@@ -43,8 +43,8 @@
                     <a href="#" class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="d-inline-block mb-0">
-                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
-                            <span class="username fw-semibold ms-2 pt-5">username123</span>
+                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35" id="UserProfilePic">
+                            <span class="username fw-semibold ms-2 pt-5" id="userId">username123</span>
                         </div>
                     </a>
                     <ul class="dropdown-menu">
@@ -74,7 +74,7 @@
                         </a>
                             <div class="post-content">
                                 <div class="d-flex flex-row justify-content-start align-baseline" id="title">
-<!--needs to be in here to remove the extra spaces when getting it in the function-->
+<!--needs to be in here to remove the extra spaces when getting the element text in the function-->
                                     <p class="post-title" id="postTitle">
 Bakit ba ang stupid ni Rafael Michael Sarmiento??
                                     </p>
@@ -91,10 +91,10 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
 
                                 <div class="post-footer d-inline-flex flex-row">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
-                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                        <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20" id="UpVoteIcon"></a>
                                     <span class="post-num-votes">16k</span>
                                     <a href="#" class="d-sm-flex align-items-sm-center">
-                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                        <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20" id="DownVoteIcon">
                                     </a>
                                     <a href="#"
                                         class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
@@ -108,9 +108,11 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
                                 <!--Comment box-->
                                
                                 <div class="comment-box-container">
-                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..." ></textarea>
+                                    <span class="post-author ms-1 pt-2" id="commenting-as"> • Commenting as username123</span>
+                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..." id="CommentBox"></textarea>
                                         <!--<input type="submit" value="The form has been submitted" hidden>-->
-                                        <input class="comment-button rounded" type="submit" value="comment" onclick="editPost()">
+                                        <!--<input class="comment-button rounded" type="submit" value="comment" onclick="createComment()">-->
+                                        <button type="button" class="comment-button rounded" onclick="createCommentBox()">Comment</button>
                                 </div>
                                     <!--Script for auto resize comment box-->
                                     <script>
@@ -132,14 +134,14 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
             
     </div>
 <!-- comments section-->
-    <div class="comment-space">
+    <div class="comment-space-container" id="commentSpace">
 
         <!--comment 1-->
-        <div class=" row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
+            <div class=" row d-flex justify-content-center">
+                <div class="col-md-7">
+                    <div class="card mt-2 mb-0">
+                        <div class="card-body rounded">
+                            <img src="../images/profile_picture.svg" alt="profile_picture" width="35" height="35">
                             <span class="post-author ms-1 pt-2">                               
                         
                                 <a href="#"
@@ -176,8 +178,7 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
                                             </a>
                                         </div>
                                     </div>    
-                                <!-- comment 1 reply -->
-                                    
+                                <!-- comment 1 reply --> 
                                 <div class="row d-flex justify-content-end">
                                     <div class="col-12">
                                         <div class="mt-1 mb-0">
@@ -215,15 +216,13 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
                                 </div>
                                 <!--comment 1 reply end-->
                             </div>
+                        </div>   
                     </div>
-                  
                 </div>
             </div>
-        </div>
 
         <!--Comment 2-->
-
-        <div class="row d-flex justify-content-center ">
+        <div class="row d-flex justify-content-center">
             <div class="col-md-7">
                 <div class="card mt-2 mb-0">
                     <div class="card-body rounded">
@@ -237,7 +236,6 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
                             <div class="comment-content">
                                 <p class="comment-text">
                                     daarring daarring aishite okure!
-
                                 </p>
                                 <div class="comment-footer d-inline-flex flex-row ">
                                     <a href="#" class="d-sm-flex align-items-sm-center">
@@ -254,14 +252,12 @@ Aa kono mama tachido matte shimattara Namida no aji de sae shiranai mama datta n
                                 </div>
                             </div>
                         </div>
+                    </div> 
                 </div>
             </div>
         </div>
-            
-    </div>
-    
-    
+        <!--end comment 2-->
 
- 
+    </div> <!--end comment space-->
 </body>
 </html>
