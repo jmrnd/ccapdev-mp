@@ -1,14 +1,13 @@
 /* Stylesheet for Edit Profile*/
-
-/*Edit Profile Card*/
 .navbar{
     background-color: transparent;
 }
 
 body{
-    background-color:#3c1b59;
+    background-color: #081329;
 }
 
+/*Edit Profile Card*/
 .edit-profile-pic {
     position: relative;
     border-radius: 50%;
@@ -17,13 +16,13 @@ body{
 
 .change-pic-btn, .reset-btn {
     background-color: transparent;
-    border-color: #a05cc0;
-    color: #a05cc0;
+    border-color: #5545a5;
+    color: #5545a5;
 }
 
 .change-pic-btn:hover, .reset-btn:hover {
-    background-color: #a05cc0;
-    border-color: #a05cc0;
+    background-color: #5545a5;
+    border-color: #5545a5;
     color: white;
 }
 
@@ -34,14 +33,19 @@ body{
 
 .edit-profile-card {
     border: 0px;
-    box-shadow: 15px 15px 15px #7b2cbf;
+    box-shadow: 10px 10px 10px #7b2cbf;
     background-color: transparent;
 }
 
 .edit-profile-card-header {
-    background-color: #a05cc0;
+    background-color: #5545a5;
     height: 60px;
+
     color: white;
+}
+
+.card-body {
+    background-color: #e4e1e1;
 }
 
 .edit-profile-form input, textarea{
@@ -54,25 +58,26 @@ body{
 
 .edit-profile-form input:hover, .edit-profile-form textarea:hover{
     border-color: #b75cc0;
-    box-shadow: inset 0px 0px 4px #7b2cbf;
+    box-shadow: inset 0px 0px 4px #5545a5;
 }
 
 .edit-profile-form label{
     font-size: small;
     font-weight: 700;
-    color: #7b2cbf;
+    color: #5545a5;
     margin-bottom: 5px;
     letter-spacing: 1px;
 }
 
 .save-btn {
-    background-color: #7b2cbf;
-    border-color: #7b2cbf;
-    color: white;
+    background-color: #15f700;
+    border-color: #15f700;
+    color: #081329;
+    font-weight:600;
 }
 
 .save-btn:hover {
-    background-color: #3c1b59;
-    border-color: #3c1b59;
+    background-color: #a096d2;
+    border-color: #a096d2;
     color: white;
 }
