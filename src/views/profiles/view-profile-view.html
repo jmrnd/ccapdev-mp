@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>joolzie123</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+    <script defer src="../../js/navbar.js"></script>
+    <link rel="stylesheet" href="../../css/stylesheet.css">
+    <link rel="stylesheet" href="../../css/modal.css">
+    <link rel="stylesheet" href="../../css/view-profile-stylesheet.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid my-0 mx-auto px-5">
+            <a href="../index.html" class="navbar-brand">
+                <img src="../../images/logo assets/foroom-logo-greenwhite.png" alt="forum_icon" width="150px">
+            </a>
+
+            <!-- Search container -->
+            <form class="d-flex position-relative search-container">
+                <input type="text" class="form-control" placeholder="Search forum ...">
+                <button type="submit" class="btn position-absolute end-0 search-button"><i
+                        class="bi bi-search"></i></button>
+            </form>
+
+            <div class="navbar-nav">
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+
+                    <!-- Notifications -->
+                    <li class="nav-item dropdown notification-dropdown">
+                        <a class="nav-link p-0 pt-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-inline-block mb-0 mt-1">
+                                <i class="bi bi-bell-fill notification-bell"></i>
+                                <span class="position-absolute translate-middle badge rounded-pill bg-danger">
+                                    3
+                                </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Write post -->
+                    <a href="#" class="nav-link p-0 pt-auto" role="button">
+                        <div class="d-inline-block mb-0 mt-1 me-0 ms-4">
+                            <i class="bi bi-pencil-square write-post"></i>
+                        </div>
+                    </a>
+
+                    <!-- Divider -->
+                    <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto mx-3">
+                        <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                        <hr class="d-lg-none my-2 text-white-50">
+                    </li>
+
+                    <!-- User dropdown menu -->
+                    <li class="nav-item dropdown-center">
+                        <a class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-inline-block mb-0">
+                                <img class="rounded-circle" src="../../images/profile_pictures/joolzie123.jpeg"
+                                    alt="profile_picture" width="35" height="35">
+                                <span class="username fw-medium ms-1">joolzie123</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            <li><a href="../profiles/view-profile-view.html" class="dropdown-item">Profile</a></li>
+                            <li><a href="../index-unregistered.html" class="dropdown-item">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- User Content -->
+    <div class="container-fluid p-5 ">
+        <div class="row mx-5 g-3">
+            <!-- User Profile Card-->
+            <div class="col-xl-2 col-lg-2 col-md-12">
+                <div class="card view-profile-card rounded-2">
+                    <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
+                        <img src="../../images/profile_pictures/joolzie123.jpeg" alt="profile picture"
+                            class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+                        <br>
+                        <a href="edit-profile-view.html" class="btn edit-profile-btn my-4">Edit Profile</a>
+                        <h5 class="card-title display-name">Joolz Ryane</h5>
+                        <h6 class="card-subtitle text-muted username">joolzie123</h6>
+                        <br>
+                        <p class="card-text bio">
+                            hello world! :&gt;
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- User Latest Posts Card-->
+            <div class="col-xl-10 col-lg-10 col-md-12">
+                <div class="latest-post-card card p-4 rounded-2">
+                    <h2 class="latest-post-card-title">Latest Posts</h2>
+                    <!-- Post Cards -->
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <div class="card mt-2 mb-0">
+                                <div class="card-body rounded">
+                                    <div class="d-flex flex-row justify-content-start align-baseline">
+                                        <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                            Check out this awesome HTML5 trick!
+                                        </a>
+                                        <span class="post-author ms-1 pt-2">
+                                            • Posted by
+                                            <a href="#"
+                                                class="post-author-link link-underline link-underline-opacity-0">you</a>
+                                        </span>
+                                    </div>
+                                    <p class="card-text custom-truncate">
+                                        Hey folks, just stumbled upon this cool HTML5 trick and wanted to share it with
+                                        you all. Did you know that you
+                                        can use the &lt;video&gt; tag to embed videos directly into your web page? It's
+                                        super easy and adds a nice touch to
+                                        your site. Give it a try!
+                                    </p>
+                                    <!-- Icon box -->
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="flex-center iconGrid">
+                                            <i id="upvoteIcon-${postId}"
+                                                class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                                            <span id="voteCount-${postId}" class="iconGrid-text mx-1">15</span>
+                                            <i id="downvoteIcon-${postId}"
+                                                class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                                            <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                                            <span class="iconGrid-text mx-1">3 comments</span>
+                                        </div>
+                                        <div class="iconGrid">
+                                            <button class="btn btn-sm" type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                                <i class="bi bi-three-dots iconGrid-color"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" href="#">Edit Post<i
+                                                            class="bi bi-pencil ms-2"></i></a></li>
+                                                <li><a class="dropdown-item delete-post text-danger" href="#">Delete
+                                                        Post<i class="bi bi-trash ms-2"></i></a></li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <div class="card mt-2 mb-0">
+                                <div class="card-body rounded">
+                                    <div class="d-flex flex-row justify-content-start align-baseline">
+                                        <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                            Laufey in Manila
+                                        </a>
+                                        <span class="post-author ms-1 pt-2">
+                                            • Posted by
+                                            <a href="#"
+                                                class="post-author-link link-underline link-underline-opacity-0">you</a>
+                                        </span>
+                                    </div>
+                                    <p class="card-text custom-truncate">
+                                        Just got back from the Laufey concert in Manila and WOW! It was a mind blowing
+                                        experience. I’ve been a fan for a while
+                                        now and it was surreal to see her perform live. Laufey's voice is even more
+                                        enchanting in person. The atmosphere was electric
+                                        and everyone was singing along- Not to mention the set list was *chef’s kiss*
+                                        Who else attended? Share your experience!
+
+                                    </p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="flex-center iconGrid">
+                                            <i id="upvoteIcon-${postId}"
+                                                class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                                            <span id="voteCount-${postId}" class="iconGrid-text mx-1">23</span>
+                                            <i id="downvoteIcon-${postId}"
+                                                class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                                            <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                                            <span class="iconGrid-text mx-1">3 comments</span>
+                                        </div>
+                                        <div class="iconGrid">
+                                            <button class="btn btn-sm" type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                                <i class="bi bi-three-dots iconGrid-color"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" href="#">Edit Post<i
+                                                            class="bi bi-pencil ms-2"></i></a></li>
+                                                <li><a class="dropdown-item delete-post text-danger" href="#">Delete
+                                                        Post<i class="bi bi-trash ms-2"></i></a></li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <div class="card mt-2 mb-0">
+                                <div class="card-body rounded">
+                                    <div class="d-flex flex-row justify-content-start align-baseline">
+                                        <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                            Share Your Funniest Programming Jokes
+                                        </a>
+                                        <span class="post-author ms-1 pt-2">
+                                            • Posted by
+                                            <a href="#"
+                                                class="post-author-link link-underline link-underline-opacity-0">you</a>
+                                        </span>
+                                    </div>
+                                    <p class="card-text custom-truncate">
+                                        Calling all coders with a sense of humor! Let's lighten up the coding world with
+                                        some good-natured jokes. Share your funniest
+                                        programming jokes or hilarious coding anecdotes. It's time to bring a smile to
+                                        our fellow developers' faces!
+                                    </p>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <div class="flex-center iconGrid">
+                                            <i id="upvoteIcon-${postId}"
+                                                class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                                            <span id="voteCount-${postId}" class="iconGrid-text mx-1">6</span>
+                                            <i id="downvoteIcon-${postId}"
+                                                class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                                            <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                                            <span class="iconGrid-text mx-1">3 comments</span>
+                                        </div>
+                                        <div class="iconGrid">
+                                            <button class="btn btn-sm" type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                                <i class="bi bi-three-dots iconGrid-color"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <li><a class="dropdown-item" href="#">Edit Post<i
+                                                            class="bi bi-pencil ms-2"></i></a></li>
+                                                <li><a class="dropdown-item delete-post text-danger" href="#">Delete
+                                                        Post<i class="bi bi-trash ms-2"></i></a></li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- View More Button -->
+                    <div class="row d-flex flex-column">
+                        <div class="col mt-3 text-end">
+                            <button class="btn view-more-btn">View more</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
