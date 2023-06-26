@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>foroom</title>
+  <title>Search Results</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,60 +18,45 @@
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
-  <script defer src="../../js/index-unregistered.js"></script>
-  <script defer src="../../js/index-register.js"></script>
   <script defer src="../../js/posts.js"></script>
   <script defer src="../../js/navbar.js"></script>
-  <script defer src="../../js/search.js"></script>
+  <script defer src="../../js/search-unregistered.js"></script>
   <link rel="stylesheet" href="../../css/stylesheet.css">
+  <link rel="stylesheet" href="../../css/modal.css">
 </head>
 
-
 <body>
+
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="d-flex flex-fill justify-content-between align-items-center px-5 mx-2">
-      <a href="#" class="navbar-brand ">
+      <a href="../index/index-unregistered.html" class="navbar-brand ">
         <img src="../../images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
       </a>
       <form class="d-flex position-relative search-container" action="../search/search-unregistered-view.html">
-        <input type="text" class="form-control" placeholder="Search forum ...">
-        <button type="submit" class="btn position-absolute end-0"><i
+        <input type="text" id="searchInput" class="form-control" placeholder="Search forum ...">
+        <button type="submit" id="searchButton" class="btn position-absolute end-0"><i
             class="fa fa-search search-icon-custom-color"></i></button>
       </form>
       <div class="navbar-nav">
         <div class="nav-item">
-
           <button class="btn btn-sm rounded login-btn me-3 px-4 py-1" data-bs-target="#login-modal"
             data-bs-toggle="modal">Log in</button>
-
         </div>
         <div class="nav-item">
-          <form action="sign-up.html">
+          <form action="../index/sign-up.html">
             <button class="btn btn-sm rounded signup-btn px-3 py-1">Sign up</button>
           </form>
         </div>
       </div>
     </div>
   </nav>
-
-  <!-- Create a post container -->
+  <!-- Search keyword -->
   <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-md-7">
-        <div class="card mt-3 mb-2">
-          <div class="card-body rounded">
-            <div class="input-group mb-auto">
-              <a href="../profiles/view-profile-view.html" class="nav-link d-sm-flex align-items-sm-center me-3">
-                <img class="rounded-circle" src="../../images/profile_pictures/pfp_temp.svg" alt="profile_picture"
-                  width="35" height="35">
-              </a>
-              <!-- Clicking the create post should redirect the user to the create a post view/page (similar to reddit) -->
-              <a href="#" class="form-control create-post-link" style="text-decoration: none;"
-                data-bs-target="#login-modal" data-bs-toggle="modal">Create a
-                post</a>
-            </div>
-          </div>
+      <div class="col-md-7 mt-2">
+        <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
+          <h3 class="fw-bolder" id="searchResultsHeading">Showing results for ""</h3>
         </div>
       </div>
     </div>
@@ -81,7 +66,7 @@
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-7">
-        <div class="card">
+        <div class="card mt-2">
           <div class="card-body rounded d-flex justify-content-start align-items-center py-1">
             <span class="me-2">Sort posts: </span>
             <button class="btn sort-btn mx-1 my-0" id="sortDate" type="button">
@@ -96,11 +81,6 @@
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- Start of posts -->
-  <div class="container">
-    <div class="js-posts-grid"></div>
   </div>
 
   <!-- MODAL FOR LOGIN -->
@@ -132,6 +112,10 @@
     </div>
   </div>
 
+  <!-- Start of posts -->
+  <div class="container">
+    <div class="js-posts-grid"></div>
+  </div>
 </body>
 
 </html>

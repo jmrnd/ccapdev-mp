@@ -21,6 +21,7 @@
     <script defer src="../../js/index.js"></script>
     <script defer src="../../js/posts.js"></script>
     <script defer src="../../js/navbar.js"></script>
+    <script defer src="../../js/index-register.js"></script>
     <link rel="stylesheet" href="../../css/stylesheet.css">
     <link rel="stylesheet" href="../../css/modal.css">
 </head>
@@ -103,7 +104,8 @@
                                     alt="profile_picture" width="35" height="35">
                             </a>
                             <!-- Clicking the create post should redirect the user to the create a post view/page (similar to reddit) -->
-                            <a href="#" class="form-control create-post-link" style="text-decoration: none;">Create a
+                            <a href="#" class="form-control create-post-link" style="text-decoration: none;"
+                                data-bs-target="#login-modal" data-bs-toggle="modal">Create a
                                 post</a>
                         </div>
                     </div>
