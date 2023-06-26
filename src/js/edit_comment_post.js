@@ -96,6 +96,11 @@ function createCommentBox(){
     var replyText = document.getElementById("CommentBox");
     var commentUser = document.getElementById("userId");
     var userProfilesrc = document.getElementById("UserProfilePic").src;
+
+    //generate id for div
+    var divUniqID = "div_" + Date.now();
+    var divUniqID_Comment = "divComment_" + Date.now();
+    var divUniqID_divComment = "divDivComment_" + Date.now();
     
     //creating an img element and assigning attributes
     var userProfile = document.createElement("IMG");
@@ -116,8 +121,73 @@ function createCommentBox(){
 
     //creating p element for the body of the comment
     var replyTextinP = document.createElement("P");
+    replyTextinP.id = divUniqID_Comment;
     replyTextinP.className = "comment-text";
     replyTextinP.innerHTML = replyText.value;
+
+    //creating var for buttons and their images
+    //edit button
+    var editButtonImg = document.createElement("IMG");
+    editButtonImg.src = "../images/pencil-solid.svg";
+    editButtonImg.className="comment-icos";
+    editButtonImg.width = "20";
+    editButtonImg.height = "20";
+    //delete button
+    var deleteButtonImg = document.createElement("IMG");
+    deleteButtonImg.src = "../images/trash-can-solid.svg";
+    deleteButtonImg.className="comment-icos";
+    deleteButtonImg.width = "20";
+    deleteButtonImg.height = "20";
+
+    //function for edit button
+    var editButtonImgA = document.createElement("A");
+    editButtonImgA.href="#";
+    editButtonImgA.onclick = function commenttextarea(){
+        
+        var getText = document.getElementById(divUniqID_Comment);
+        var getTextInside = getText.innerHTML;
+        getText.remove();
+        
+        var createTextArea = document.createElement("TEXTAREA");
+        var getTextInsideTextNode = document.createTextNode(getTextInside);
+        createTextArea.id = "createTextAreaID";
+        createTextArea.appendChild(getTextInsideTextNode);
+        createTextArea.className="edit-post-of-comment rounded";
+        document.getElementById(divUniqID_divComment).appendChild(createTextArea);
+
+        //save button
+        var createSaveButton = document.createElement("BUTTON");
+        var createSaveButtonText = document.createTextNode("save");
+
+        createSaveButton.appendChild(createSaveButtonText);
+        createSaveButton.className = "create-post-button rounded";
+        createSaveButton.id = "saveButtonCommentSection";
+        createSaveButton.onclick = function(){
+           var getEditedCommentText = document.getElementById("createTextAreaID");
+           var getEditedCommentTextValue = getEditedCommentText.value;
+
+           var newSavedTextP = document.createElement("P");
+           newSavedTextP.innerHTML = getEditedCommentTextValue;
+           newSavedTextP.className = "comment-text";
+           newSavedTextP.id = divUniqID_Comment;
+           getEditedCommentText.remove();
+
+           document.getElementById(divUniqID_divComment).appendChild(newSavedTextP);
+           document.getElementById("saveButtonCommentSection").remove();
+        }
+        document.getElementById(divUniqID_divComment).appendChild(createSaveButton);
+    }
+    editButtonImgA.appendChild(editButtonImg);
+    
+
+    //creating functions for the delete button
+    var deleteButtonImgA = document.createElement("A");
+    deleteButtonImgA.href="#";
+    deleteButtonImgA.onclick = function(){
+        var divToDelete = document.getElementById(divUniqID);
+        divToDelete.parentNode.removeChild(divToDelete);
+    }
+    deleteButtonImgA.appendChild(deleteButtonImg);
     
     /*start footer*/
     //img for upvote and downvote
@@ -164,7 +234,6 @@ function createCommentBox(){
     aReplies.appendChild(commentImg);
     aReplies.appendChild(spanFooterComment);
     
-
     //div for the footer
     var divFooter = document.createElement("DIV");
     divFooter.className="comment-footer d-inline-flex flex-row";
@@ -173,12 +242,17 @@ function createCommentBox(){
     divFooter.appendChild(aDown);
     divFooter.appendChild(aReplies);
     /*end footer*/
+
+    //create div for the comment text section of the comment box
+    var divCommentTextSection = document.createElement("DIV");
+    divCommentTextSection.id = divUniqID_divComment;
+    divCommentTextSection.appendChild(replyTextinP);
     
     ///* Start of the div format for the card box*///
     //div for comment-content (format)
     var divCommentContent = document.createElement("DIV");
     divCommentContent.className = "comment-content";
-    divCommentContent.appendChild(replyTextinP);
+    divCommentContent.appendChild(divCommentTextSection);
     divCommentContent.appendChild(divFooter);
 
     //div for comment-thread(format)
@@ -190,6 +264,10 @@ function createCommentBox(){
     var divCardBody = document.createElement("DIV");
     divCardBody.className = "card-body rounded";
     divCardBody.appendChild(userProfile);
+    //
+    divCardBody.appendChild(deleteButtonImgA);
+    divCardBody.appendChild(editButtonImgA);
+    //
     divCardBody.appendChild(userSpan);
     divCardBody.appendChild(divCommentThread);
 
@@ -206,6 +284,7 @@ function createCommentBox(){
     //div for row d-flex justify-content-center (format)
     var divRow = document.createElement("DIV");
     divRow.className = "row d-flex justify-content-center";
+    divRow.id = divUniqID;
     divRow.appendChild(divColMd);
     ///* End of the div format for the card box*///
 
@@ -222,4 +301,5 @@ function itWorks(){
     document.body.appendChild(userProfile);
     //alert("it works");
 }
+
 

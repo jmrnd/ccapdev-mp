@@ -120,6 +120,11 @@ body {
     float: right;
 }
 
+.comment-icos{
+    float: right;
+    margin-right: 10px;
+}
+
 .comment-label{
     font-size: large;
     font-weight: 700;
@@ -155,9 +160,7 @@ body {
 .comment-user{
     font-size: medium;
     font-weight: 500;
-
 }
-
 
 .comment-content{
     margin-left: 40px;
@@ -197,4 +200,13 @@ body {
 
 .create-post-content{
     margin: 20px;
+}
+
+/* -----javascript function css----- */
+
+.edit-post-of-comment{
+    height: 300px;
+    padding: 10px;
+    max-height: 500px;
+    width: 600px;
 }
