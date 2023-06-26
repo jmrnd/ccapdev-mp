@@ -103,9 +103,7 @@
               <a href="../profiles/view-profile-view.html"
                 class="post-author-link link-underline link-underline-opacity-0">joolzie123</a>
             </span>
-
             <a href="#" onclick="editPost()">
-              <!--<img class="pencil-ico" src="../images/profile_picture.svg" alt="profile_picture" width="25" height="25" >-->
               <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 512 512"
                 class="pencil-ico"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
                 <style>
@@ -117,23 +115,25 @@
                   d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
               </svg><!--pencil icon-->
             </a>
+
             <div class="post-content">
               <div class="d-flex flex-row justify-content-start align-baseline" id="title">
                 <!--needs to be in here to remove the extra spaces when getting the element text in the function-->
-                <p class="post-title" id="postTitle">Share Your Funniest "Auto-correct Fails"</p>
+                <p class="post-title" id="postTitle">Check out this awesome HTML5 trick!</p>
               </div>
               <!--same as here-->
               <div class="post-para" id="post">
                 <p class="post-text" id="postText">
-                  Auto-correct can be both a lifesaver and a source of hilarious confusion. Share your funniest
-                  auto-correct fails or embarrassing texting mishaps that left you in stitches. Let's commiserate and
-                  laugh together over the perils of technology!
+                  Hey folks, just stumbled upon this cool HTML5 trick and wanted to share it with you all. Did you know
+                  that you can use the < video> tag to embed videos directly into your web page? It's super easy and
+                    adds
+                    a nice touch to your site. Give it a try!
                 </p>
               </div>
 
               <div class="flex-center iconGrid">
                 <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
-                <span id="voteCount-${postId}" class="iconGrid-text mx-1">6</span>
+                <span id="voteCount-${postId}" class="iconGrid-text mx-1">2</span>
                 <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
                 <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
                 <span class="iconGrid-text mx-1">3 comments</span>
@@ -165,8 +165,37 @@
       <span class="comment-label col-sm-6 mt-3 mb-2">Comments:</span>
 
     </div>
-
+    <!-- comments section-->
     <div class="comment-space-container" id="commentSpace">
+      <!--comment 1-->
+      <div class=" row d-flex justify-content-center">
+        <div class="col-md-7">
+          <div class="card mt-2 mb-0">
+            <div class="card-body rounded">
+              <img class="rounded-circle" src="../../images/profile_pictures/cirup29.jpeg" alt="profile_picture"
+                width="35" height="35">
+              <span class="post-author ms-1 pt-2 fw-medium ms-2">
+                <a href="../profiles/cirup29.html" class="link-unstyled">cirup29</a>
+              </span>
+              <div class="comment-thread"> <!--vertical thread line-->
+                <div class="comment-content">
+                  <p class="comment-text">
+                    Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!
+                  </p>
+                  <div class="flex-center iconGrid">
+                    <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">3</span>
+                    <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                    <i class="bi bi-reply mx-2"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--Comment 2-->
       <div class="row d-flex justify-content-center">
         <div class="col-md-7">
           <div class="card mt-2 mb-0">
@@ -180,13 +209,13 @@
                 <div class="comment-content">
                   <div id="comment-textsection">
                     <p class="comment-text">
-                      I once sent my mom a text saying, "Dinner will be owl-ready." Auto-correct turned "owl-ready" into
-                      "bowling." She thought we were having a bowling party at home!
+                      That's a great tip! Videos can really enhance the user experience. I've used it before, and it
+                      worked like a charm.
                     </p>
                   </div>
                   <div class="flex-center iconGrid">
                     <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
-                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">3</span>
+                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">1</span>
                     <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
                     <i class="bi bi-reply mx-2"></i>
                   </div>
@@ -196,37 +225,9 @@
           </div>
         </div>
       </div>
+      <!--end comment 2-->
 
-      <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-          <div class="card mt-2 mb-0">
-            <div class="card-body rounded">
-              <img class="rounded-circle" src="../../images/profile_pictures/gundamn.jpeg" alt="profile_picture"
-                width="35" height="35">
-              <span class="post-author ms-1 pt-2 fw-medium ms-2">
-                <a href="../profiles/gundamn.html" class="link-unstyled">gundamn</a>
-              </span>
-              <div class="comment-thread">
-                <div class="comment-content">
-                  <div id="comment-textsection">
-                    <p class="comment-text">
-                      I once texted my friend, "I'm heading to the bar for drinks." Auto-correct changed it to "I'm
-                      heading to the bat for drinks." Needless to say, it raised some eyebrows!
-                    </p>
-                  </div>
-                  <div class="flex-center iconGrid">
-                    <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
-                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">3</span>
-                    <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
-                    <i class="bi bi-reply mx-2"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <!--Comment 3-->
       <div class="row d-flex justify-content-center">
         <div class="col-md-7">
           <div class="card mt-2 mb-0">
@@ -240,13 +241,12 @@
                 <div class="comment-content">
                   <div id="comment-textsection">
                     <p class="comment-text">
-                      I once texted my friend, "I'm heading to the bar for drinks." Auto-correct changed it to "I'm
-                      heading to the bat for drinks." Needless to say, it raised some eyebrows!
+                      Nice find, can you also share any resources or tutorials to help us implement it effectively?
                     </p>
                   </div>
                   <div class="flex-center iconGrid">
                     <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
-                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">3</span>
+                    <span id="voteCount-${postId}" class="iconGrid-text mx-1">1</span>
                     <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
                     <i class="bi bi-reply mx-2"></i>
                   </div>
@@ -256,8 +256,10 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+      <!--end comment 3-->
+
+    </div> <!--end comment space-->
+
 </body>
 
 </html>

@@ -5,6 +5,7 @@ const notifications = [
     fromUser: "coco_san00",
     profilePicture: "../../images/profile_pictures/coco_san00.jpeg",
     notification: "commented on your post",
+    postLink: "post-joolzie123-1.html",
     notificationDetails: [
       {
         date: "2023-06-25T08:30:00Z",
@@ -17,6 +18,7 @@ const notifications = [
     fromUser: "gundamn",
     profilePicture: "../../images/profile_pictures/gundamn.jpeg",
     notification: "commented on your post",
+    postLink: "post-joolzie123-1.html",
     notificationDetails: [
       {
         date: "2023-06-20T10:45:00Z",
@@ -29,6 +31,7 @@ const notifications = [
     fromUser: "cirup29",
     profilePicture: "../../images/profile_pictures/cirup29.jpeg",
     notification: "liked your post",
+    postLink: "post-joolzie123-2.html",
     notificationDetails: {
       date: "2023-06-16T14:15:00Z",
       text: "Check out this awesome HTML5 trick!",
@@ -42,6 +45,7 @@ function generateNotificationHTML(notification) {
     fromUser,
     profilePicture,
     notification: notificationText,
+    postLink,
     notificationDetails,
   } = notification;
 
@@ -50,7 +54,7 @@ function generateNotificationHTML(notification) {
 
   let notificationHTML = `
     <li class="notification-dropdown-item">
-      <a href="#" class="d-flex flex-column d-inline-block text-wrap ms-1 me-2 mt-1 link-unstyled" style="width: 20rem;">
+      <a href="${postLink}" class="d-flex flex-column d-inline-block text-wrap ms-1 me-2 mt-1 link-unstyled" style="width: 20rem;">
         <div class="d-flex flex-row align-items-center text-wrap mt-2">
           <img class="rounded-circle notification-pfp mx-2" src="${profilePicture}" alt="profile_picture">
           <span class="${notificationHeaderClass}">${fromUser} ${notificationText} ${notificationDate}</span>
