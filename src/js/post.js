@@ -32,7 +32,7 @@ function editPost() {
 
   //creating button
   var saveButton = document.createElement("BUTTON");
-  var saveButtonText = document.createTextNode("save");
+  var saveButtonText = document.createTextNode("Save");
 
   //assigning the button attribute, values, and function.
   saveButton.onclick = saveChanges;
