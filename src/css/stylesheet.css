@@ -118,6 +118,7 @@ body {
 /* -----view post----- */
 .pencil-ico{
     float: right;
+    margin: 5px;
 }
 
 .comment-icos{
@@ -138,9 +139,6 @@ body {
     font-size:xx-large;
 }
 
-.post-text{
- 
-}
 .post-content{
     margin-left: 20px;
     margin-right: 20px;
