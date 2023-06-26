@@ -194,7 +194,6 @@ function createCommentBox() {
   spanVoteCount.id = "voteCount-${postId}";
   spanVoteCount.className = "iconGrid-text mx-1";
   spanVoteCount.innerHTML = "0";
-
   var iDownvote = document.createElement("I");
   iDownvote.id = "downvoteIcon-${postId}";
   iDownvote.className = "bi bi-caret-down iconGrid-downvote iconGrid-color";
