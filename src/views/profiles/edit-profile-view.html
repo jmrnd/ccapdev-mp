@@ -20,6 +20,7 @@
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
     <script defer src="../../js/navbar.js"></script>
     <script defer src="../../js/profile.js"></script>
+    <script defer src="../../js/edit-profile.js"></script>
     <link rel="stylesheet" href="../../css/stylesheet.css">
     <link rel="stylesheet" href="../../css/modal.css">
     <link rel="stylesheet" href="../../css/view-profile-stylesheet.css">
@@ -104,11 +105,12 @@
             <div class="card-body rounded-bottom-2 px-5">
                 <div class="row p-5">
                     <div class="col-3 text-center px-md-4">
-                        <img src="../../images/profile_pictures/joolzie123.jpeg" alt="profile picture"
+                        <img id="user-pfp" src="../../images/profile_pictures/joolzie123.jpeg" alt="profile picture"
                             class="edit-profile-pic img-fluid">
                         <br>
                         <br>
-                        <a href="#" class="btn change-pic-btn">Change picture</a>
+                        <label for="profile-picture" class="btn change-pic-btn">Change picture</label>
+                        <input type="file" id="profile-picture" accept="image/*" style="display: none;"></input>
                     </div>
                     <div class="col-9 px-5">
                         <div class="row">
