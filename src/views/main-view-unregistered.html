@@ -24,10 +24,10 @@
 
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top" >
-        <div class="container-fluid my-0 mx-auto px-5">
+    <nav class="navbar navbar-expand-lg sticky-top" >
+        <div class="d-flex flex-fill justify-content-between align-items-center px-5 mx-2">
             <a href="#" class="navbar-brand ">
-                <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
+                <img src="../images/logo assets/foroom-logo-greenwhite.png" alt="forum_icon" width="150px">
             </a>
             <form class="d-flex position-relative search-container">
                 <input type="text" class="form-control" placeholder="Search forum ..." >
@@ -49,235 +49,186 @@
         </div>
     </nav>
 
-    <!-- Create a post container -->
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-3 mb-2">
-                    <div class="card-body rounded create-post-card">
-                        <div class="input-group mb-auto">
-                            <a href="#" class="nav-link d-sm-flex align-items-sm-center me-3">
-                                <img class="rounded-circle" src="../images/profile_picture.svg" alt="profile_picture"
-                                    width="35" height="35">
-                            </a>
-                            <!-- Clicking the create post should redirect the user to the create a post view/page (similar to reddit) -->
-                            <a href="#" class="form-control create-post-link" style="text-decoration: none;">Create a
-                                post</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Posts container-->
-    <div class="container">
-        <!-- Start of post cards -->
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                Medium length sample post title
-                            </a>
-                            <span class="post-author ms-1 pt-2">
-                                • Posted by
-                                <a href="#"
-                                    class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
-                            </span>
-                        </div>
-                        <p class="card-text custom-truncate">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
-                            eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
-                            malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
-                            semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
-                            faucibus eros, quis lacinia mauris viverra in. Vivamus auctor neque at sagittis eleifend.
-                            Sed at leo tortor. Nullam eu ligula ac ex pretium faucibus. Vivamus gravida interdum lorem,
-                            et congue sapien aliquam eu. In diam lorem, porta efficitur pretium suscipit, lacinia eu
-                            velit. Suspendisse hendrerit quam at lectus gravida, at euismod metus lobortis. Cras ac
-                            finibus erat, commodo consequat turpis. Nam rutrum pulvinar interdum. Aliquam aliquam
-                            condimentum quam, non gravida dui hendrerit dictum.
-                        </p>
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
-                            <span class="post-num-votes">12345</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">678 comments</span>
-                            </a>
+    <div class="container d-flex flex-fill justify-content-center">
+
+        <div class="col-2 left-container">
+            <div class="card mx-2 mt-4 py-2 px-3">
+                <span>Book Mark</span>
+            </div>
+        </div>
+        
+        
+        <div class="col-7 p-2">
+
+            <!-- CREATE POST -->
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="card mt-3 mb-2">
+                        <div class="card-body rounded create-post-card">
+                            <div class="input-group mb-auto">
+                                <a href="#" class="nav-link d-sm-flex align-items-sm-center me-3">
+                                    <img class="rounded-circle" src="../images/profile_picture.svg" alt="profile_picture"
+                                        width="35" height="35">
+                                </a>
+                                <!-- Clicking the create post should redirect the user to the create a post view/page (similar to reddit) -->
+                                <a href="#" class="form-control create-post-link" style="text-decoration: none;">Create a
+                                    post</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                Super duper long sample post title that should be truncated abcdefghijklmnopqrstuvwxyz
-                            </a>
-                            <span class="post-author ms-1 pt-2">
-                                • Posted by
+
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="card mt-2 mb-0">
+                        <div class="card-body rounded">
+                            <div class="d-flex flex-row justify-content-start align-baseline">
+                                <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                    Medium length sample post title
+                                </a>
+                                <span class="post-author ms-1 pt-2">
+                                    • Posted by
+                                    <a href="#"
+                                        class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
+                                </span>
+                            </div>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
+                                eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
+                                malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
+                                semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
+                                faucibus eros, quis lacinia mauris viverra in. Vivamus auctor neque at sagittis eleifend.
+                                Sed at leo tortor. Nullam eu ligula ac ex pretium faucibus. Vivamus gravida interdum lorem,
+                                et congue sapien aliquam eu. In diam lorem, porta efficitur pretium suscipit, lacinia eu
+                                velit. Suspendisse hendrerit quam at lectus gravida, at euismod metus lobortis. Cras ac
+                                finibus erat, commodo consequat turpis. Nam rutrum pulvinar interdum. Aliquam aliquam
+                                condimentum quam, non gravida dui hendrerit dictum.
+                                
+                            </p>
+                            <div class="d-inline-flex flex-row">
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                <span class="post-num-votes">12345</span>
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                </a>
                                 <a href="#"
-                                    class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
-                            </span>
-                        </div>
-                        <p class="card-text custom-truncate">
-                            Cras sodales efficitur dui. Mauris dignissim libero eget lacus aliquam molestie. Nullam
-                            lacus tellus, vulputate in pellentesque sed, auctor sit amet augue. Quisque nibh est,
-                            pellentesque sit amet sagittis nec, condimentum vitae nulla. Morbi non risus vitae elit
-                            lacinia maximus et quis erat. Nullam suscipit enim vitae nisl iaculis condimentum. Sed
-                            ornare commodo turpis, eu commodo dui scelerisque vitae. Aliquam in felis ornare,
-                            pellentesque dui in, laoreet velit. Suspendisse potenti.
-                        </p>
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <span class="post-num-votes">12345</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">678 comments</span>
-                            </a>
+                                    class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                    <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                    <span class="post-num-comments me-1">678 comments</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                Another Super duper long sample post title that should be truncated
-                                abcdefghijklmnopqrstuvwxyz
-                            </a>
-                            <span class="post-author ms-1 pt-2">
-                                • Posted by
+
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="card mt-2 mb-0">
+                        <div class="card-body rounded">
+                            <div class="d-flex flex-row justify-content-start align-baseline">
+                                <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                    small sample post title
+                                </a>
+                                <span class="post-author ms-1 pt-2">
+                                    • Posted by
+                                    <a href="#"
+                                        class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
+                                </span>
+                            </div>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
+                                eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
+                                malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
+                                semper, molestie nec metus. Donec mollis nulla in ex pellentesque maximus. Maecenas mattis
+                                faucibus eros, quis lacinia mauris viverra in. Vivamus auctor
+                                
+                            </p>
+                            <div class="d-inline-flex flex-row">
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                <span class="post-num-votes">12345</span>
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                </a>
                                 <a href="#"
-                                    class="post-author-link link-underline link-underline-opacity-0">username123</a>
-                            </span>
-                        </div>
-                        <p class="card-text custom-truncate">
-                            In condimentum, massa in faucibus volutpat, lorem ex fermentum eros, in varius sapien
-                            nunc vitae arcu. Morbi ligula libero, venenatis eget finibus quis, pulvinar non mi.
-                            Maecenas luctus varius ex, non molestie turpis consequat consequat. Fusce erat orci,
-                            aliquam ut arcu et, dapibus congue velit. Fusce suscipit mi tellus, a tempor lectus
-                            accumsan a. Donec vestibulum feugiat aliquet. Praesent sit amet mi enim. Etiam maximus
-                            ex sed semper interdum. Quisque bibendum elit a posuere fringilla.
-                        </p>
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <span class="post-num-votes">12345</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">678 comments</span>
-                            </a>
+                                    class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                    <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                    <span class="post-num-comments me-1">678 comments</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                Sample post title
-                            </a>
-                            <span class="post-author ms-1 pt-2">
-                                • Posted by
+
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <div class="card mt-2 mb-0">
+                        <div class="card-body rounded">
+                            <div class="d-flex flex-row justify-content-start align-baseline">
+                                <a href="#" class="card-title link-underline link-underline-opacity-0">
+                                    small sample post title
+                                </a>
+                                <span class="post-author ms-1 pt-2">
+                                    • Posted by
+                                    <a href="#"
+                                        class="post-author-link link-underline link-underline-opacity-0">another_user5</a>
+                                </span>
+                            </div>
+                            <p class="card-text">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec risus turpis, tempus eu eros
+                                eu, varius posuere purus. Ut pellentesque quam eu gravida condimentum. Praesent odio arcu,
+                                malesuada ut risus ut, cursus tincidunt libero. Fusce sapien dolor, consequat ut ultrices
+                                
+                            </p>
+                            <div class="d-inline-flex flex-row">
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20"></a>
+                                <span class="post-num-votes">12345</span>
+                                <a href="#" class="d-sm-flex align-items-sm-center">
+                                    <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
+                                </a>
                                 <a href="#"
-                                    class="post-author-link link-underline link-underline-opacity-0">username123</a>
-                            </span>
-                        </div>
-                        <p class="card-text custom-truncate">
-                            In condimentum, massa in faucibus volutpat, lorem ex fermentum eros, in varius sapien
-                            nunc vitae arcu. Morbi ligula libero, venenatis eget finibus quis, pulvinar non mi.
-                            Maecenas luctus varius ex, non molestie turpis consequat consequat. Fusce erat orci,
-                            aliquam ut arcu et, dapibus congue velit. Fusce suscipit mi tellus, a tempor lectus
-                            accumsan a. Donec vestibulum feugiat aliquet. Praesent sit amet mi enim. Etiam maximus
-                            ex sed semper interdum. Quisque bibendum elit a posuere fringilla.
-                        </p>
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <span class="post-num-votes">12345</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">678 comments</span>
-                            </a>
+                                    class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
+                                    <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
+                                    <span class="post-num-comments me-1">678 comments</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
         </div>
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-2 mb-0">
-                    <div class="card-body rounded">
-                        <div class="d-flex flex-row justify-content-start align-baseline">
-                            <a href="#" class="card-title link-underline link-underline-opacity-0">
-                                Sample post title
-                            </a>
-                            <span class="post-author ms-1 pt-2">
-                                • Posted by
-                                <a href="#"
-                                    class="post-author-link link-underline link-underline-opacity-0">username123</a>
-                            </span>
-                        </div>
-                        <p class="card-text custom-truncate">
-                            In condimentum, massa in faucibus volutpat, lorem ex fermentum eros, in varius sapien
-                            nunc vitae arcu. Morbi ligula libero, venenatis eget finibus quis, pulvinar non mi.
-                            Maecenas luctus varius ex, non molestie turpis consequat consequat. Fusce erat orci,
-                            aliquam ut arcu et, dapibus congue velit. Fusce suscipit mi tellus, a tempor lectus
-                            accumsan a. Donec vestibulum feugiat aliquet. Praesent sit amet mi enim. Etiam maximus
-                            ex sed semper interdum. Quisque bibendum elit a posuere fringilla.
-                        </p>
-                        <div class="d-inline-flex flex-row">
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="me-2" src="../images/upvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <span class="post-num-votes">12345</span>
-                            <a href="#" class="d-sm-flex align-items-sm-center">
-                                <img class="ms-2" src="../images/downvote.svg" alt="upvote" width="20" height="20">
-                            </a>
-                            <a href="#"
-                                class="d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0">
-                                <img class="ms-4 me-2" src="../images/comment.svg" alt="upvote" width="20" height="20">
-                                <span class="post-num-comments me-1">678 comments</span>
-                            </a>
-                        </div>
-                    </div>
+        <div class="col-2">
+             <div class="card mt-4 mx-1 me-2" >
+                <div class="card-header px-3 py-2 ">
+                    Discover Topics
                 </div>
-            </div>
+
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Python Programming</li>
+                    <li class="list-group-item">Web Development</li>
+                    <li class="list-group-item">NodeJS</li>
+                    <li class="list-group-item">Extraterrestrial Being</li>
+                    <li class="list-group-item">Across the Spider-verse</li>
+                    <li class="list-group-item">Transformers: Rise of the Beast</li>
+                  </ul>
+
+                <div class="card-footer">
+                    Show more
+                </div>
+
+             </div>
+
         </div>
-        <!-- Add more post cards as needed -->
+        
+
     </div>
 
 <!-- MODAL FOR LOGIN -->
@@ -285,8 +236,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <img src="../images/logo assets/logo-grad2.png" alt="">
-                    <h2>Login</h2>
+                    <img src="../images/logo assets/foroom-logo-greenwhite.png" alt="">
+                    <h2>Login your account</h2>
                 </div>
                 <div class="modal-body">
 

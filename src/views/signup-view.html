@@ -22,10 +22,10 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg fixed-top" >
+    <nav class="navbar navbar-expand-lg sticky-top" >
         <div class="container-fluid my-0 mx-auto px-5">
             <a href="../views/main-view-unregistered.html" class="navbar-brand ">
-                <img src="../images/logo assets/foroom-logotext.png" alt="forum_icon" width="150px">
+                <img src="../images/logo assets/foroom-logo-greenwhite.png" alt="forum_icon" width="150px">
             </a>
            
             <!-- <div class="navbar-nav">
@@ -41,34 +41,34 @@
         </div>
     </nav>
     
-        <div class="sign-up-container">
+        <div class="container-fluid sign-up-container">
+            <div class="d-flex sign-up-content-container">
+                <div class="form-container">
+                    <form action="#" class="form-sign-up">
+                        <h2>Create an <br> account</h2>
 
-            <div class="form-container">
-                
-                <form action="#" class="form-sign-up">
-                    <h2>Register</h2>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5" maxlength="20" required>
 
-                    <label for="username">Username:</label>
-                    <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5" maxlength="20" required>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" placeholder="Enter your email" required>
 
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6" maxlength="15" required>
 
-                    <label for="password">Password:</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6" maxlength="15" required>
+                        <a href="#login-modal" data-bs-target="#login-modal" data-bs-toggle="modal">Already have an account? Login</a>
 
-                    <a href="#login-modal" data-bs-target="#login-modal" data-bs-toggle="modal">Already have an account? Login</a>
+                        <button type="submit">Sign up</button>
+                    </form>
+                </div>
 
-                    <button type="submit">Sign up</button>
-                </form>
+                <div class="img">
+                    <img src="../images/background-signup-img-landscape-green-resize.jpg" alt="">
+                    <div>The web where <br> everything starts</div>
+                    <img src="../images/logo assets/foroom-logo.png" alt="" id="poster-logo"> 
+                    <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
+                </div> 
             </div>
-
-            <div class="img">
-                <img src="../images/background-signup-img.jpg" alt="">
-                <div>The web where <br> everything starts</div>
-                <img src="../images/logo assets/foroom-logo.png" alt="" id="poster-logo"> 
-                <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
-            </div> 
 
         </div>
 
@@ -77,8 +77,8 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content" >
                 <div class="modal-header">
-                    <img src="../images/logo assets/logo-grad2.png" alt="">
-                    <h2>Login</h2>
+                    <img src="../images/logo assets/foroom-logo-greenwhite.png" alt="">
+                    <h2>Login your account</h2>
                 </div>
                 <div class="modal-body">
 
