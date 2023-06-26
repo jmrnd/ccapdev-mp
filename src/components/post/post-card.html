@@ -1,0 +1,36 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-md-7">
+    <div class="card mt-2 mb-0">
+      <div class="card-body rounded">
+        <div class="d-flex flex-row justify-content-start align-baseline">
+          <a href="#" class="card-title link-underline link-underline-opacity-0">${post.title}</a>
+          <span class="post-author ms-1 pt-2">
+            <a href="#" class="post-author-link link-underline link-underline-opacity-0">• Posted by ${post.author}</a>
+            <span class="post-date">${relativeTime}</span>
+          </span>
+        </div>
+        <p class="card-text custom-truncate">${post.body}</p>
+        <div class="d-flex align-items-center justify-content-between">
+          <div class="flex-center iconGrid">
+            <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+            <span id="voteCount-${postId}" class="iconGrid-text mx-1">${post.totalVote}</span>
+            <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+            <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+            <span class="iconGrid-text mx-1">${post.totalCommentCount} comments</span>
+          </div>
+          <div class="iconGrid">
+            <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+              aria-expanded="false" aria-haspopup="true">
+              <i class="bi bi-three-dots iconGrid-color"></i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <li><a class="dropdown-item" href="#">Edit Post<i class="bi bi-pencil ms-2"></i></a></li>
+              <li><a class="dropdown-item delete-post text-danger" href="#">Delete Post<i
+                    class="bi bi-trash ms-2"></i></a></li>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

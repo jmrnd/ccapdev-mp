@@ -1,0 +1,77 @@
+.modal {
+  align-items: center;
+}
+
+.modal-content {
+  border-radius: 20px;
+}
+
+.modal-header {
+  padding: 15px 30px;
+}
+
+.modal-header h2 {
+  color: #7b2cbf;
+}
+
+.modal-header button {
+  border-radius: 50%;
+}
+
+.modal-header button:hover {
+  border-radius: 50%;
+  background-color: #e4e1e1;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-body a {
+  font-size: x-small;
+  margin: 15px 0px 20px;
+  align-self: center;
+  text-decoration: none;
+  color: #7b2cbf;
+}
+
+.modal-body button {
+  border-radius: 20px;
+  background-color: #7b2cbf;
+  outline: none;
+  color: #e4e1e1;
+}
+
+.modal-body button:hover {
+  border-radius: 20px;
+  background-color: white;
+  color: #7b2cbf;
+  border: 1px solid #7b2cbf;
+}
+
+.modal-body .form-control {
+  border-radius: 20px;
+  margin: 5px 0px;
+  height: 60px;
+}
+
+.modal-body .form-control:focus {
+  border-radius: 20px;
+  margin: 5px 0px;
+  height: 60px;
+  border-color: #7b2cbf;
+  box-shadow: inset 0px 0px 4px #7b2cbf;
+}
+
+.modal-footer {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  padding: 20px;
+}
+
+.modal-footer a {
+  text-decoration: none;
+  color: #7b2cbf;
+}
