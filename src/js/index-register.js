@@ -8,7 +8,7 @@ window.onload = function () {
   let urlParams = new URLSearchParams(window.location.search);
   let username = urlParams.get("username");
 
-  if (username !== 0) {
+  if (username != 0) {
     document.querySelector(".username").textContent = username;
     document.querySelector(".profile-image-drop-down").src = changed_img;
     document.querySelector(".create-pfp").src = changed_img;

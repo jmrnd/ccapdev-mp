@@ -123,13 +123,13 @@ function createCommentBox() {
   //creating var for buttons and their images
   //edit button
   var editButtonImg = document.createElement("IMG");
-  editButtonImg.src = "../images/pencil-solid.svg";
+  editButtonImg.src = "../../images/pencil-solid.svg";
   editButtonImg.className = "comment-icos";
   editButtonImg.width = "20";
   editButtonImg.height = "20";
   //delete button
   var deleteButtonImg = document.createElement("IMG");
-  deleteButtonImg.src = "../images/trash-can-solid.svg";
+  deleteButtonImg.src = "../../images/trash-can-solid.svg";
   deleteButtonImg.className = "comment-icos";
   deleteButtonImg.width = "20";
   deleteButtonImg.height = "20";
