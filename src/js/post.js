@@ -182,19 +182,18 @@ function createCommentBox() {
   };
   deleteButtonImgA.appendChild(deleteButtonImg);
 
-/* start footer*/
+  // start footer/
   var divFooter = document.createElement("DIV");
-  divFooter.className ="flex-center iconGrid";
+  divFooter.className = "flex-center iconGrid";
 
   var iUpvote = document.createElement("I");
-  iUpvote.id ="upvoteIcon-${postId}";
-  iUpvote.className="bi bi-caret-up iconGrid-upvote iconGrid-color";
+  iUpvote.id = "upvoteIcon-${postId}";
+  iUpvote.className = "bi bi-caret-up iconGrid-upvote iconGrid-color";
 
   var spanVoteCount = document.createElement("SPAN");
   spanVoteCount.id = "voteCount-${postId}";
   spanVoteCount.className = "iconGrid-text mx-1";
   spanVoteCount.innerHTML = "0";
-  
   var iDownvote = document.createElement("I");
   iDownvote.id = "downvoteIcon-${postId}";
   iDownvote.className = "bi bi-caret-down iconGrid-downvote iconGrid-color";
@@ -206,7 +205,7 @@ function createCommentBox() {
   divFooter.appendChild(spanVoteCount);
   divFooter.appendChild(iDownvote);
   divFooter.appendChild(iFooter);
-  /* end footer*/
+  // end footer
 
   //create div for the comment text section of the comment box
   var divCommentTextSection = document.createElement("DIV");

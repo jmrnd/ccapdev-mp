@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Search Results</title>
+  <title>Create a post</title>
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,11 +18,12 @@
 
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
   <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+  <script defer src="../../js/index.js"></script>
   <script defer src="../../js/posts.js"></script>
+  <script defer src="../../js/post.js"></script>
   <script defer src="../../js/navbar.js"></script>
-  <script defer src="../../js/search.js"></script>
   <link rel="stylesheet" href="../../css/stylesheet.css">
-  <link rel="stylesheet" href="../../css/modal.css">
+  <link rel="stylesheet" href="../../css/post.css">
 </head>
 
 <body>
@@ -30,12 +31,12 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid my-0 mx-auto px-5">
-      <a href="../../views/index/index.html" class="navbar-brand">
+      <a href="../index/index.html" class="navbar-brand">
         <img src="../../images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
       </a>
 
       <!-- Search container -->
-      <form class="d-flex position-relative search-container">
+      <form class="d-flex position-relative search-container" action="../search/search-view.html">
         <input type="text" id="searchInput" class="form-control" placeholder="Search forum ...">
         <button type="submit" id="searchButton" class="btn position-absolute end-0 search-button"><i
             class="bi bi-search"></i></button>
@@ -59,7 +60,7 @@
           </li>
 
           <!-- Write post -->
-          <a href="../post/create-post.html" class="nav-link p-0 pt-auto" role="button">
+          <a href="#" class="nav-link p-0 pt-auto" role="button">
             <div class="d-inline-block mb-0 mt-1 me-0 ms-4">
               <i class="bi bi-pencil-square write-post"></i>
             </div>
@@ -76,14 +77,14 @@
             <a class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <div class="d-inline-block mb-0">
-                <img class="rounded-circle" src="../../images/profile_pictures/joolzie123.jpeg" alt="profile_picture"
-                  width="35" height="35">
-                <span class="username fw-medium ms-1">joolzie123</span>
+                <img class="rounded-circle" id="UserProfilePic" src="../../images/profile_pictures/joolzie123.jpeg"
+                  alt="profile_picture" width="35" height="35">
+                <span id="userId" class="username fw-medium ms-1">joolzie123</span>
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
               <li><a href="../profiles/view-profile-view.html" class="dropdown-item">Profile</a></li>
-              <li><a href="../index-unregistered.html" class="dropdown-item">Logout</a></li>
+              <li><a href="index-unregistered.html" class="dropdown-item">Logout</a></li>
             </ul>
           </li>
         </ul>
@@ -91,42 +92,50 @@
     </div>
   </nav>
 
-  <!-- Search keyword -->
-  <div class="container">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-7 mt-2">
-        <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
-          <h3 class="fw-bolder" id="searchResultsHeading">Showing results for ""</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sort button groups -->
+  <!--create a post-->
   <div class="container">
     <div class="row d-flex justify-content-center">
       <div class="col-md-7">
-        <div class="card mt-2">
-          <div class="card-body rounded d-flex justify-content-start align-items-center py-1">
-            <span class="me-2">Sort posts: </span>
-            <button class="btn sort-btn mx-1 my-0" id="sortDate" type="button">
-              <i class="bi bi-calendar-date"></i>
-              <span class="ms-1">Date</span>
-            </button>
-            <button class="btn sort-btn me-1 my-0" id="sortUpvotes" type="button">
-              <i class="bi bi-caret-up-fill"></i>
-              <span class="ms-1">Upvotes</span>
-            </button>
+        <div class="card mt-2 mb-0">
+          <div class="card-body  rounded">
+            <img class="rounded-circle" src="../../images/profile_pictures/joolzie123.jpeg" alt="profile_picture"
+              width="35" height="35">
+            <span class="post-author ms-1 pt-2"> Posting as <a href="#"
+                class="post-author-link link-underline link-underline-opacity-0">joolzie123</a>
+            </span>
+
+            <div class="create-post-content">
+
+              <!--title box-->
+              <div class="create-post-title-container">
+                <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
+                  placeholder="Title ...">
+              </div>
+
+              <!--text box-->
+
+              <div class="create-post-text-container">
+                <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text"
+                  placeholder="Text ..."></textarea>
+                <input class="create-post-button rounded" type="submit" value="post">
+
+                <!--Script for auto resize text box-->
+                <script>
+                  const textarea = document.querySelector("textarea");
+                  textarea.addEventListener("keyup", e => {
+                    textarea.style.height = "102px";
+                    let scHeight = e.target.scrollHeight;
+                    textarea.style.height = `${scHeight}px`;
+                  });
+                </script>
+                <!--end Script for auto resize text box-->
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Start of posts -->
-  <div class="container">
-    <div class="js-posts-grid"></div>
-  </div>
+
 </body>
 
 </html>
