@@ -74,6 +74,45 @@
   margin: 20px;
 }
 
+/* COMMENT BUTTON AND SAVE BUTTON */
+.comment-button {
+  padding: 5px 10px;
+  font-size: small;
+  color: #081329;
+  font-weight: 700;
+  border: none;
+  background: #15f700;
+  transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+  padding: 5px 10px;
+  font-size: small;
+  color: #f5f5f5;
+  font-weight: 700;
+  border: none;
+  background: #081329;
+}
+
+.create-post-button {
+  padding: 5px 10px;
+  font-size: small;
+  color: #081329;
+  font-weight: 700;
+  border: none;
+  background: #15f700;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-button:hover {
+  padding: 5px 10px;
+  font-size: small;
+  color: #f5f5f5;
+  font-weight: 700;
+  border: none;
+  background: #081329;
+}
+
 /* -----javascript function css----- */
 
 .edit-post-of-comment {

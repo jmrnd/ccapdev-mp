@@ -182,60 +182,31 @@ function createCommentBox() {
   };
   deleteButtonImgA.appendChild(deleteButtonImg);
 
-  /*start footer*/
-  //img for upvote and downvote
-  var upImg = document.createElement("IMG");
-  var downImg = document.createElement("IMG");
-  upImg.src = "../images/upvote.svg";
-  downImg.src = "../images/downvote.svg";
-  upImg.className = "me-2";
-  upImg.width = "20";
-  upImg.height = "20";
-  downImg.className = "me-2";
-  downImg.width = "20";
-  downImg.height = "20";
-
-  //creating element for 'a' element
-  var aUp = document.createElement("A");
-  var aDown = document.createElement("A");
-  aUp.href = "#";
-  aDown.href = "#";
-  aUp.className = "d-sm-flex align-items-sm-center";
-  aDown.className = "d-sm-flex align-items-sm-center";
-
-  aUp.appendChild(upImg);
-  aDown.appendChild(downImg);
-  //counter for the votes
-  var spanFooterVote = document.createElement("SPAN");
-  spanFooterVote.className = "post-num-votes";
-  spanFooterVote.innerHTML = "0";
-  //comment/replies
-  var commentImg = document.createElement("IMG");
-
-  commentImg.className = "ms-4 me-2";
-  commentImg.src = "../images/comment.svg";
-  commentImg.width = "20";
-  commentImg.height = "20";
-
-  var spanFooterComment = document.createElement("SPAN");
-  spanFooterComment.className = "post-num-comments me-1";
-  spanFooterComment.innerHTML = "0 replies";
-
-  var aReplies = document.createElement("A");
-  aReplies.href = "#";
-  aReplies.className =
-    "d-sm-flex align-items-sm-center link-offset-2 link-underline link-underline-opacity-0";
-  aReplies.appendChild(commentImg);
-  aReplies.appendChild(spanFooterComment);
-
-  //div for the footer
+  // start footer/
   var divFooter = document.createElement("DIV");
-  divFooter.className = "comment-footer d-inline-flex flex-row";
-  divFooter.appendChild(aUp);
-  divFooter.appendChild(spanFooterVote);
-  divFooter.appendChild(aDown);
-  divFooter.appendChild(aReplies);
-  /*end footer*/
+  divFooter.className = "flex-center iconGrid";
+
+  var iUpvote = document.createElement("I");
+  iUpvote.id = "upvoteIcon-${postId}";
+  iUpvote.className = "bi bi-caret-up iconGrid-upvote iconGrid-color";
+
+  var spanVoteCount = document.createElement("SPAN");
+  spanVoteCount.id = "voteCount-${postId}";
+  spanVoteCount.className = "iconGrid-text mx-1";
+  spanVoteCount.innerHTML = "0";
+
+  var iDownvote = document.createElement("I");
+  iDownvote.id = "downvoteIcon-${postId}";
+  iDownvote.className = "bi bi-caret-down iconGrid-downvote iconGrid-color";
+
+  var iFooter = document.createElement("I");
+  iFooter.className = "bi bi-reply mx-2";
+
+  divFooter.appendChild(iUpvote);
+  divFooter.appendChild(spanVoteCount);
+  divFooter.appendChild(iDownvote);
+  divFooter.appendChild(iFooter);
+  // end footer
 
   //create div for the comment text section of the comment box
   var divCommentTextSection = document.createElement("DIV");
