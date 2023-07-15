@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{username}}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+    <script defer src="../../js/navbar.js"></script>
+    <link rel="stylesheet" href="static/css/stylesheet.css">
+    <link rel="stylesheet" href="static/css/view-profile-stylesheet.css">
+</head>
+
+<body>
+    {{#if loginFlag}}
+    {{> navbar-registered}}
+    {{else}}
+    {{> navbar-unregistered}}
+    {{/if}}
+
+    <!-- User Content -->
+    <div class="container-fluid p-5 ">
+        <div class="row mx-5 g-3">
+            <!-- User Profile Card-->
+            <div class="col-xl-2 col-lg-2 col-md-12">
+                <div class="card view-profile-card rounded-2">
+                    <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
+                        <img src="static/images/profile_pictures/joolzie123.jpeg" alt="profile picture"
+                            class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+                        <br>
+                        <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
+                        <h5 class="card-title display-name">{{displayName}}</h5>
+                        <h6 class="card-subtitle text-muted username">{{username}}</h6>
+                        <br>
+                        <p class="card-text bio">
+                            {{{description}}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- User Latest Posts Card-->
+            <div class="col-xl-10 col-lg-10 col-md-12">
+                <div class="latest-post-card card p-4 rounded-2">
+                    <h2 class="latest-post-card-title">Latest Posts</h2>
+                    <!-- Post Cards -->
+                    {{> mypost-card this}}
+                    <!-- View More Button -->
+                    <div class="row d-flex flex-column">
+                        <div class="col mt-3 text-end">
+                            <button class="btn view-more-btn">View more</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

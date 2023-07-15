@@ -1,0 +1,55 @@
+[{
+  "_id": {
+    "$oid": "64ada52afce6fd7c0774c050"
+  },
+  "username": "jryanesss",
+  "displayName": "Joolz Ryane",
+  "password": "12345678",
+  "email": "joolzie123@gmail.com",
+  "description": "hello world! :>",
+  "loggedIn": true
+},
+{
+  "_id": {
+    "$oid": "64ae1522ff8b56b04886c8b0"
+  },
+  "username": "coc_man_2099",
+  "displayName": "Jamar",
+  "password": "$%hello%$",
+  "email": "coc_man@gmail.com",
+  "description": "Probably binge watching a TV show",
+  "loggedIn": false
+},
+{
+  "_id": {
+    "$oid": "64ae1522ff8b56b04886c8b1"
+  },
+  "username": "coco_san00",
+  "displayName": "Coco",
+  "password": "pa$$worD",
+  "email": "coco_san@gmail.com",
+  "description": "New fitness enthusiast",
+  "loggedIn": false
+},
+{
+  "_id": {
+    "$oid": "64ae1522ff8b56b04886c8b2"
+  },
+  "username": "gundamn",
+  "displayName": "Rui",
+  "password": "@bcdeFG%",
+  "email": "gundamn@gmail.com",
+  "description": "Scrolling on foroom at 3am",
+  "loggedIn": false
+},
+{
+  "_id": {
+    "$oid": "64ae1522ff8b56b04886c8b3"
+  },
+  "username": "cirup29",
+  "displayName": "Rafael",
+  "password": "for00m%%",
+  "email": "cirup@gmail.com",
+  "description": "yooo",
+  "loggedIn": false
+}]

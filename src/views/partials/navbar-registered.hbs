@@ -1,0 +1,63 @@
+<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid my-0 mx-auto px-5">
+            <a href="/" class="navbar-brand">
+                <img src="static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
+            </a>
+
+            <!-- Search container -->
+            <form class="d-flex position-relative search-container" action="../search/search-view.html">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search forum ...">
+                <button type="submit" id="searchButton" class="btn position-absolute end-0 search-button"><i
+                        class="bi bi-search"></i></button>
+            </form>
+
+            <div class="navbar-nav">
+                <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+
+                    <!-- Notifications -->
+                    <li class="nav-item dropdown notification-dropdown">
+                        <a class="nav-link p-0 pt-auto" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-inline-block mb-0 mt-1">
+                                <i class="bi bi-bell-fill notification-bell"></i>
+                                <span class="position-absolute translate-middle badge rounded-pill bg-danger">
+                                    3
+                                </span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                        </ul>
+                    </li>
+
+                    <!-- Write post -->
+                    <a href="/create-post" class="nav-link p-0 pt-auto" role="button">
+                        <div class="d-inline-block mb-0 mt-1 me-0 ms-4">
+                            <i class="bi bi-pencil-square write-post"></i>
+                        </div>
+                    </a>
+
+                    <!-- Divider -->
+                    <li class="nav-item py-2 py-lg-1 col-12 col-lg-auto mx-3">
+                        <div class="vr d-none d-lg-flex h-100 mx-lg-2 text-white"></div>
+                        <hr class="d-lg-none my-2 text-white-50">
+                    </li>
+
+                    <!-- User dropdown menu -->
+                    <li class="nav-item dropdown-center">
+                        <a class="nav-link dropdown-toggle p-0 dropdown-toggle-custom-color" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <div class="d-inline-block mb-0">
+                                <img class="rounded-circle profile-image-drop-down" src="static/images/profile_pictures/joolzie123.jpeg"
+                                    alt="profile_picture" width="35" height="35">
+                                <span class="username fw-medium ms-1">{{username}}</span>
+                            </div>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
+                            <li><a href="/view-profile" class="dropdown-item">Profile</a></li>
+                            <li><a href="#" class="dropdown-item">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>

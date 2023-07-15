@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+    <script defer src="static/js/navbar.js"></script>
+    <script defer src="static/js/profile.js"></script>
+    <script defer src="static/js/edit-profile.js"></script>
+    <link rel="stylesheet" href="static/css/stylesheet.css">
+    <link rel="stylesheet" href="static/css/view-profile-stylesheet.css">
+    <link rel="stylesheet" href="static/css/edit-profile-stylesheet.css">
+</head>
+
+<body>
+ <!-- Edit Profile Card -->
+    <div class="container-md p-5">
+        <div class="card edit-profile-card rounded-2">
+            <div class="card-header edit-profile-card-header rounded-top-2 px-4">
+                <h2 class="pt-1">Edit Profile</h2>
+            </div>
+            <div class="card-body rounded-bottom-2 px-5">
+                <div class="row p-5">
+                    <div class="col-3 text-center px-md-4">
+                        <img id="user-pfp" src="static/images/profile_pictures/joolzie123.jpeg" alt="profile picture"
+                            class="edit-profile-pic img-fluid">
+                        <br>
+                        <br>
+                        <label for="profile-picture" class="btn change-pic-btn">Change picture</label>
+                        <input type="file" id="profile-picture" accept="image/*" style="display: none;"></input>
+                    </div>
+                    <div class="col-9 px-5">
+                        <div class="row">
+                            <form action="#" class="edit-profile-form" id="editProfileForm">
+                                <label for="username">USERNAME</label>
+                                <input type="text" name="username" id="username" value="{{username}}">
+
+                                <label for="display-name">DISPLAY NAME</label>
+                                <input type="text" name="display-name" id="display-name" value="{{displayName}}">
+
+                                <label for="description">DESCRIPTION</label>
+                                <textarea id="description" name="description" rows="2" cols="50">{{description}}</textarea>
+
+                                <label for="email">EMAIL</label>
+                                <input type="email" name="email" id="email" value="{{email}}">
+
+                                <label for="password">PASSWORD</label>
+                                <input type="password" name="password" id="password" value="{{password}}">
+                            </form>
+                            <div class="row d-flex flex-column mt-2">
+                                <div class="col text-end">
+                                    <a href="/view-profile" class="btn reset-btn">Back</a>
+                                    <button type="submit" class="btn save-btn">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

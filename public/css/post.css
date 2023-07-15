@@ -1,0 +1,124 @@
+.pencil-ico {
+  float: right;
+  margin-right: 10px;
+}
+
+.comment-icos {
+  float: right;
+  margin-right: 10px;
+}
+
+.comment-label {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.post-title {
+  margin-top: 5px;
+  font-weight: 700;
+  font-size: xx-large;
+}
+
+.post-content {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.comment-box {
+  height: 100px;
+  padding: 10px;
+  max-height: 500px;
+}
+
+.comment-button {
+  margin-top: 10px;
+  float: right;
+}
+
+.comment-user {
+  color: #676767;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.comment-content {
+  margin-left: 40px;
+  margin-right: 20px;
+}
+
+.comment-thread {
+  border-left: 2px solid grey;
+  margin: 15px;
+}
+
+/* -----create a post----- */
+
+.create-a-post-box {
+  height: 300px;
+  padding: 10px;
+  max-height: 500px;
+}
+
+.create-post-button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+
+.create-a-post-title {
+  padding: 10px;
+  height: 45px;
+  width: 100%;
+}
+
+.create-post-content {
+  margin: 20px;
+}
+
+/* COMMENT BUTTON AND SAVE BUTTON */
+.comment-button {
+  padding: 5px 10px;
+  font-size: small;
+  color: #081329;
+  font-weight: 700;
+  border: none;
+  background: #15f700;
+  transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+  padding: 5px 10px;
+  font-size: small;
+  color: #f5f5f5;
+  font-weight: 700;
+  border: none;
+  background: #081329;
+}
+
+.create-post-button {
+  padding: 5px 10px;
+  font-size: small;
+  color: #081329;
+  font-weight: 700;
+  border: none;
+  background: #15f700;
+  transition: background-color 0.3s ease;
+}
+
+.create-post-button:hover {
+  padding: 5px 10px;
+  font-size: small;
+  color: #f5f5f5;
+  font-weight: 700;
+  border: none;
+  background: #081329;
+}
+
+/* -----javascript function css----- */
+
+.edit-post-of-comment {
+  height: 300px;
+  padding: 10px;
+  max-height: 500px;
+  width: 600px;
+}

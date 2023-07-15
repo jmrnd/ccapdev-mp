@@ -1,0 +1,55 @@
+<!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="d-flex flex-fill justify-content-between align-items-center px-5 mx-2">
+      <a href="/" class="navbar-brand ">
+        <img src="static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
+      </a>
+      <form class="d-flex position-relative search-container" action="../search/search-unregistered-view.html">
+        <input type="text" class="form-control" placeholder="Search forum ...">
+        <button type="submit" class="btn position-absolute end-0"><i
+            class="fa fa-search search-icon-custom-color"></i></button>
+      </form>
+      <div class="navbar-nav">
+        <div class="nav-item">
+
+          <button class="btn btn-sm rounded login-btn me-3 px-4 py-1" data-bs-target="#login-modal"
+            data-bs-toggle="modal">Log in</button>
+
+        </div>
+        <div class="nav-item">
+          <form action="#">
+            <a href="/sign-up" class="btn btn-sm rounded signup-btn px-3 py-1">Sign up</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MODAL FOR LOGIN -->
+  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <img src="static/images/navbar/foroom-logo.png">
+          <h2>Login your account</h2>
+        </div>
+        <div class="modal-body">
+
+          <input type="email" class="form-control" id="modal-email" placeholder="Enter your email">
+          <input type="password" class="form-control" id="modal-password" placeholder="Enter your password">
+
+          <div class="check-box">
+            <input type="checkbox" name="remember-me" id="check-box">
+            <label for="remember-me">Remember me</label>
+          </div>
+
+          <button class="btn">Log in</button>
+
+          <a href="#">Forgot your password?</a>
+        </div>
+        <div class="modal-footer">
+          <a href="/sign-up">Dont have an account? Sign up</a>
+        </div>
+      </div>
+    </div>
+  </div>
