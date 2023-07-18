@@ -1,19 +1,22 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
+import { UserSession } from '../models/UserSession.js';
 const profileRouter = Router();
 
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
-        const currentUser = await User.findOne({ loggedIn: true });
+        const session = await UserSession.findOne({});
+        const currentUser = await User.findOne({ _id: session.userID });
     
         if (currentUser) {
-          // User found
+            // User found
             res.render("edit-profile", {
                 username: currentUser.username,
                 displayName: currentUser.displayName,
                 password: currentUser.password,
                 email: currentUser.email,
                 description: currentUser.description,
+                icon: currentUser.icon
             });
         } else {
             // No user found
@@ -21,35 +24,36 @@ profileRouter.get("/edit-profile", async (req, res) => {
             // To redirect to an error page
             res.status(404).send("User not found");
         }
-      } catch (error) {
-          console.error("Error occurred while retrieving user:", error);
-          res.status(500).send("Internal Server Error"); // To redirect to an error page
-      }
+    } catch (error) {
+        console.error("Error occurred while retrieving user:", error);
+        res.status(500).send("Internal Server Error"); // To redirect to an error page
+    }
 });
 
 profileRouter.patch("/edit-profile", async (req, res) => {
     console.log("PATCH request received for /users");
     try {
-        const currentUser = await User.findOne({ loggedIn: true });
-        const data = await User.findOneAndUpdate({ username: currentUser.username }, req.body, { new: true })
+        const session = await UserSession.findOne({});
+        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true })
         res.sendStatus(200);
     } catch (error) {
-      console.error(err);
+      console.error(error);
       res.sendStatus(500);
     }
 });
 
-// TO DO: view own profile
+//TO DO: view own profile
 profileRouter.get("/view-profile", async (req, res) => {
     try {
-        const currentUser = await User.findOne({ loggedIn: true });
+        const session = await UserSession.findOne({});
+        const currentUser = await User.findOne({ _id: session.userID });
         if (currentUser) {
           // User found
             res.render("view-profile", {
-                loginFlag: true,
                 username: currentUser.username,
                 displayName: currentUser.displayName,
                 description: currentUser.description,
+                icon: currentUser.icon,
                 title: "Test Title",
                 body: "Test Body",
                 votes: 3,

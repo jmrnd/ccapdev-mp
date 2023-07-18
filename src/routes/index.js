@@ -4,21 +4,25 @@ import { User } from '../models/User.js';
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-    const currentUser = await User.findOne({ loggedIn: true });
+// router.get("/", async (req, res) => {
+//     const currentUser = await User.findOne({ loggedIn: true });
 
-    // Temp just for visualization, just change it
-    res.render("index", { 
-        loginFlag: true, // false
-        title: "Foroom",
-        username: currentUser.username,
-        displayName: currentUser.displayName,
-        description: currentUser.description,
-        title: "Test Title",
-        body: "Test Body",
-        votes: 3,
-        comments: 15
-        });
+//     //Temp just for visualization, just change it
+//     res.render("index", { 
+//         loginFlag: true, // false
+//         title: "Foroom",
+//         username: currentUser.username,
+//         displayName: currentUser.displayName,
+//         description: currentUser.description,
+//         title: "Test Title",
+//         body: "Test Body",
+//         votes: 3,
+//         comments: 15
+//         });
+// });
+
+router.get("/", async (req, res) => {
+    res.render("index");
 });
 
 router.get("/home", (req, res) => {
