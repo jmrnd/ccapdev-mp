@@ -7,8 +7,7 @@ const UserSchema = new mongoose.Schema({
     email: String,
     icon: String,
     password: String,
-    joinDate: Date,
-    loggedIn: Boolean
+    joinDate: Date
 });
 
 export const User = mongoose.model('User', UserSchema);
