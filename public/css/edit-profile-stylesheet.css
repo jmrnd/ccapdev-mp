@@ -12,12 +12,14 @@ body{
     position: relative;
     border-radius: 50%;
     border: 1px solid #676767;
+    background-color: white;
 }
 
 .change-pic-btn, .reset-btn {
     background-color: transparent;
     border-color: #5545a5;
     color: #5545a5;
+    margin-bottom: 10px;
 }
 
 .change-pic-btn:hover, .reset-btn:hover {
@@ -74,6 +76,7 @@ body{
     border-color: #15f700;
     color: #081329;
     font-weight:600;
+    margin-bottom: 10px;
 }
 
 .save-btn:hover {
