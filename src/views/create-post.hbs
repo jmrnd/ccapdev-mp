@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foroom</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+    <script defer src="static/js/index.js"></script>
+    <script defer src="static/js/posts.js"></script>
+    <script defer src="static/js/navbar.js"></script>
+    <script defer src="static/js/index-register.js"></script>
+  <link rel="stylesheet" href="static/css/stylesheet.css">
+  <link rel="stylesheet" href="static/css/post.css">
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  {{> navbar-registered}}
+
+  <!--create a post-->
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <div class="card mt-2 mb-0">
+          <div class="card-body  rounded">
+            <img class="rounded-circle" src="{{icon}}" alt="profile_picture"
+              width="35" height="35">
+
+                <form id="create-post" method="post">
+                    <span class="post-author ms-1 pt-2"> Posting as <a href="#"
+                        class="post-author-link link-underline link-underline-opacity-0">{{username}}</a>
+                    </span>
+                    <div class="create-post-content">
+                    <!--title box-->
+                    <div class="create-post-title-container">
+                        <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
+                        placeholder="Title ...">
+                    </div>
+                    <!--text box-->
+                    <div class="create-post-text-container">
+                        <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text"
+                        placeholder="Text ..."></textarea>
+                        <input class="create-post-button rounded" type="submit" value="SUBMIT">
+                </form>
+                <!--Script for auto resize text box-->
+                <script>
+                  const textarea = document.querySelector("textarea");
+                  textarea.addEventListener("keyup", e => {
+                    textarea.style.height = "102px";
+                    let scHeight = e.target.scrollHeight;
+                    textarea.style.height = `${scHeight}px`;
+                  });
+                </script>
+                <!--end Script for auto resize text box-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</body>
+
+</html>
