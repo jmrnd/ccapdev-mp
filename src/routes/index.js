@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import profileRouter from './profileRouter.js';
+import postRouter from './postRouter.js';
 import { User } from '../models/User.js';
 
 const router = Router();
@@ -34,6 +35,8 @@ router.get("/homepage", (req, res) => {
 });
 
 router.use(profileRouter);
+
+router.use(postRouter);
 
 router.use((req, res) => {
     res.render("404", {title: "Page not Found."});

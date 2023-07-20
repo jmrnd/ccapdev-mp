@@ -40,7 +40,7 @@
             <img class="rounded-circle" src="{{icon}}" alt="profile_picture"
               width="35" height="35">
 
-                <form id="create-post" method="post">
+                <form id="create-post" method="post" action="/create_post">
                     <span class="post-author ms-1 pt-2"> Posting as <a href="#"
                         class="post-author-link link-underline link-underline-opacity-0">{{username}}</a>
                     </span>
@@ -53,8 +53,8 @@
                     <!--text box-->
                     <div class="create-post-text-container">
                         <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text"
-                        placeholder="Text ..."></textarea>
-                        <input class="create-post-button rounded" type="submit" value="SUBMIT">
+                        placeholder="Text ..." required></textarea>
+                        <input class="create-post-button rounded" type="submit" value="SUBMIT" required>
                 </form>
                 <!--Script for auto resize text box-->
                 <script>
