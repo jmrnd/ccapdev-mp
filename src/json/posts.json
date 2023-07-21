@@ -12,7 +12,11 @@
   },
   "totalVotes": "15",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba59c596c655583456cce8"},
+    {"$oid": "64ba59c596c655583456cce9"},
+    {"$oid": "64ba59c596c655583456ccea"}
+  ]
 },
 {
   "_id": {
