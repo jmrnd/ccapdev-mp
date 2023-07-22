@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>foroom</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Bootstrap JavaScript -->
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+    <script defer src="static/js/index.js"></script>
+    <script defer src="static/js/posts.js"></script>
+    <script defer src="static/js/navbar.js"></script>
+    <script defer src="static/js/index-register.js"></script>
+  <link rel="stylesheet" href="/static/css/stylesheet.css">
+  <link rel="stylesheet" href="/static/css/post.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  {{> navbar-registered}}
+
+  <!--main post-->
+  <div class="container">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <div class="card mt-2 mb-0">
+          <div class="card-body rounded">
+            <img class="rounded-circle" src="{{icon}}" alt="profile_picture"
+              width="35" height="35">
+            <span class="post-author ms-1 pt-2">
+              <a href="#" class="post-author-link link-underline link-underline-opacity-0">{{postOP}}</a>
+            </span>
+            <span class="post-author ms-1 pt-1 fw-sm ms-2">{{date}}</span>
+
+            {{#if equal}}
+            <span>
+              <a href="/edit-post/{{postId}}">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 512 512"
+                    class="pencil-ico">
+                    <style>
+                      svg {
+                        fill: #081329
+                      }
+                    </style>
+                    <path
+                      d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z" />
+                    </svg><!--pencil icon-->
+                  </a>
+              <form action="/delete_post/{{postId}}" method="post">
+                <button type="submit" class="delete-post-button d-flex p-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 448 512" class="pencil-ico">
+                  <style>
+                    svg{
+                      fill:#080d1d}
+                      </style>
+                      <path 
+                      d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/>
+                  </svg>
+                </button>
+              </form>
+            </span>
+              
+
+
+            {{/if}}
+
+            <div class="post-content">
+              
+                <div class="d-flex flex-row justify-content-start align-baseline" id="title">
+                  <p class="post-title" id="postTitle">{{title}}</p>
+                </div>
+                
+                <div class="post-para" id="post">
+                  <p class="post-text" id="postText">
+                    {{text}}
+                  </p>
+                </div>
+              
+
+              <div class="flex-center iconGrid">
+                <i id="upvoteIcon-${postId}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                <span id="voteCount-${postId}" class="iconGrid-text mx-1">{{votes}}</span>
+                <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                <span class="iconGrid-text mx-1">{{numcomments}} comments</span>
+              </div>
+
+              <hr style="width: 100%">
+              <!--Comment box-->
+              <div class="comment-box-container">
+                <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{currentuser}}</span>
+                <form action="/create_comment/{{postId}}" method="post">
+                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
+                  id="CommentBox"></textarea>
+                <button type="submit" class="comment-button rounded">Comment</button>
+                </form>
+              </div>
+              <!--Script for auto resize comment box-->
+              <script>
+                const textarea = document.querySelector("textarea");
+                textarea.addEventListener("keyup", e => {
+                  textarea.style.height = "102px";
+                  let scHeight = e.target.scrollHeight;
+                  textarea.style.height = `${scHeight}px`;
+                });
+              </script>
+              <!--end Script for auto resize comment box-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="comment-label col-sm-6 mt-3 mb-2">Comments:</span>
+    </div>
+    {{#if comments.length}}
+  <!-- comments section-->
+  <div class="comment-space-container" id="commentSpace">
+    {{#each comments}}
+    <!--comment 1-->
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-7">
+        <div class="card mt-2 mb-0">
+          <div class="card-body rounded">
+            <img class="rounded-circle" src="../../images/profile_pictures/cirup29.jpeg" alt="profile_picture"
+              width="35" height="35">
+            <span class="post-author ms-1 pt-2 fw-medium ms-2">
+              <a href="../profiles/{{this.author.username}}.html" class="link-unstyled">{{this.author.username}}</a>
+            </span>
+            <span class="post-author ms-1 pt-2 fw-sm ms-2"></span>
+
+            <div class="comment-thread"> <!--vertical thread line-->
+              <div class="comment-content">
+                <p class="comment-text">
+                  {{this.body}}
+                </p>
+                <div class="flex-center iconGrid">
+                  <i id="upvoteIcon-{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
+                  <span id="voteCount-{{this._id}}" class="iconGrid-text mx-1">3</span>
+                  <i id="downvoteIcon-{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
+                  <i class="bi bi-reply mx-2"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div> <!--end comment space-->
+{{else}}
+  <p><center>No comments yet.</center></p>
+{{/if}}
+</body>
+
+</html>

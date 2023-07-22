@@ -11,8 +11,13 @@ import router from "./src/routes/index.js";
 
 // TO DO: Move to separate file, db.js
 const mongoURI = process.env.MONGODB_URI;
+/*
 mongoose.connect(mongoURI)
 .then(() => console.log("Connected to DB!"));
+*/
+
+mongoose.connect('mongodb://127.0.0.1/foroom')
+    .then(() => console.log("Connected to DB!"));
 
 async function main () {
     const __dirname = dirname(fileURLToPath(import.meta.url));
