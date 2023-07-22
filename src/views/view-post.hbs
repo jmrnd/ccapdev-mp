@@ -69,21 +69,18 @@
                   </svg>
                 </button>
               </form>
-            </span>
-              
-
-
+            </span>              
             {{/if}}
 
             <div class="post-content">
               
                 <div class="d-flex flex-row justify-content-start align-baseline" id="title">
-                  <p class="post-title" id="postTitle">{{title}}</p>
+                  <p class="post-title" id="postTitle">{{{title}}}</p>
                 </div>
                 
                 <div class="post-para" id="post">
                   <p class="post-text" id="postText">
-                    {{text}}
+                    {{{text}}}
                   </p>
                 </div>
               
@@ -142,7 +139,7 @@
             <div class="comment-thread"> <!--vertical thread line-->
               <div class="comment-content">
                 <p class="comment-text">
-                  {{this.body}}
+                  {{{this.body}}}
                 </p>
                 <div class="flex-center iconGrid">
                   <i id="upvoteIcon-{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color"></i>
