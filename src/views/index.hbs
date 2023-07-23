@@ -77,13 +77,11 @@
     <!-- Start of posts -->
     <div class="container" id="postsContainer">
         {{#each posts}}
-            {{!-- it buggin D: --}}
-            {{!-- {{#if (isEqual this.author.username activeUser.userID.username)}}
-                {{> mypost-card}}
+            {{#if (isEqual this.author.username @root.username)}}
+                {{> mypost-card post=this isIndex=@root.isIndex}}
             {{else}}
-                {{> otherpost-card}}
-            {{/if}} --}}
-            {{> mypost-card}}
+                {{> otherpost-card post=this isIndex=@root.isIndex}}
+            {{/if}} 
         {{/each}}
     </div>
 
