@@ -27,52 +27,12 @@
     {{#if userFound}}
         {{>navbar-registered}}
     {{else}}
-        
         {{>navbar-unregistered}}
     {{/if}}
 
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card mt-3 mb-2">
-                    <div class="card-body rounded">
-                        <div class="input-group mb-auto">
-                            {{!-- TODO: view profile --}}
-                            <a href="../profiles/view-profile-view.html"
-                                class="nav-link d-sm-flex align-items-sm-center me-3">
-                                <img class="rounded-circle create-pfp" src="{{icon}}"
-                                    alt="profile_picture" width="35" height="35">
-                            </a>
-                            <!-- Clicking the create post should redirect the user to the create a post view/page (similar to reddit) -->
-                            <a href="/create-post" class="form-control create-post-link"
-                                style="text-decoration: none;">Create a post</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Sort button groups -->
-    <div class="container">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card">
-                    <div class="card-body rounded d-flex justify-content-start align-items-center py-1">
-                        <span class="me-2">Sort posts: </span>
-                        <button class="btn sort-btn me-1 my-0" id="sortUpvotes" type="button">
-                            <i class="bi bi-caret-up-fill"></i>
-                            <span class="ms-1">Upvotes</span>
-                        </button>
-                        <button class="btn sort-btn mx-1 my-0" id="sortDate" type="button">
-                            <i class="bi bi-calendar-date"></i>
-                            <span class="ms-1">Date</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{> create-post}}
+    
+    {{> sort-buttons}}
 
     <!-- Start of posts -->
     <div class="container" id="postsContainer">
