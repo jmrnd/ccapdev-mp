@@ -1,11 +1,14 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
+import { Post } from '../models/Post.js';
 import { UserSession } from '../models/UserSession.js';
 const profileRouter = Router();
 
+// Retrieve edit profile page
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
         const session = await UserSession.findOne({});
+        if(session) {
         const currentUser = await User.findOne({ _id: session.userID });
     
         if (currentUser) {
@@ -19,10 +22,10 @@ profileRouter.get("/edit-profile", async (req, res) => {
                 icon: currentUser.icon
             });
         } else {
-            // No user found
-            console.log("No user found");
-            // To redirect to an error page
-            res.status(404).send("User not found");
+            res.status(404).send("User Not Found");
+        }
+        } else {
+            res.status(404).send("Session Not Found");
         }
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
@@ -30,6 +33,7 @@ profileRouter.get("/edit-profile", async (req, res) => {
     }
 });
 
+// Edit profile
 profileRouter.patch("/edit-profile", async (req, res) => {
     console.log("PATCH request received for /users");
     try {
@@ -42,26 +46,54 @@ profileRouter.patch("/edit-profile", async (req, res) => {
     }
 });
 
-//TO DO: view own profile
-profileRouter.get("/view-profile", async (req, res) => {
+// View profile
+profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
+        const usernameParam = req.params.username;
+        const viewUser = await User.findOne({ username: usernameParam});
+
+        const posts = await Post.find({ author: viewUser._id}).populate({
+            path: 'author',
+            select: 'username',
+        }).limit(3).lean();
+
+        const viewUserData = {
+            username: viewUser.username,
+            displayName: viewUser.displayName,
+            description: viewUser.description,
+            icon: viewUser.icon
+        }
+
         const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
-        if (currentUser) {
-          // User found
-            res.render("view-profile", {
-                isIndex: false,
+
+        console.log(session);
+        // Checks if user is logged in
+        if(session) {
+            const currentUser = await User.findOne({ _id: session.userID });
+            const currUserData = {
                 username: currentUser.username,
-                displayName: currentUser.displayName,
-                description: currentUser.description,
-                icon: currentUser.icon,
-                title: "Test Title",
-                body: "Test Body",
-                votes: 3,
-                comments: 15
-            });
+                icon: currentUser.icon
+            }
+            if (currentUser) {
+                // User found
+                res.render("view-profile", {
+                    userFound: true,
+                    isIndex: false,
+                    user: currUserData,
+                    viewUser: viewUserData,
+                    posts: posts
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
         } else {
-            res.status(404).send("User not found"); // or redirect to an error page
+            // If no logged in user, render page with unregistered navbar
+            res.render("view-profile", {
+                userFound: false,
+                isIndex: false,
+                viewUser: viewUserData,
+                posts: posts
+            });
         }
       } catch (error) {
           console.error("Error occurred while retrieving user:", error);
@@ -69,9 +101,46 @@ profileRouter.get("/view-profile", async (req, res) => {
       }
 });
 
-// TO DO: view other profiles
-profileRouter.get("/view-profile/:id", async (req, res) => {
-    res.render("view-profile");
+// View all posts
+profileRouter.get("/view-all-posts/:username", async (req, res) => {
+    try {
+        const usernameParam = req.params.username;
+        const viewUser = await User.findOne({ username: usernameParam});
+        const posts = await Post.find({ author: viewUser._id}).populate({
+            path: 'author', 
+            select: 'username', 
+        }).lean();
+        const session = await UserSession.findOne({});
+
+        if(session) {
+            const currentUser = await User.findOne({ _id: session.userID });
+
+            const currUserData = {
+                username: currentUser.username,
+                icon: currentUser.icon
+            }
+
+            if (currentUser) {
+                res.render("view-all-posts", {
+                    isIndex: true, // This is for adjusting post-width
+                    userFound: true,
+                    user: currUserData,
+                    posts: posts,
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
+        } else {
+            res.render("view-all-posts", {
+                isIndex: true,
+                userFound: false,                
+                posts: posts
+            });
+        }
+      } catch (error) {
+        console.error("Error finding user", error);
+        res.status(500).send("Internal Server Error");
+      }
 });
 
 export default profileRouter;
