@@ -11,17 +11,6 @@ const postRouter = Router();
 postRouter.use(bodyParser.urlencoded({ extended: true }));
 postRouter.use(bodyParser.json());
 
-//setting date
-const today = new Date();
-const yyyy = today.getFullYear();
-let mm = today.getMonth() + 1; // Months start at 0!
-let dd = today.getDate();
-
-if (dd < 10) dd = "0" + dd;
-if (mm < 10) mm = "0" + mm;
-
-const formattedToday = mm + "/" + dd + "/" + yyyy;
-
 //renders the create post page
 postRouter.get("/create-post", async (req, res) => {
   try {
@@ -76,13 +65,17 @@ postRouter.post("/create_post", async (req, res) => {
 });
 
 //renders the post
-postRouter.get("/view-post/:postTitle", async (req, res) => {
+postRouter.get("/view-post/:postId", async (req, res) => {
   try {
-      const postTitleParam = req.params.postTitle;
-      const formattedPostTitle = postTitleParam.replace(/_/g, " ");
+      //const postTitleParam = req.params.postTitle;
+      //const formattedPostTitle = postTitleParam.replace(/_/g, " ");
+      const session = await UserSession.findOne({});
+      const currentUser = await User.findOne({ _id: session.userID });
+
+      const postId = req.params.postId;
 
       const post = await Post.findOne({
-          title: { $regex: formattedPostTitle, $options: "i" },
+          _id: postId,
       }).populate("author");
 
       const comments = await Comment.find({ post: post.id }).populate(
@@ -112,11 +105,19 @@ postRouter.get("/view-post/:postTitle", async (req, res) => {
               joinDate: post.author.joinDate,
           };
 
-          console.log(processPost);
-          console.log(processPostAuthor);
-          console.log(commentsArray);
+          //console.log(processPost);
+          //console.log(processPostAuthor);
+          //console.log(commentsArray);
+
+          //checks if the post is the users'
+          let bool = false;
+          if(post.author.username === currentUser.username){
+            bool = true;
+          }
 
           res.render("view-post", {
+              equal: bool,
+              postId: post._id,
               post: processPost,
               postAuthor: processPostAuthor,
               comments: commentsArray,
