@@ -32,7 +32,11 @@
   },
   "totalVotes": "10",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba70e496c655583456cd21"},
+    {"$oid": "64ba70e496c655583456cd22"},
+    {"$oid": "64ba70e496c655583456cd23"}
+  ]
 },
 {
   "_id": {
@@ -48,7 +52,10 @@
   },
   "totalVotes": "2",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba70e496c655583456cd24"},
+    {"$oid": "64ba70e496c655583456cd25"}
+  ]
 },
 {
   "_id": {
@@ -64,7 +71,11 @@
   },
   "totalVotes": "6",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba70e496c655583456cd26"},
+    {"$oid": "64ba70e496c655583456cd27"},
+    {"$oid": "64ba70e496c655583456cd28"}
+  ]
 },
 {
   "_id": {
@@ -80,7 +91,11 @@
   },
   "totalVotes": "7",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba70e496c655583456cd29"},
+    {"$oid": "64ba70e496c655583456cd2a"},
+    {"$oid": "64ba70e496c655583456cd2b"}
+  ]
 },
 {
   "_id": {
@@ -96,5 +111,8 @@
   },
   "totalVotes": "23",
   "totalComments": "3",
-  "comments": []
+  "comments": [
+    {"$oid": "64ba70e496c655583456cd2c"},
+    {"$oid": "64ba70e496c655583456cd2d"}
+  ]
 }]

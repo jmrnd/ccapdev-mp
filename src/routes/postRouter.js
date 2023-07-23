@@ -206,6 +206,7 @@ postRouter.post('/delete_post/:postId', async(req,res)=>{
   }
 });
 
+//creating comment
 postRouter.post('/create_comment/:postId', async (req, res) => {
   try {
     // Get the postId from the request parameters
@@ -231,6 +232,7 @@ postRouter.post('/create_comment/:postId', async (req, res) => {
       body: comment,
       commentDate: formattedToday,
       author: currentUser._id, 
+      post: postId,
     });
 
     // Save the new comment to the database
