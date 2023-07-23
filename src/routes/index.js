@@ -17,10 +17,11 @@ router.get("/", async function (req, res) {
     const postsArray = posts.map((post) => post.toObject());
 
     // console.log(postsArray);
-    // console.log(currentSession);
+    // console.log(currentSession
 
     if (currentUser) {
       res.render("index", {
+        isIndex: true, // This is for adjusting post-width
         userFound: true,
         activeUserSession: currentSession,
         headerTitle: "foroom",

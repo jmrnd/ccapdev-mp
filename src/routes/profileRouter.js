@@ -50,6 +50,7 @@ profileRouter.get("/view-profile", async (req, res) => {
         if (currentUser) {
           // User found
             res.render("view-profile", {
+                isIndex: false,
                 username: currentUser.username,
                 displayName: currentUser.displayName,
                 description: currentUser.description,
@@ -70,6 +71,7 @@ profileRouter.get("/view-profile", async (req, res) => {
 
 // TO DO: view other profiles
 profileRouter.get("/view-profile/:id", async (req, res) => {
+    res.render("view-profile");
 });
 
 export default profileRouter;
