@@ -18,12 +18,12 @@
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
-    <script defer src="../../js/navbar.js"></script>
     <link rel="stylesheet" href="static/css/stylesheet.css">
     <link rel="stylesheet" href="static/css/view-profile-stylesheet.css">
 </head>
 
 <body>
+    
     {{> navbar-registered}}
 
     <!-- User Content -->
@@ -37,11 +37,11 @@
                             class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
                         <br>
                         <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
-                        <h5 class="card-title display-name">{{displayName}}</h5>
-                        <h6 class="card-subtitle text-muted username">{{username}}</h6>
+                        <h5 class="card-title display-name">{{ displayName }}</h5>
+                        <h6 class="card-subtitle text-muted username">{{ username }}</h6>
                         <br>
                         <p class="card-text bio">
-                            {{{description}}}
+                            {{{ description }}}
                         </p>
                     </div>
                 </div>

@@ -1,18 +1,36 @@
 [
     {
+        "_id": {
+            "$oid": "64ba59c596c655583456cce8"
+          },
         "author": "cirup29",
         "commentDate": "06/16/2023",
-        "body": "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!"
+        "body": "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
+        "post":{
+            "$oid": "64b13617bce9918e2233f0d4"
+          }
     },
     {
+        "_id": {
+            "$oid": "64ba59c596c655583456cce9"
+          },
         "author": "coco_san00",
         "commentDate": "06/17/2023",
-        "body": "That's a great tip! Videos can really enhance the author experience. I've used it before, and it worked like a charm."
+        "body": "That's a great tip! Videos can really enhance the author experience. I've used it before, and it worked like a charm.",
+        "post":{
+            "$oid": "64b13617bce9918e2233f0d4"
+          }
     },
     {
+        "_id": {
+            "$oid": "64ba59c596c655583456ccea"
+          },
         "author": "coc_man_2099",
         "commentDate": "06/18/2023",
-        "body": "Nice find, can you also share any resources or tutorials to help us implement it effectively?"
+        "body": "Nice find, can you also share any resources or tutorials to help us implement it effectively?",
+        "post":{
+            "$oid": "64b13617bce9918e2233f0d4"
+          }
     },
     {
         "author": "cirup29",
