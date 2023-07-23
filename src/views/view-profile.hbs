@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{username}}</title>
+    <title>{{user.username}}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -33,15 +33,15 @@
             <div class="col-xl-2 col-lg-2 col-md-12">
                 <div class="card view-profile-card rounded-2">
                     <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
-                        <img src="{{icon}}" alt="profile picture"
+                        <img src="{{user.icon}}" alt="profile picture"
                             class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
                         <br>
                         <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
-                        <h5 class="card-title display-name">{{ displayName }}</h5>
-                        <h6 class="card-subtitle text-muted username">{{ username }}</h6>
+                        <h5 class="card-title display-name">{{ user.displayName }}</h5>
+                        <h6 class="card-subtitle text-muted username">{{ user.username }}</h6>
                         <br>
                         <p class="card-text bio">
-                            {{{ description }}}
+                            {{{ user.description }}}
                         </p>
                     </div>
                 </div>
@@ -51,7 +51,9 @@
                 <div class="latest-post-card card p-4 rounded-2">
                     <h2 class="latest-post-card-title">Latest Posts</h2>
                     <!-- Post Cards -->
-                    {{> mypost-card this}}
+                    {{#each posts}}
+                        {{> mypost-card}}
+                    {{/each}}
                     <!-- View More Button -->
                     <div class="row d-flex flex-column">
                         <div class="col mt-3 text-end">

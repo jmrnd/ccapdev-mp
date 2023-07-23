@@ -1,102 +1,102 @@
 [
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d4"
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d4"
+        },
+        "title": "Check out this awesome HTML5 trick!",
+        "body": "Hey folks, just stumbled upon this cool HTML5 trick and wanted to share it with you all. Did you know that you can use the 'video' tag to embed videos directly into your web page? It's super easy and adds a nice touch to your site. Give it a try!",
+        "author": {
+            "$oid": "64ada52afce6fd7c0774c050"
+        },
+        "postDate": {
+            "$date": "2023-06-14T16:00:00.000Z"
+        },
+        "totalVotes": "15",
+        "totalComments": "3",
+        "comments": [
+            { "$oid": "64ba59c596c655583456cce8" },
+            { "$oid": "64ba59c596c655583456cce9" },
+            { "$oid": "64ba59c596c655583456ccea" }
+        ]
     },
-    "title": "Check out this awesome HTML5 trick!",
-    "body": "Hey folks, just stumbled upon this cool HTML5 trick and wanted to share it with you all. Did you know that you can use the 'video' tag to embed videos directly into your web page? It's super easy and adds a nice touch to your site. Give it a try!",
-    "author": {
-      "$oid": "64ada52afce6fd7c0774c050"
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d5"
+        },
+        "title": "Favorite Binge-Worthy TV Shows",
+        "body": "Calling all TV addicts! Let's talk about our favorite binge-worthy TV shows. Which series have kept you glued to the screen, eagerly clicking that \"Next Episode\" button? Whether it's gripping dramas, hilarious comedies, or thrilling sci-fi, share your top picks and let's indulge in some television talk!",
+        "author": {
+            "$oid": "64ae1522ff8b56b04886c8b0"
+        },
+        "postDate": {
+            "$date": "2023-04-14T16:00:00.000Z"
+        },
+        "totalVotes": "10",
+        "totalComments": "3",
+        "comments": []
     },
-    "postDate": {
-      "$date": "2023-06-14T16:00:00.000Z"
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d6"
+        },
+        "title": "Fitness Tips for Beginners",
+        "body": "Attention fitness enthusiasts! Let's help out the beginners on their fitness journey. If you have any valuable tips, advice, or resources for someone who's just starting to embrace a healthier lifestyle, share them here. From workout routines to healthy eating habits or even mental wellbeing, let's empower each other to lead healthier lives!",
+        "author": {
+            "$oid": "64ae1522ff8b56b04886c8b1"
+        },
+        "postDate": {
+            "$date": "2020-04-30T16:00:00.000Z"
+        },
+        "totalVotes": "2",
+        "totalComments": "3",
+        "comments": []
     },
-    "totalVotes": "15",
-    "totalComments": "3",
-    "comments": [
-      { "$oid": "64ba59c596c655583456cce8" },
-      { "$oid": "64ba59c596c655583456cce9" },
-      { "$oid": "64ba59c596c655583456ccea" }
-    ]
-  },
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d5"
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d7"
+        },
+        "title": "Share Your Funniest \"Auto-correct Fails\"",
+        "body": "Auto-correct can be both a lifesaver and a source of hilarious confusion. Share your funniest auto-correct fails or embarrassing texting mishaps that left you in stitches. Let's commiserate and laugh together over the perils of technology!",
+        "author": {
+            "$oid": "64ada52afce6fd7c0774c050"
+        },
+        "postDate": {
+            "$date": "2023-06-19T16:00:00.000Z"
+        },
+        "totalVotes": "6",
+        "totalComments": "3",
+        "comments": []
     },
-    "title": "Favorite Binge-Worthy TV Shows",
-    "body": "Calling all TV addicts! Let's talk about our favorite binge-worthy TV shows. Which series have kept you glued to the screen, eagerly clicking that \"Next Episode\" button? Whether it's gripping dramas, hilarious comedies, or thrilling sci-fi, share your top picks and let's indulge in some television talk!",
-    "author": {
-      "$oid": "64ae1522ff8b56b04886c8b0"
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d8"
+        },
+        "title": "Share Your Funniest Programming Jokes",
+        "body": "Calling all coders with a sense of humor! Let's lighten up the coding world with some good-natured jokes. Share your funniest programming jokes or hilarious coding anecdotes. It's time to bring a smile to our fellow developers' faces!",
+        "author": {
+            "$oid": "64ada52afce6fd7c0774c050"
+        },
+        "postDate": {
+            "$date": "2021-01-31T16:00:00.000Z"
+        },
+        "totalVotes": "7",
+        "totalComments": "3",
+        "comments": []
     },
-    "postDate": {
-      "$date": "2023-04-14T16:00:00.000Z"
-    },
-    "totalVotes": "10",
-    "totalComments": "3",
-    "comments": []
-  },
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d6"
-    },
-    "title": "Fitness Tips for Beginners",
-    "body": "Attention fitness enthusiasts! Let's help out the beginners on their fitness journey. If you have any valuable tips, advice, or resources for someone who's just starting to embrace a healthier lifestyle, share them here. From workout routines to healthy eating habits or even mental wellbeing, let's empower each other to lead healthier lives!",
-    "author": {
-      "$oid": "64ae1522ff8b56b04886c8b1"
-    },
-    "postDate": {
-      "$date": "2020-04-30T16:00:00.000Z"
-    },
-    "totalVotes": "2",
-    "totalComments": "3",
-    "comments": []
-  },
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d7"
-    },
-    "title": "Share Your Funniest \"Auto-correct Fails\"",
-    "body": "Auto-correct can be both a lifesaver and a source of hilarious confusion. Share your funniest auto-correct fails or embarrassing texting mishaps that left you in stitches. Let's commiserate and laugh together over the perils of technology!",
-    "author": {
-      "$oid": "64ada52afce6fd7c0774c050"
-    },
-    "postDate": {
-      "$date": "2023-06-19T16:00:00.000Z"
-    },
-    "totalVotes": "6",
-    "totalComments": "3",
-    "comments": []
-  },
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d8"
-    },
-    "title": "Share Your Funniest Programming Jokes",
-    "body": "Calling all coders with a sense of humor! Let's lighten up the coding world with some good-natured jokes. Share your funniest programming jokes or hilarious coding anecdotes. It's time to bring a smile to our fellow developers' faces!",
-    "author": {
-      "$oid": "64ada52afce6fd7c0774c050"
-    },
-    "postDate": {
-      "$date": "2021-01-31T16:00:00.000Z"
-    },
-    "totalVotes": "7",
-    "totalComments": "3",
-    "comments": []
-  },
-  {
-    "_id": {
-      "$oid": "64b13617bce9918e2233f0d9"
-    },
-    "title": "Laufey in Manila",
-    "body": "Just got back from the Laufey concert in Manila and WOW! It was a mind blowing experience. I’ve been a fan for a while now and it was surreal to see her perform live. Laufey's voice is even more enchanting in person. The atmosphere was electric and everyone was singing along- Not to mention the set list was *chef’s kiss* Who else attended? Share your experiences!",
-    "author": {
-      "$oid": "64ada52afce6fd7c0774c050"
-    },
-    "postDate": {
-      "$date": "2023-05-29T16:00:00.000Z"
-    },
-    "totalVotes": "23",
-    "totalComments": "3",
-    "comments": []
-  }
+    {
+        "_id": {
+            "$oid": "64b13617bce9918e2233f0d9"
+        },
+        "title": "Laufey in Manila",
+        "body": "Just got back from the Laufey concert in Manila and WOW! It was a mind blowing experience. I’ve been a fan for a while now and it was surreal to see her perform live. Laufey's voice is even more enchanting in person. The atmosphere was electric and everyone was singing along- Not to mention the set list was *chef’s kiss* Who else attended? Share your experiences!",
+        "author": {
+            "$oid": "64ada52afce6fd7c0774c050"
+        },
+        "postDate": {
+            "$date": "2023-05-29T16:00:00.000Z"
+        },
+        "totalVotes": "23",
+        "totalComments": "3",
+        "comments": []
+    }
 ]

@@ -1,13 +1,14 @@
-import { Router } from 'express';
-import { User } from '../models/User.js';
-import { UserSession } from '../models/UserSession.js';
+import { Router } from "express";
+import { User } from "../models/User.js";
+import { UserSession } from "../models/UserSession.js";
+import { Post } from "../models/Post.js";
 const profileRouter = Router();
 
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
         const session = await UserSession.findOne({});
         const currentUser = await User.findOne({ _id: session.userID });
-    
+
         if (currentUser) {
             // User found
             res.render("edit-profile", {
@@ -16,7 +17,7 @@ profileRouter.get("/edit-profile", async (req, res) => {
                 password: currentUser.password,
                 email: currentUser.email,
                 description: currentUser.description,
-                icon: currentUser.icon
+                icon: currentUser.icon,
             });
         } else {
             // No user found
@@ -34,42 +35,54 @@ profileRouter.patch("/edit-profile", async (req, res) => {
     console.log("PATCH request received for /users");
     try {
         const session = await UserSession.findOne({});
-        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true })
+        const data = await User.findOneAndUpdate(
+            { _id: session.userID },
+            req.body,
+            { new: true }
+        );
         res.sendStatus(200);
     } catch (error) {
-      console.error(error);
-      res.sendStatus(500);
+        console.error(error);
+        res.sendStatus(500);
     }
 });
 
-//TO DO: view own profile
-profileRouter.get("/view-profile", async (req, res) => {
+profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
-        const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
-        if (currentUser) {
-          // User found
+        const usernameParam = req.params.username;
+        const user = await User.findOne({ username: usernameParam });
+
+        console.log(user);
+
+        if (user) {
+            const processUser = {
+                username: user.username,
+                displayName: user.displayName,
+                description: user.description,
+                email: user.email,
+                icon: user.icon,
+                password: user.password,
+                joinDate: user.joinDate,
+            };
+
+            const posts = await Post.find({
+                author: user,
+            }).populate("author");
+            const postsArray = posts.map((post) => post.toObject());
+
+            console.log(postsArray);
+
             res.render("view-profile", {
-                username: currentUser.username,
-                displayName: currentUser.displayName,
-                description: currentUser.description,
-                icon: currentUser.icon,
-                title: "Test Title",
-                body: "Test Body",
-                votes: 3,
-                comments: 15
+                user: processUser,
+                posts: postsArray,
             });
         } else {
             res.status(404).send("User not found"); // or redirect to an error page
         }
-      } catch (error) {
-          console.error("Error occurred while retrieving user:", error);
-          res.status(500).send("Internal Server Error"); // or redirect to an error page
-      }
-});
-
-// TO DO: view other profiles
-profileRouter.get("/view-profile/:id", async (req, res) => {
+    } catch (error) {
+        console.error("Error occurred while retrieving user:", error);
+        res.status(500).send("Internal Server Error"); // or redirect to an error page
+    }
 });
 
 export default profileRouter;

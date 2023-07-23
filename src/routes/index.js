@@ -20,12 +20,20 @@ router.get("/", async function (req, res) {
         // console.log(currentSession);
 
         if (currentUser) {
+            const processUser = {
+                username: currentUser.username,
+                displayName: currentUser.displayName,
+                description: currentUser.description,
+                email: currentUser.email,
+                icon: currentUser.icon,
+                password: currentUser.password,
+                joinDate: currentUser.joinDate,
+            };
+
             res.render("index", {
                 userFound: true,
-                activeUserSession: currentSession,
                 headerTitle: "foroom",
-                username: currentUser.username,
-                icon: currentUser.icon,
+                user: processUser,
                 posts: postsArray,
             });
         } else {

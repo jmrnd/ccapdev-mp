@@ -82,21 +82,21 @@
                         <div class="d-inline-block mb-0">
                             <img
                                 class="rounded-circle profile-image-drop-down"
-                                src="{{icon}}"
+                                src="{{user.icon}}"
                                 alt="profile_picture"
                                 width="35"
                                 height="35"
                             />
                             <span
                                 class="username fw-medium ms-1"
-                            >{{username}}</span>
+                            >{{user.username}}</span>
                         </div>
                     </a>
                     <ul
                         class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start"
                     >
                         <li><a
-                                href="/view-profile"
+                                href="/view-profile/{{user.username}}"
                                 class="dropdown-item"
                             >Profile</a></li>
                         <li><a href="#" class="dropdown-item">Logout</a></li>

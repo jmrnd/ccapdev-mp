@@ -37,13 +37,11 @@
     <!-- Start of posts -->
     <div class="container" id="postsContainer">
         {{#each posts}}
-            {{!-- it buggin D: --}}
-            {{!-- {{#if (isEqual this.author.username activeUser.userID.username)}}
+            {{#if (isEqual this.author.username @root.user.username)}}
                 {{> mypost-card}}
             {{else}}
                 {{> otherpost-card}}
-            {{/if}} --}}
-            {{> mypost-card}}
+            {{/if}}
         {{/each}}
     </div>
 
