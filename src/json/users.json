@@ -18,7 +18,7 @@
   "password": "$%hello%$",
   "email": "coc_man@gmail.com",
   "description": "Probably binge watching a TV show",
-  "icon": "static/images/profile_pictures/coc_man_2099.jpeg"
+  "icon": "/static/images/profile_pictures/coc_man_2099.jpeg"
 },
 {
   "_id": {
@@ -29,7 +29,7 @@
   "password": "pa$$worD",
   "email": "coco_san@gmail.com",
   "description": "New fitness enthusiast",
-  "icon": "static/images/profile_pictures/coco_san00.jpeg"
+  "icon": "/static/images/profile_pictures/coco_san00.jpeg"
 },
 {
   "_id": {
@@ -40,7 +40,7 @@
   "password": "@bcdeFG%",
   "email": "gundamn@gmail.com",
   "description": "Scrolling on foroom at 3am",
-  "icon": "static/images/profile_pictures/gundamn.jpeg"
+  "icon": "/static/images/profile_pictures/gundamn.jpeg"
 },
 {
   "_id": {
@@ -51,5 +51,5 @@
   "password": "for00m%%",
   "email": "cirup@gmail.com",
   "description": "yooo",
-  "icon": "static/images/profile_pictures/cirup29"
+  "icon": "/static/images/profile_pictures/cirup29"
 }]
