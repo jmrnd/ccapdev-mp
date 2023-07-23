@@ -76,53 +76,58 @@ postRouter.post("/create_post", async (req, res) => {
 });
 
 //renders the post
-postRouter.get("/view-post/:postId", async (req, res) => {
+postRouter.get("/view-post/:postTitle", async (req, res) => {
   try {
-    const session = await UserSession.findOne({});
-    const currentUser = await User.findOne({ _id: session.userID });
+      const postTitleParam = req.params.postTitle;
+      const formattedPostTitle = postTitleParam.replace(/_/g, " ");
 
-    const postId = req.params.postId;
-    const getPost = await Post.findOne({ _id: postId })
-      .populate("comments") // Populate the 'comments' field with Comment documents
-      .exec();
-    const postOP = await User.findOne({ _id: getPost.author });
+      const post = await Post.findOne({
+          title: { $regex: formattedPostTitle, $options: "i" },
+      }).populate("author");
 
-    let bool = false;
-    if (postOP.username === currentUser.username) {
-      bool = true;
-    }
+      const comments = await Comment.find({ post: post.id }).populate(
+          "author"
+      );
 
-    const commentIds = getPost.comments;
-    const comments = await Comment.find({ _id: { $in: commentIds } });
+      const commentsArray = comments.map((comment) => comment.toObject());
 
-    //comments output
-    //console.log(comments);
-    //console.log(commentIds);
-    //console.log(getPost.comments);
+      if (post) {
+          const processPost = {
+              author: post.author,
+              title: post.title,
+              body: post.body,
+              postDate: post.postDate,
+              editDate: post.editDate,
+              totalVotes: post.totalVotes,
+              totalComments: post.totalComments,
+          };
 
-    if (getPost) {
-      res.render("view-post", {
-        postId: postId,
-        equal: bool,
-        icon: postOP.icon,
-        date: getPost.postDate,
-        postOP: postOP.username,
-        title: getPost.title,
-        text: getPost.body,
-        votes: getPost.totalVotes,
-        numcomments: getPost.totalComments,
-        currentuser: currentUser.username,
-        comments: getPost.comments,
-      });
-    } else {
-      // No post found
-      console.log("No post found");
-      // To redirect to an error page
-      res.status(404).send("Post not found");
-    }
+          const processPostAuthor = {
+              username: post.author.username,
+              displayName: post.author.displayName,
+              description: post.author.description,
+              email: post.author.email,
+              icon: post.author.icon,
+              password: post.author.password,
+              joinDate: post.author.joinDate,
+          };
+
+          console.log(processPost);
+          console.log(processPostAuthor);
+          console.log(commentsArray);
+
+          res.render("view-post", {
+              post: processPost,
+              postAuthor: processPostAuthor,
+              comments: commentsArray,
+          });
+      } else {
+          console.log("No post found");
+          res.status(404).send("Post not found");
+      }
   } catch (error) {
-    console.error("Error occurred while retrieving user:", error);
-    res.status(500).send("Internal Server Error"); // To redirect to an error page
+      console.error("Error occurred while retrieving user:", error);
+      res.status(500).send("Internal Server Error"); // To redirect to an error page
   }
 });
 
