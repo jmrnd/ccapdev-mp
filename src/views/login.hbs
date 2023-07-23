@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+  <!-- Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+  <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+
+  <!-- JS Sheets -->
+  <script defer src="static/js/sign-up.js"></script>
+  <!-- CSS SHEETS -->
+  <link rel="stylesheet" href="static/css/login-style.css">
+
+  <title>Login your Account</title>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid my-0 mx-auto px-5">
+      <a href="/" class="navbar-brand ">
+        <img src="static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
+      </a>
+    </div>
+  </nav>
+
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <!-- Content goes here -->
+
+    <div id="login-panel">
+        <form action="/login" class="form-container form-sign-up" id="loginForm" method="POST">
+          <h2>Login your <br> account</h2>
+
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6"
+            maxlength="15" required>
+
+          <a href="/sign-up"> Dont have an account? Register</a>
+
+          <button type="submit">Login</button>
+        </form>
+    </div>
+  </div>
+</body>
+</html>

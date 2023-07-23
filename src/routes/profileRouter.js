@@ -7,7 +7,7 @@ profileRouter.get("/edit-profile", async (req, res) => {
     try {
         const session = await UserSession.findOne({});
         const currentUser = await User.findOne({ _id: session.userID });
-    
+
         if (currentUser) {
             // User found
             res.render("edit-profile", {

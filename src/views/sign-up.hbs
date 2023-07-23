@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+
+  <!-- Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+
+  <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
+
+  <!-- JS Sheets -->
+  <script defer src="static/js/sign-up.js"></script>
+  <!-- CSS SHEETS -->
+  <link rel="stylesheet" href="static/css/stylesheet.css">
+  <link rel="stylesheet" href="static/css/signup-stylesheet.css">
+
+  <title>Sign up your Account</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container-fluid my-0 mx-auto px-5">
+      <a href="/" class="navbar-brand ">
+        <img src="static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
+      </a>
+    </div>
+  </nav>
+
+  <div class="container-fluid sign-up-container">
+    <div class="d-flex sign-up-content-container">
+      <div class="form-container">
+        {{!-- Sign Up Form --}}
+        <form action="/signup"class="form-sign-up" id="signupForm" method="POST">
+          <h2>Create an <br> account</h2>
+
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5"
+            maxlength="20" required>
+
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6"
+            maxlength="15" required>
+
+          <a href="/login">Already have an account? Login</a>
+
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
+
+      <div class="img">
+        <img src="static/images/signup-bg.jpeg">
+        <div>The web where <br> everything starts</div>
+        <img src="static/images/foroom-icon.png" alt="" id="poster-logo">
+        <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Login Modal -->
+  {{login-modal}}
+
+</html>
