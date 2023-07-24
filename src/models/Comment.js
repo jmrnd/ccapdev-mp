@@ -6,6 +6,7 @@ const CommentSchema = new mongoose.Schema({
     commentDate: Date,
     totalVotes: Number,
     editDate: Date,
+    isDeleted: Boolean,
     post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
     isReply: {
         type: Boolean,

@@ -25,15 +25,15 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="flex-center iconGrid">
                         <i
-                            id="upvoteIcon-${postId}"
+                            id="upvoteIcon/{{this._id}}"
                             class="bi bi-caret-up iconGrid-upvote iconGrid-color"
                         ></i>
                         <span
-                            id="voteCount-${postId}"
+                            id="voteCount/{{this._id}}"
                             class="iconGrid-text mx-1"
                         >{{this.totalVotes}}</span>
                         <i
-                            id="downvoteIcon-${postId}"
+                            id="downvoteIcon/{{this._id}}"
                             class="bi bi-caret-down iconGrid-downvote iconGrid-color"
                         ></i>
                         <i

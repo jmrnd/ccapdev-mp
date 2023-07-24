@@ -249,4 +249,29 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
     }
 });
 
+
+// UPVOTINGS
+postRouter.patch("/upvoteIcon/:_id", async (req,res)=> {
+    console.log("PATCH RECIEVED");
+    const idParam = req.params._id;
+
+    const post = await Post.findOne({ _id: idParam }); // get post via ID
+
+    let incrementvoteCount = post.totalVotes + 1;
+    await Post.updateOne({_id: idParam} , {totalVotes: incrementvoteCount});
+    res.sendStatus(200);
+})
+
+// DOWNVOTINGS
+postRouter.patch("/downvoteIcon/:_id", async (req,res)=> {
+    console.log("PATCH RECIEVED");
+    const idParam = req.params._id;
+
+    const post = await Post.findOne({ _id: idParam }); // get post via ID
+
+    let incrementvoteCount = post.totalVotes - 1;
+    await Post.updateOne({_id: idParam} , {totalVotes: incrementvoteCount});
+    res.sendStatus(200);
+})
+
 export default postRouter;
