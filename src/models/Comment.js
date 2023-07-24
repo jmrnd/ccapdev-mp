@@ -7,10 +7,9 @@ const CommentSchema = new mongoose.Schema({
     totalVotes: Number,
     editDate: Date,
     post: { type: mongoose.Schema.Types.ObjectId, ref: "Post" },
-    isReply: {
-        type: Boolean,
-        replyTo: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
-    },
+    isReply: Boolean,
+    replyTo: { type: mongoose.Schema.Types.ObjectId, ref: "Comment" },
+    replies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }]
 });
 
 export const Comment = mongoose.model("Comment", CommentSchema);

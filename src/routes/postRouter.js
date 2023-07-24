@@ -76,9 +76,16 @@ postRouter.get("/view-post/:postId", async (req, res) => {
             _id: postId,
         }).populate("author");
 
-        const comments = await Comment.find({ post: post.id }).populate(
-            "author"
-        );
+        const comments = await Comment.find({ post: post.id })
+        .populate("author")
+        .populate({ 
+           path: 'replies', 
+           populate: {
+             path: 'author',
+             model: 'User'
+           } 
+        });
+      
 
         const commentsArray = comments.map((comment) => comment.toObject());
 
@@ -251,5 +258,51 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+postRouter.post("/create_reply/:commentId", async (req, res) => {
+    try {
+        // Get the commentId from the request parameters
+        const commentId = req.params.commentId;
+
+        const session = await UserSession.findOne({});
+        const currentUser = await User.findOne({ _id: session.userID });
+
+        // Find the parent comment to which the reply will be associated
+        const parentComment = await Comment.findOne({ _id: commentId });
+        if (!parentComment) {
+            console.log("No comment found");
+            res.status(404).send("Comment not found");
+            return;
+        }
+
+        // Get the reply data from the request body
+        const { reply } = req.body;
+
+        // Create a new Comment instance for the reply
+        const newReply = new Comment({
+            body: reply,
+            commentDate: Date.now(),
+            post: parentComment.post,
+            author: currentUser._id,
+            isReply: true,
+            replyTo: parentComment._id
+        });
+
+        // Save the new reply to the database
+        await newReply.save();
+
+        // Add the reply to the parent comment's replies array
+        parentComment.replies.push(newReply);
+        await parentComment.save();
+
+        // Redirect to the updated post's view or any other desired action
+        res.redirect(`/view-post/${parentComment.post}`);
+    } catch (error) {
+        console.error("Error occurred while creating reply:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
 
 export default postRouter;
