@@ -20,6 +20,7 @@
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
     <script defer src="/static/js/index-register.js"></script>
     <script src="/static/js/delete-notif.js" defer></script>
+     <script src="/static/js/reply.js" defer></script>
     
   <link rel="stylesheet" href="/static/css/stylesheet.css">
   <link rel="stylesheet" href="/static/css/post.css">
@@ -114,19 +115,29 @@
     </div>
   {{#if comments.length}}
   <!-- comments section-->
-  <div class="comment-space-container" id="commentSpace">
+<div class="comment-space-container" id="commentSpace">
     {{#each comments}}
-        {{!-- TODO: fix if else --}}
         {{#if equal}}
             {{> myComment this}}
         {{else}}
             {{> otherComment this}}
         {{/if}}
+        {{#unless this.replies}}
+            <p><center>No replies yet.</center></p>
+        {{else}}
+            {{#each this.replies}}
+                {{#if equal}}
+                    {{> myComment this}}
+                {{else}}
+                    {{> otherComment this}}
+                {{/if}}
+            {{/each}}
+        {{/unless}}
     {{/each}}
-  </div>
-  {{else}}
-  <p><center>No comments yet.</center></p>
-  {{/if}}
+</div>
+{{else}}
+<p><center>No comments yet.</center></p>
+{{/if}}
 </body>
 
 </html>
