@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{username}}</title>
+    <title>{{user.username}}</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -18,13 +18,20 @@
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="static/css/stylesheet.css">
-    <link rel="stylesheet" href="static/css/view-profile-stylesheet.css">
+    
+    <link rel="stylesheet" href="/static/css/stylesheet.css">
+    <link rel="stylesheet" href="/static/css/view-profile-stylesheet.css">
 </head>
 
 <body>
+
+     <!-- Navbar -->
+    {{#if userFound}}
+        {{>navbar-registered user}}
+    {{else}}
+        {{>navbar-unregistered user}}
+    {{/if}}
     
-    {{> navbar-registered}}
 
     <!-- User Content -->
     <div class="container-fluid p-5 ">
@@ -33,15 +40,19 @@
             <div class="col-xl-2 col-lg-2 col-md-12">
                 <div class="card view-profile-card rounded-2">
                     <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
-                        <img src="{{icon}}" alt="profile picture"
+                        <img src="{{ viewUser.icon }}" alt="profile picture"
                             class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
                         <br>
-                        <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
-                        <h5 class="card-title display-name">{{ displayName }}</h5>
-                        <h6 class="card-subtitle text-muted username">{{ username }}</h6>
+                        {{#if (isEqual user.username viewUser.username)}}
+                            <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
+                        {{else}}
+                            <br>
+                        {{/if}}
+                        <h5 class="card-title display-name">{{ viewUser.displayName }}</h5>
+                        <h6 class="card-subtitle text-muted username">{{ viewUser.username }}</h6>
                         <br>
                         <p class="card-text bio">
-                            {{{ description }}}
+                            {{{ viewUser.description }}}
                         </p>
                     </div>
                 </div>
@@ -51,12 +62,27 @@
                 <div class="latest-post-card card p-4 rounded-2">
                     <h2 class="latest-post-card-title">Latest Posts</h2>
                     <!-- Post Cards -->
-                    {{> mypost-card this}}
+                    {{#each posts}}
+                        {{#if (isEqual user.username viewUser.username)}}
+                            {{> mypost-card post=this isIndex=@root.isIndex}}
+                        {{else}}
+                            {{> otherpost-card post=this isIndex=@root.isIndex}}
+                        {{/if}}
+                    {{/each}}
                     <!-- View More Button -->
                     <div class="row d-flex flex-column">
-                        <div class="col mt-3 text-end">
-                            <button class="btn view-more-btn">View more</button>
-                        </div>
+                        {{#if posts.length}}
+                            <div class="col mt-3 text-end">
+                                <a href="/view-all-posts/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
+                            </div>
+                        {{else}}
+                            <div class="col-md-8" style="color: white;">
+                                <br>
+                                Hmmm... This user has no posts yet.
+                                <br>
+                                <br>
+                            </div>
+                        {{/if}}
                     </div>
                 </div>
             </div>
