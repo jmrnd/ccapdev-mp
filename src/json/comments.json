@@ -1,179 +1,115 @@
 [
     {
-        "_id": {
-            "$oid": "64ba59c596c655583456cce8"
-          },
-        "author": "cirup29",
+        "_id": {"$oid": "64ba59c596c655583456cce8"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b3"},
         "commentDate": "06/16/2023",
         "body": "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d4"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d4"}
     },
     {
-        "_id": {
-            "$oid": "64ba59c596c655583456cce9"
-          },
-        "author": "coco_san00",
+        "_id": {"$oid": "64ba59c596c655583456cce9"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b1"},
         "commentDate": "06/17/2023",
         "body": "That's a great tip! Videos can really enhance the author experience. I've used it before, and it worked like a charm.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d4"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d4"}
     },
     {
-        "_id": {
-            "$oid": "64ba59c596c655583456ccea"
-          },
-        "author": "coc_man_2099",
+        "_id": {"$oid": "64ba59c596c655583456ccea"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b0"}, 
         "commentDate": "06/18/2023",
         "body": "Nice find, can you also share any resources or tutorials to help us implement it effectively?",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d4"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d4"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd21"
-          },
-        "author": "cirup29",
+        "_id": {"$oid": "64ba70e496c655583456cd21"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b3"},
         "commentDate": "04/15/2023",
         "body": "Brooklyn Nine-Nine is my go-to comedy series. The hilarious cast and witty writing never fail to put a smile on my face.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d5"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d5"}
         
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd22"
-          },
-        "author": "coco_san00",
+        "_id": {"$oid": "64ba70e496c655583456cd22"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b1"},
         "commentDate": "04/16/2023",
         "body": "If you haven't watched Breaking Bad yet, you're missing out! The intense storyline and brilliant performances make it an absolute must-watch.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d5"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d5"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd23"
-          },
-        "author": "gundamn",
+        "_id": {"$oid": "64ba70e496c655583456cd23"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b2"}, 
         "commentDate": "04/21/2023",
         "body": "Stranger Things is a fantastic sci-fi show that captures the '80s nostalgia perfectly. The suspenseful plot and lovable characters make it a binge-worthy delight.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d5"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d5"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd24"
-          },
-        "author": "joolzie123",
+        "_id": {"$oid": "64ba70e496c655583456cd24"},
+        "author": {"$oid": "64ada52afce6fd7c0774c050"}, 
         "commentDate": "05/01/2020",
         "body": "Consistency is key! Start with small achievable goals and gradually increase the intensity. Remember, progress is progress, no matter how small.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d6"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d6"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd25"
-          },
-        "author": "cirup29",
+        "_id": {"$oid": "64ba70e496c655583456cd25"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b3"},
         "commentDate": "05/01/2020",
         "body": "Don't underestimate the power of nutrition. Focus on incorporating whole, unprocessed foods into your diet and hydrate well. It's a game-changer for your overall health and fitness.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d6"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d6"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd26"
-          },
-        "author": "gundamn",
+        "_id": {"$oid": "64ba70e496c655583456cd26"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b2"},
         "commentDate": "06/20/2023",
         "body": "I once texted my friend, \"I'm heading to the bar for drinks.\" Auto-correct changed it to \"I'm heading to the bat for drinks.\" Needless to say, it raised some eyebrows!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d7"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d7"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd27"
-          },
-        "author": "coco_san00",
+        "_id": {"$oid": "64ba70e496c655583456cd27"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b1"},
         "commentDate": "06/25/2023",
         "body": "I once sent my mom a text saying, \"Dinner will be owl-ready.\" Auto-correct turned \"owl-ready\" into \"bowling.\" She thought we were having a bowling party at home!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d7"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d7"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd28"
-          },
-        "author": "joolzie123",
+        "_id": {"$oid": "64ba70e496c655583456cd28"},
+        "author": {"$oid": "64ada52afce6fd7c0774c050"},
         "commentDate": "06/27/2023",
         "body": "My friend texted me, \"I'll bring the wime.\" Auto-correct transformed \"wime\" into \"mime.\" We ended up having a good laugh about picturing a silent mime at the party!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d7"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d7"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd29"
-          },
-        "author": "coco_san00",
+        "_id": {"$oid": "64ba70e496c655583456cd29"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b1"},
         "commentDate": "02/01/2021",
         "body": "Why do programmers prefer dark mode? Because light attracts bugs!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d8"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d8"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd2a"
-          },
-        "author": "cirup29",
+        "_id": {"$oid": "64ba70e496c655583456cd2a"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b3"},
         "commentDate": "02/01/2021",
         "body": "Why did the CSS developer go broke? Because he lost his style!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d8"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d8"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd2b"
-          },
-        "author": "gundamn",
+        "_id": {"$oid": "64ba70e496c655583456cd2b"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b2"},
         "commentDate": "02/01/2021",
         "body": "Why did the programmer quit his job? Because he didn't get arrays!",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d8"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d8"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd2c"
-          },
-        "author": "coco_san00",
+        "_id": {"$oid": "64ba70e496c655583456cd2c"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b1"},
         "commentDate": "05/30/2023",
         "body": "Oh, I wish I could've been there! How was the concert? I've been a fan of Laufey for a while now, and I can only imagine how amazing it must have been to see them perform live.",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d9"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d9"}
     },
     {
-        "_id": {
-            "$oid": "64ba70e496c655583456cd2d"
-          },
-        "author": "cirup29",
+        "_id": {"$oid": "64ba70e496c655583456cd2d"},
+        "author": {"$oid": "64ae1522ff8b56b04886c8b3"},
         "commentDate": "05/30/2023",
         "body": "I'm so jealous! I've been obsessed with Laufey's debut EP, and I can only imagine how mesmerizing the live performance was",
-        "post":{
-            "$oid": "64b13617bce9918e2233f0d9"
-          }
+        "post":{"$oid": "64b13617bce9918e2233f0d9"}
     }
 ]
