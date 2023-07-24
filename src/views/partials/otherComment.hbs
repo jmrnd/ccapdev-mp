@@ -1,4 +1,4 @@
-<!--comment-->
+<!-- comment -->
 <div class="row d-flex justify-content-center">
     <div class="col-md-7">
         <div class="card mt-2 mb-0">
@@ -34,7 +34,15 @@
                                 id="downvoteIcon-{{this._id}}"
                                 class="bi bi-caret-down iconGrid-downvote iconGrid-color"
                             ></i>
-                            <i class="bi bi-reply mx-2"></i>
+                            <i class="bi bi-reply mx-2 reply-button" data-id="{{this._id}}"></i>
+                            <!-- Reply form starts here -->
+                            <div class="reply-form" id="reply-form-{{this._id}}" style="display: none;">
+                                <form action="/create_comment/{{this._id}}" method="post">
+                                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Reply to this comment..." id="ReplyBox"></textarea>
+                                    <button type="submit" class="comment-button rounded">Reply</button>
+                                </form>
+                            </div>
+                            <!-- Reply form ends here -->
                         </div>
                     </div>
                 </div>
