@@ -190,7 +190,7 @@ postRouter.post("/update_post/:postId", async (req, res) => {
 });
 
 //delete post
-postRouter.post("/delete_post/:postId", async (req, res) => {
+postRouter.get("/delete-post/:postId", async (req, res) => {
   try {
     const postId = req.params.postId;
 

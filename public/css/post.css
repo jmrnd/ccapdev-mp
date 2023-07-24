@@ -1,6 +1,7 @@
 .pencil-ico {
   float: right;
   margin-right: 10;
+  padding-left: 10px;
 }
 
 .comment-icos {
@@ -114,12 +115,6 @@
   background: #081329;
 }
 
-.delete-post-button{
-  padding: 0;
-  border: none;
-  background: none;
-  float:right;
-}
 
 
 /* -----javascript function css----- */
