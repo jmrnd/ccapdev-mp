@@ -225,7 +225,8 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
         // Create a new Comment instance
         const newComment = new Comment({
             body: comment,
-            commentDate: formattedToday,
+            commentDate: Date.now(),
+            post: post._id,
             author: currentUser._id,
         });
 
