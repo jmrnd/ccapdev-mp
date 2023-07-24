@@ -18,8 +18,8 @@
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
-    <script defer src="/static/js/sortPosts.js"></script>
-    <link rel="stylesheet" href="/static/css/stylesheet.css">
+    <script defer src="static/js/sortPosts.js"></script>
+    <link rel="stylesheet" href="static/css/stylesheet.css">
 </head>
 <body>
 
@@ -30,17 +30,25 @@
         {{>navbar-unregistered}}
     {{/if}}
 
-    {{> create-post}}
-    
-    {{> sort-buttons}}
+
+    <!-- CreatePost -->
+    {{#if userFound}}
+        {{>create-postbox}}
+    {{else}}
+        {{>unregistered-create-post}}
+    {{/if}}
+
+    {{>sort-buttons}}
+
 
     <!-- Start of posts -->
     <div class="container" id="postsContainer">
+
         {{#each posts}}
-            {{#if (isEqual this.author.username @root.user.username)}}
-                {{> mypost-card}}
+            {{#if (isEqual this.author.username @root.username)}}
+                {{> mypost-card post=this isIndex=@root.isIndex}}
             {{else}}
-                {{> otherpost-card}}
+                {{> otherpost-card post=this isIndex=@root.isIndex}}
             {{/if}}
         {{/each}}
     </div>

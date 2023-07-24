@@ -107,8 +107,8 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam});
         const posts = await Post.find({ author: viewUser._id}).populate({
-            path: 'author', 
-            select: 'username', 
+            path: 'author',
+            select: 'username',
         }).lean();
         const session = await UserSession.findOne({});
 

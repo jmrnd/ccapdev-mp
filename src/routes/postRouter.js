@@ -99,7 +99,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
             };
 
             const processPostAuthor = {
-                username: post.username,
+                username: post.author.username,
                 displayName: post.author.displayName,
                 description: post.author.description,
                 email: post.author.email,
@@ -119,7 +119,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
             res.render("view-post", {
                 currentUser: processCurrentUser,
                 totalComments: commentsArray.length,
-                equal: testBool,
+                equal: true,
                 postId: post._id,
                 post: processPost,
                 postAuthor: processPostAuthor,
