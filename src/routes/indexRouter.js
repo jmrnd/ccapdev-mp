@@ -54,8 +54,4 @@ router.use(profileRouter);
 router.use(postRouter);
 router.use(searchRouter);
 
-router.use((req, res) => {
-    res.render("404", { title: "Page not Found." });
-});
-
 export default router;
