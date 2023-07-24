@@ -67,8 +67,6 @@ postRouter.post("/create_post", async (req, res) => {
 //renders the post
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
-        //const postTitleParam = req.params.postTitle;
-        //const formattedPostTitle = postTitleParam.replace(/_/g, " ");
         const session = await UserSession.findOne({});
         const currentUser = await User.findOne({ _id: session.userID });
 
@@ -95,8 +93,13 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 totalComments: post.totalComments,
             };
 
-            const processPostAuthor = {
+            const processCurrentUser = {
                 username: post.author.username,
+                icon: post.author.icon,
+            };
+
+            const processPostAuthor = {
+                username: post.username,
                 displayName: post.author.displayName,
                 description: post.author.description,
                 email: post.author.email,
@@ -105,18 +108,18 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 joinDate: post.author.joinDate,
             };
 
-            //console.log(processPost);
-            //console.log(processPostAuthor);
-            //console.log(commentsArray);
-
             //checks if the post is the users'
             let bool = false;
             if (post.author.username === currentUser.username) {
                 bool = true;
             }
 
+            const testBool = true;
+
             res.render("view-post", {
-                equal: bool,
+                currentUser: processCurrentUser,
+                totalComments: commentsArray.length,
+                equal: testBool,
                 postId: post._id,
                 post: processPost,
                 postAuthor: processPostAuthor,

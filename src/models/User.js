@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
     username: String,
@@ -6,10 +6,10 @@ const UserSchema = new mongoose.Schema({
     description: String,
     email: String,
     icon: String,
-    password: String,
-    joinDate: Date
+    password: String, // TODO: password hashing for phase 3
+    joinDate: Date,
 });
 
-export const User = mongoose.model('User', UserSchema);
+export const User = mongoose.model("User", UserSchema);
 
 export default User;

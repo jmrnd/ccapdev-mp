@@ -81,13 +81,13 @@
                 <span id="voteCount-${postId}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
                 <i id="downvoteIcon-${postId}" class="bi bi-caret-down iconGrid-downvote iconGrid-color"></i>
                 <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
-                <span class="iconGrid-text mx-1">{{post.totalComments}} comments</span>
+                <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
               </div>
 
               <hr style="width: 100%">
               <!--Comment box-->
               <div class="comment-box-container">
-                <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{ postAuthor.username }}</span>
+                <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{ currentUser.username }}</span>
                 <form action="/create_comment/{{postId}}" method="post">
                 <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
                   id="CommentBox"></textarea>
@@ -114,7 +114,12 @@
   <!-- comments section-->
   <div class="comment-space-container" id="commentSpace">
     {{#each comments}}
-        {{> comment}}
+        {{!-- TODO: fix if else --}}
+        {{#if equal}}
+            {{> myComment this}}
+        {{else}}
+            {{> otherComment this}}
+        {{/if}}
     {{/each}}
   </div>
   {{else}}
