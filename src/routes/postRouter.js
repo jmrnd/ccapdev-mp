@@ -15,13 +15,17 @@ postRouter.use(bodyParser.json());
 postRouter.get("/create-post", async (req, res) => {
     try {
         //gets current logged in user
-        const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
+        const userSession = await UserSession.findOne({}).populate("userID");
 
-        if (currentUser) {
+        const processCurrentUser = {
+            username: userSession.userID.username,
+            icon: userSession.userID.icon,
+        };
+
+        if (userSession) {
             res.render("create-post", {
-                username: currentUser.username,
-                icon: currentUser.icon,
+                userFound: true,
+                currentUser: processCurrentUser,
             });
         } else {
             // No user found
@@ -35,11 +39,12 @@ postRouter.get("/create-post", async (req, res) => {
     }
 });
 
-//creating post then returns to the home page
+// CREATE POST
 postRouter.post("/create_post", async (req, res) => {
     try {
-        const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
+        const userSession = await UserSession.findOne({}).populate("userID");
+        const currentUser = await User.findOne({ _id: userSession.userID });
+
         // Extract data from the form
         const { title, text } = req.body;
         // Create a new Post instance
@@ -64,14 +69,12 @@ postRouter.post("/create_post", async (req, res) => {
     }
 });
 
-//renders the post
+// VIEW POST
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
-        const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
+        const userSession = await UserSession.findOne({}).populate("userID");
 
         const postId = req.params.postId;
-
         const post = await Post.findOne({
             _id: postId,
         }).populate("author");
@@ -84,6 +87,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
 
         if (post) {
             const processPost = {
+                postId: postId,
                 author: post.author,
                 title: post.title,
                 body: post.body,
@@ -93,38 +97,37 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 totalComments: post.totalComments,
             };
 
-            const processCurrentUser = {
-                username: post.author.username,
-                icon: post.author.icon,
-            };
-
             const processPostAuthor = {
                 username: post.author.username,
-                displayName: post.author.displayName,
-                description: post.author.description,
-                email: post.author.email,
                 icon: post.author.icon,
-                password: post.author.password,
-                joinDate: post.author.joinDate,
             };
 
-            //checks if the post is the users'
-            let bool = false;
-            if (post.author.username === currentUser.username) {
-                bool = true;
+            if (userSession) {
+                const processCurrentUser = {
+                    username: userSession.userID.username,
+                    icon: userSession.userID.icon,
+                };
+
+                res.render("view-post", {
+                    postId: postId,
+                    userFound: true,
+                    currentUser: processCurrentUser,
+                    post: processPost,
+                    postAuthor: processPostAuthor,
+                    comments: commentsArray,
+                    totalComments: commentsArray.length,
+                });
+            } else {
+                res.render("view-post", {
+                    postId: postId,
+                    userFound: false,
+                    currentUser: processCurrentUser,
+                    post: processPost,
+                    postAuthor: processPostAuthor,
+                    comments: commentsArray,
+                    totalComments: commentsArray.length,
+                });
             }
-
-            const testBool = true;
-
-            res.render("view-post", {
-                currentUser: processCurrentUser,
-                totalComments: commentsArray.length,
-                equal: true,
-                postId: post._id,
-                post: processPost,
-                postAuthor: processPostAuthor,
-                comments: commentsArray,
-            });
         } else {
             console.log("No post found");
             res.status(404).send("Post not found");
@@ -142,12 +145,16 @@ postRouter.get("/edit-post/:postId", async (req, res) => {
         const getPost = await Post.findOne({ _id: postId });
 
         const session = await UserSession.findOne({});
-        const currentUser = await User.findOne({ _id: session.userID });
+        const currUserData = await User.findOne({ _id: session.userID });
+
+        const currentUser = {
+            username: currUserData.username,
+            icon: currUserData.icon
+        }
 
         if (getPost) {
             res.render("edit-post", {
-                username: currentUser.username,
-                icon: currentUser.icon,
+                currentUser: currentUser,
                 title: getPost.title,
                 body: getPost.body,
                 postId: postId,
@@ -231,6 +238,7 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
             commentDate: Date.now(),
             post: post._id,
             author: currentUser._id,
+            totalVotes: 0,
         });
 
         // Save the new comment to the database
@@ -249,29 +257,174 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
     }
 });
 
+//renders edit comments hbs
+postRouter.get("/edit-comment/:postId/:commentId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const getPost = await Post.findOne({ _id: postId });
+
+        const commentId = req.params.commentId;
+        const getComment = await Comment.findOne({ _id: commentId });
+
+        const session = await UserSession.findOne({});
+        const currentUser = await User.findOne({ _id: session.userID });
+
+
+        if (getPost && getComment) {
+            res.render("view-post", {
+                username: currentUser.username,
+                icon: currentUser.icon,
+                body: getComment.body,
+                postId: postId,
+                commentId: commentId,
+            });
+        } else {
+            // No post found
+            console.log("No comment found");
+            // To redirect to an error page
+            res.status(404).send("comment not found");
+        }
+    } catch (error) {
+        console.error("Error occurred while retrieving user:", error);
+        res.status(500).send("Internal Server Error"); // To redirect to an error page
+    }
+});
+
+//update comment from post
+postRouter.post("/update_comment/:postId/:commentId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const commentId = req.params.commentId;
+        const { text } = req.body;
+
+        const commentToUpdate = await Comment.findOne({ _id: commentId });
+
+        if (commentToUpdate) {
+            // Update the comment
+            commentToUpdate.body = text;
+
+            // Save the updated comment to the database
+            await commentToUpdate.save();
+
+            // Redirect to the updated post's view
+            res.redirect(`/view-post/${postId}`);
+        } else {
+            console.log("No comment found");
+            res.status(404).send("Comment not found");
+        }
+    } catch (error) {
+        console.error("Error occurred while updating post:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+//delete comment
+postRouter.get("/delete-comment/:postId/:commentId", async (req, res) => {
+    try {
+        const commentId = req.params.commentId;
+        const postId = req.params.postId;
+
+        // Find the comment to delete
+        const commentToDelete = await Comment.findOneAndDelete({
+            _id: commentId,
+        });
+        res.redirect(`/view-post/${postId}`);
+    } catch (error) {
+        console.error("Error occurred while deleting post:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 // UPVOTINGS
-postRouter.patch("/upvoteIcon/:_id", async (req,res)=> {
+postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
 
     const post = await Post.findOne({ _id: idParam }); // get post via ID
 
     let incrementvoteCount = post.totalVotes + 1;
-    await Post.updateOne({_id: idParam} , {totalVotes: incrementvoteCount});
+    await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount });
     res.sendStatus(200);
-})
+});
 
 // DOWNVOTINGS
-postRouter.patch("/downvoteIcon/:_id", async (req,res)=> {
+postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
 
     const post = await Post.findOne({ _id: idParam }); // get post via ID
 
     let incrementvoteCount = post.totalVotes - 1;
-    await Post.updateOne({_id: idParam} , {totalVotes: incrementvoteCount});
+    await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount });
+    res.sendStatus(200);
+});
+
+// COMMENT UPVOTINGS
+postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
+    console.log("PATCH RECIEVED");
+    const idParam = req.params._id;
+    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+
+    let incrementVoteCount = comment.totalVotes + 1;
+    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
     res.sendStatus(200);
 })
+
+// COMMENT DOWNVOTINGS
+postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
+    console.log("PATCH RECIEVED");
+    const idParam = req.params._id;
+
+    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+
+    let incrementVoteCount = comment.totalVotes - 1;
+    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
+    res.sendStatus(200);
+})
+
+
+postRouter.post("/create_reply/:commentId", async (req, res) => {
+    try {
+        // Get the commentId from the request parameters
+        const commentId = req.params.commentId;
+
+        const session = await UserSession.findOne({});
+        const currentUser = await User.findOne({ _id: session.userID });
+
+        // Find the parent comment to which the reply will be associated
+        const parentComment = await Comment.findOne({ _id: commentId });
+        if (!parentComment) {
+            console.log("No comment found");
+            res.status(404).send("Comment not found");
+            return;
+        }
+
+        // Get the reply data from the request body
+        const { reply } = req.body;
+
+        // Create a new Comment instance for the reply
+        const newReply = new Comment({
+            body: reply,
+            commentDate: Date.now(),
+            post: parentComment.post,
+            author: currentUser._id,
+            isReply: true,
+            replyTo: parentComment._id,
+        });
+
+        // Save the new reply to the database
+        await newReply.save();
+
+        // Add the reply to the parent comment's replies array
+        parentComment.replies.push(newReply);
+        await parentComment.save();
+
+        // Redirect to the updated post's view or any other desired action
+        res.redirect(`/view-post/${parentComment.post}`);
+    } catch (error) {
+        console.error("Error occurred while creating reply:", error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 export default postRouter;

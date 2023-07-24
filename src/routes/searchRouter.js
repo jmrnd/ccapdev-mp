@@ -23,19 +23,23 @@ searchRouter.get("/search", async (req, res) => {
 
             const postsArray = posts.map((post) => post.toObject());
 
-            // console.log(postsArray);
             if (currentUser) {
-                res.render("search-results", {
-                    userFound: true,
-                    activeUserSession: currentSession,
-                    headerTitle: "foroom",
+                const processCurrentuser = {
                     username: currentUser.username,
                     icon: currentUser.icon,
+                };
+
+                res.render("search-results", {
+                    isIndex: true,
+                    userFound: true,
+                    headerTitle: "foroom",
+                    currentUser: processCurrentuser,
                     posts: postsArray,
                     searchText: searchText,
                 });
             } else {
                 res.render("search-results", {
+                    isIndex: false,
                     posts: postsArray,
                     searchText: searchText,
                 });

@@ -23,16 +23,16 @@
                         </p>
                         <div class="flex-center iconGrid">
                             <i
-                                id="upvoteIcon-{{this._id}}"
-                                class="bi bi-caret-up iconGrid-upvote iconGrid-color"
+                                id="commentUpvoteIcon/{{this._id}}"
+                                class="bi bi-caret-up iconGrid-upvote iconGrid-color commentUpvote"
                             ></i>
                             <span
-                                id="voteCount-{{this._id}}"
+                                id="voteCount/{{this._id}}"
                                 class="iconGrid-text mx-1"
-                            >3</span>
+                            >{{totalVotes}}</span>
                             <i
-                                id="downvoteIcon-{{this._id}}"
-                                class="bi bi-caret-down iconGrid-downvote iconGrid-color"
+                                id="commentDownvoteIcon/{{this._id}}"
+                                class="bi bi-caret-down iconGrid-downvote iconGrid-color commentDownvote"
                             ></i>
                             <i class="bi bi-reply mx-2"></i>
                         </div>

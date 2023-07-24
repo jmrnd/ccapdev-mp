@@ -10,7 +10,7 @@ profileRouter.get("/edit-profile", async (req, res) => {
         const session = await UserSession.findOne({});
         if(session) {
         const currentUser = await User.findOne({ _id: session.userID });
-
+    
         if (currentUser) {
             // User found
             res.render("edit-profile", {
@@ -79,7 +79,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                 res.render("view-profile", {
                     userFound: true,
                     isIndex: false,
-                    user: currUserData,
+                    currentUser: currUserData,
                     viewUser: viewUserData,
                     posts: posts
                 });
@@ -124,7 +124,7 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
                 res.render("view-all-posts", {
                     isIndex: true, // This is for adjusting post-width
                     userFound: true,
-                    user: currUserData,
+                    currentUser: currUserData,
                     posts: posts,
                 });
             } else {
@@ -133,7 +133,7 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         } else {
             res.render("view-all-posts", {
                 isIndex: true,
-                userFound: false,                
+                userFound: false,
                 posts: posts
             });
         }

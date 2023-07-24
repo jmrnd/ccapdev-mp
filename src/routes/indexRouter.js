@@ -14,14 +14,25 @@ const router = Router();
 router.get("/", async function (req, res) {
 
     try {
-      const checkSession = await UserSession.findOne({});
+        const checkSession = await UserSession.findOne({});
 
-      const posts = await Post.find({}).populate("author");
-      const postsArray = posts.map((post) => post.toObject());
+        const posts = await Post.find({}).populate("author");
+
+        const postsArray = posts.map((post) => {
+            return {
+                ...post.toObject(),
+                totalComments: post.comments.length,
+            };
+        });
 
       if(checkSession){
         const currentSession = await UserSession.findOne({}).populate("userID");
         const currentUser = await User.findOne({ _id: currentSession.userID });
+
+        const processCurrentUser = {
+            username: currentUser.username,
+            icon: currentUser.icon,
+        };
 
         if (currentUser) {
           res.render("index", {
@@ -29,8 +40,7 @@ router.get("/", async function (req, res) {
             userFound: true,
             activeUserSession: currentSession,
             headerTitle: "foroom",
-            username: currentUser.username,
-            icon: currentUser.icon,
+            currentUser: processCurrentUser,
             posts: postsArray,
           });
         }
