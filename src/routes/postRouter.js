@@ -121,7 +121,6 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 res.render("view-post", {
                     postId: postId,
                     userFound: false,
-                    currentUser: processCurrentUser,
                     post: processPost,
                     postAuthor: processPostAuthor,
                     comments: commentsArray,

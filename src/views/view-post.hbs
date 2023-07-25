@@ -71,16 +71,19 @@
                 <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
               </div>
 
-              <hr style="width: 100%">
+              
               <!--Comment box-->
-              <div class="comment-box-container">
-                <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{ currentUser.username }}</span>
-                <form action="/create_comment/{{postId}}" method="post">
-                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
-                  id="CommentBox"></textarea>
-                <button type="submit" class="comment-button rounded">Comment</button>
-                </form>
-              </div>
+                {{#if userFound}}
+                <hr style="width: 100%">
+                <div class="comment-box-container">
+                        <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{ currentUser.username }}</span>
+                    <form action="/create_comment/{{postId}}" method="post">
+                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
+                    id="CommentBox"></textarea>
+                    <button type="submit" class="comment-button rounded">Comment</button>
+                    </form>
+                </div>
+                {{/if}}
               <!--Script for auto resize comment box-->
               <script>
                 const textarea = document.querySelector("textarea");
