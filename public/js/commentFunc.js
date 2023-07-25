@@ -68,21 +68,30 @@
  deleteCommentBtns.forEach(event => {
     event.addEventListener("click", async function (e) {
 
-      get_path = e.target.id;
-      console.log(get_path);
+      const confirmed = window.confirm('Are you sure you want to delete this comment?');
+      console.log(confirmed);
 
-      // fetch req
-      try {
-        const response = await fetch(get_path);
-        const data = await response.json();
-        // Handle the response data here
-        const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.row');
-        commentElement.remove();
-        console.log(data);
-      } catch (error) {
-        // Handle errors here
-        console.error('Error deleting comment:', error);
-      }
+      // If user confirms (OK button clicked), proceed with deletion
+      if (confirmed) {
+
+          get_path = e.target.id;
+          console.log(get_path);
+          // fetch req
+          try {
+            const response = await fetch(get_path);
+            const data = await response.json();
+            // Handle the response data here
+            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.row');
+            commentElement.remove();
+            console.log(data);
+          } catch (error) {
+            // Handle errors here
+            console.error('Error deleting comment:', error);
+          }
+        } else {
+          // If user cancels (Cancel button clicked), do nothing or provide feedback
+          console.log('Deletion canceled!');
+        }
   })
 })
 
