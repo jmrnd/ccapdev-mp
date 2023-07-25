@@ -35,20 +35,20 @@
                                         aria-labelledby="dropdownMenuButton">
                                         <li><a
                                                 class="dropdown-item edit-comment-btn"
-                                                href="#"
-                                            >Edit Post<i
+                                                id="/edit-comment/{{postId}}/{{comment._id}}"
+                                            >Edit Comment<i
                                                     class="bi bi-pencil ms-2"
                                                 ></i></a></li>
                                         <li><a
-                                                class="dropdown-item delete-post text-danger"
-                                                href="/delete-comment/{{postId}}/{{comment._id}}"
-                                            >Delete Post<i
+                                                class="dropdown-item delete-comment-btn text-danger"
+                                                id="/delete-comment/{{postId}}/{{comment._id}}"
+                                            >Delete Comment<i
                                                     class="bi bi-trash ms-2"
                                                 ></i></a></li>
                                     </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
                 <div class="comment-thread">
                     <!--vertical thread line-->
