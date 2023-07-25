@@ -337,7 +337,6 @@ postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
     res.sendStatus(200);
 })
 
-
 postRouter.post("/create_reply/:commentId", async (req, res) => {
     try {
         // Get the commentId from the request parameters

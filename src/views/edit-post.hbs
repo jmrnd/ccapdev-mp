@@ -32,43 +32,41 @@
     {{/if}}
 
     <div class="row d-flex justify-content-center">
-        <div class="col-md-7">
-            <div class="card mt-4 mb-0">
-                <div class="card-body rounded">
-                    <div class="mt-2">
-                        <img class="rounded-circle ms-4" src="{{currentUser.icon}}" alt="profile_picture" width="60" height="60">
+
+      <div class="col-md-7">
+        <div class="card mt-2 mb-0">
+          <div class="card-body  rounded">
+                <form id="create-post" method="post" action="/update_post/{{postId}}">
+                    <img class="rounded-circle ms-4" src="{{currentUser.icon}}" alt="profile_picture" width="60" height="60">
                         <span class="post-author ms-2 pt-2"> Editing post as {{currentUser.username}}</span>
+                    </span>
+                    <div class="create-post-content">
+                    <!--title box-->
+                    <div class="create-post-title-container">
+                        <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
+                        value="{{title}}">
                     </div>
-                        <form id="create-post" method="POST" action="/update_post/{{postId}}">
-                            <div class="create-post-content">
-                                <span>Title:</span>
-                                <div class="create-post-title-container">
-                                    <input type="hidden" name="postId" value="{{postId}}">
-                                    <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
-                                    value="{{title}}">
-                                </div>
-                                <br><span>Body:</span>
-                                <div class="create-post-text-container">
-                                    <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text"
-                                    required>{{body}}</textarea>
-                                    <br>
-                                    <input class="create-post-button rounded ms-2" type="submit" value="Submit" required>
-                                    <a href="/view-post/{{postId}}" class="create-post-button rounded link-underline link-underline-opacity-0">Back</a>
-                                </div>
-                            </div>
-                        </form>
-                        <!--Script for auto resize text box-->
-                        <script>
-                        const textarea = document.querySelector("textarea");
-                        textarea.addEventListener("keyup", e => {
-                            textarea.style.height = "102px";
-                            let scHeight = e.target.scrollHeight;
-                            textarea.style.height = `${scHeight}px`;
-                        });
-                        </script>
-                        <!--end Script for auto resize text box-->
-                    </div>
-                </div>
+                    <!--text box-->
+
+                     <div class="create-post-text-container">
+                        <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text">{{body}}</textarea>
+                        <br>
+                        <input class="create-post-button rounded ms-2" type="submit" value="Submit">
+                        <a href="/view-post/{{postId}}" class="create-post-button rounded link-underline link-underline-opacity-0">Back</a>
+                      </div>
+                </form>
+                <!--Script for auto resize text box-->
+                <script>
+                  const textarea = document.querySelector("textarea");
+                  textarea.addEventListener("keyup", e => {
+                    textarea.style.height = "102px";
+                    let scHeight = e.target.scrollHeight;
+                    textarea.style.height = `${scHeight}px`;
+                  });
+                </script>
+                <!--end Script for auto resize text box-->
+              </div>
+
             </div>
         </div>
     </div>

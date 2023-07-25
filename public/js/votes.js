@@ -1,3 +1,4 @@
+
 let upvoteBtn = document.querySelectorAll('.postUpvote');
 let downvoteBtn = document.querySelectorAll('.postDownvote');
 
