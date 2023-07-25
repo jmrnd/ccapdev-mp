@@ -108,11 +108,11 @@ async function main() {
     // Creating Sample Comments in Comments Collection
     const comment1 = await Comment.create({
                         author: cirup29._id,
+                        post: post1._id,
+                        body: "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
                         commentDate: "06/16/2023",
                         totalVotes: 3,
-                        isDeleted: false,
-                        body: "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
-                        post: post1._id,
+                        isEdited: false,     
     });
 
     const comment2 = await Comment.create({
@@ -122,7 +122,6 @@ async function main() {
             isDeleted: false,
             body: "That's a great tip! Videos can really enhance the author experience. I've used it before, and it worked like a charm.",
             post: post1._id
-
     });
 
     const comment3 = await Comment.create({

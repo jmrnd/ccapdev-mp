@@ -1,6 +1,6 @@
 
-let upvoteBtn = document.querySelectorAll('.iconGrid-upvote');
-let downvoteBtn = document.querySelectorAll('.iconGrid-downvote');
+let upvoteBtn = document.querySelectorAll('.postUpvote');
+let downvoteBtn = document.querySelectorAll('.postDownvote');
 let voteCount = document.querySelectorAll('.iconGrid-text');
 
 upvoteBtn.forEach(button => {
@@ -34,7 +34,6 @@ upvoteBtn.forEach(button => {
         };
       });
     });
-
 
   downvoteBtn.forEach(button => {
     button.addEventListener("click", event => {

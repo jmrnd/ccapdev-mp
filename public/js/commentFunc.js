@@ -81,7 +81,8 @@
             const response = await fetch(get_path);
             const data = await response.json();
             // Handle the response data here
-            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector('.row');
+            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+commentElement.remove();
             commentElement.remove();
             console.log(data);
           } catch (error) {
