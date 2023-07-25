@@ -12,58 +12,45 @@
 
 <body>
 
-  {{> navbar-registered}}
+    {{#if userFound}}
+        {{> navbar-registered}}
+    {{else}}
+        {{> navbar-unregistered}}
+    {{/if}}
 
   <!--main post-->
-  <div class="container">
     <div class="row d-flex justify-content-center">
-      <div class="col-md-7">
-        <div class="card mt-2 mb-0">
-          <div class="card-body rounded">
-            <div class="d-flex justify-content-between">
-
-              <div class="d-flex align-items-center">
-            <img class="rounded-circle me-2" src="{{postAuthor.icon}}" alt="profile_picture"
-              width="35" height="35">
-            <span class="post-author ms-1">
-              <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0">{{postAuthor.username}}</a>
-            </span>
-            <span class="post-author ms-1 fw-sm ms-2">{{relativeTime post.postDate}}</span>
-            </div>
+        <div class="col-md-7">
+            <div class="card mt-2 mb-0">
+                <div class="card-body rounded">
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <img class="rounded-circle me-2" src="{{postAuthor.icon}}" alt="profile_picture" width="35" height="35">
+                            <span class="post-author ms-1">
+                            <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0">{{postAuthor.username}}</a>
+                            </span>
+                            <span class="post-author ms-1 fw-sm ms-2">{{relativeTime post.postDate}}</span>
+                        </div>
 
             <div class="d-flex align-items-center">
             {{#if (isEqual postAuthor.username currentUser.username)}}
                <div class="iconGrid">
-                            <button
-                                class="btn btn-sm"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-haspopup="true"
-                            >
-                                <i class="bi bi-three-dots iconGrid-color"></i>
-                            </button>
-                            <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                            >
-                                <li><a
-                                        class="dropdown-item"
-                                        href="/edit-post/{{postId}}"
-                                    >Edit Post<i
-                                            class="bi bi-pencil ms-2"
-                                        ></i></a></li>
-                                <li><a
-                                        class="dropdown-item delete-post text-danger"
-                                        href="/delete-post/{{postId}}"
-                                    >Delete Post<i
-                                            class="bi bi-trash ms-2"
-                                        ></i></a></li>
-                            </div>
-                        </div>
+                    <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"aria-haspopup="true">
+                        <i class="bi bi-three-dots iconGrid-color"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <a class="dropdown-item" href="/edit-post/{{postId}}">Edit Post<i class="bi bi-pencil ms-2"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item delete-post text-danger" href="/delete-post/{{postId}}">Delete Post<i class="bi bi-trash ms-2"></i>
+                            </a>
+                        </li>
+                    </div>
+                </div>
             {{/if}}
-              </div>
+            </div>
             </div>
             <div class="post-content">
                 <div class="d-flex flex-row justify-content-start align-baseline" id="title">
@@ -104,11 +91,11 @@
                 });
               </script>
               <!--end Script for auto resize comment box-->
+                </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-      <span class="comment-label col-sm-6 mt-3 mb-2">Comments:</span>
+        <span class="comment-label col-sm-6 mt-3 mb-2">Comments:</span>
     </div>
 
   {{!-- Check if there is a comment --}}
@@ -129,21 +116,3 @@
 </body>
 
 </html>
-
-
-            {{!-- {{#if (isEqual postAuthor.username currentUser.username)}}
-                {{> myComment this}}
-            {{else}}
-                {{> otherComment this}}
-            {{/if}}
-            {{#unless this.replies}}
-            {{else}}
-                {{#each this.replies}}
-                    {{#if (isEqual postAuthor.username currentUser.username)}}
-                        {{> myComment this}}
-                    {{else}}
-                        {{> otherComment this}}
-                    {{/if}}
-                {{/each}}
-            {{/unless}}
-        {{/each}} --}}

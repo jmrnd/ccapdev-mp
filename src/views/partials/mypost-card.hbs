@@ -1,6 +1,6 @@
 {{#if isIndex}}
     <div
-        class="post-card ow d-flex justify-content-center"
+        class="post-card row d-flex justify-content-center"
         data-date="{{this.postDate}}"
         data-upvotes="{{this.totalVotes}}"
     >
@@ -39,6 +39,9 @@
                                     id="downvoteIcon/{{this._id}}"
                                     class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
                                 ></i>
+                                <i
+                                class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"
+                            ></i>
                             <span class="iconGrid-text mx-1">{{this.totalComments}}
                                 comments</span>
                         </div>
@@ -78,7 +81,7 @@
     </div>
 {{else}}
         <div
-        class="post-card ow d-flex justify-content-center"
+        class="post-card row d-flex justify-content-center"
         data-date="{{this.postDate}}"
         data-upvotes="{{this.totalVotes}}"
     >
