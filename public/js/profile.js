@@ -3,7 +3,7 @@ const profileForm = document.forms.editProfileForm;
 const reader = new FileReader();
 const userPfp = document.getElementById("user-pfp");
 const removePicBtn = document.getElementById("remove-picture");
-const defaultIcon = "static/images/profile_pictures/pfp_temp.svg";
+const defaultIcon = "/static/images/profile_pictures/pfp_temp.svg";
 let icon = null;
 
 // Data Object Constructor

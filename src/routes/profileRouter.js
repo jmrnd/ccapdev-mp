@@ -52,10 +52,14 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam});
 
-        const posts = await Post.find({ author: viewUser._id}).populate({
-            path: 'author',
-            select: 'username',
-        }).limit(3).lean();
+        const posts = await Post.find({ author: viewUser._id}).populate("author");
+
+        const postsArray = posts.map((post) => {
+            return {
+                ...post.toObject(),
+                totalComments: post.comments.length,
+            };
+        });
 
         const viewUserData = {
             username: viewUser.username,
@@ -81,7 +85,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                     isIndex: false,
                     currentUser: currUserData,
                     viewUser: viewUserData,
-                    posts: posts
+                    posts: postsArray,
                 });
             } else {
                 res.status(404).send("User not found");
@@ -92,7 +96,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                 userFound: false,
                 isIndex: false,
                 viewUser: viewUserData,
-                posts: posts
+                posts: postsArray,
             });
         }
       } catch (error) {

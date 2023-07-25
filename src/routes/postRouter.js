@@ -155,6 +155,7 @@ postRouter.get("/edit-post/:postId", async (req, res) => {
 
         if (getPost) {
             res.render("edit-post", {
+                userFound: true,
                 currentUser: currentUser,
                 title: getPost.title,
                 body: getPost.body,

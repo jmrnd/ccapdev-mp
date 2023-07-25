@@ -1,7 +1,6 @@
 const signUpForm = document.forms.signupForm;
 const buttonSignUp = document.querySelector("#signupForm button");
 
-
 buttonSignUp.addEventListener("click", async (e) => {
     e.preventDefault();
 
