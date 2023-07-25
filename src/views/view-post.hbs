@@ -12,7 +12,12 @@
 
 <body>
 
-  {{> navbar-registered}}
+    {{#if userFound}}
+        {{> navbar-registered}}
+    {{else}}
+        {{> navbar-unregistered}}
+    {{/if}}
+  
 
   <!--main post-->
   <div class="container">

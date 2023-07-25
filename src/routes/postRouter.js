@@ -109,7 +109,6 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 };
 
                 res.render("view-post", {
-                    postId: postId,
                     userFound: true,
                     currentUser: processCurrentUser,
                     post: processPost,
@@ -119,9 +118,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 });
             } else {
                 res.render("view-post", {
-                    postId: postId,
                     userFound: false,
-                    currentUser: processCurrentUser,
                     post: processPost,
                     postAuthor: processPostAuthor,
                     comments: commentsArray,
@@ -144,17 +141,16 @@ postRouter.get("/edit-post/:postId", async (req, res) => {
         const postId = req.params.postId;
         const getPost = await Post.findOne({ _id: postId });
 
-        const session = await UserSession.findOne({});
-        const currUserData = await User.findOne({ _id: session.userID });
+        const session = await UserSession.findOne({}).populate("userID");
 
-        const currentUser = {
-            username: currUserData.username,
-            icon: currUserData.icon
-        }
+        const processCurrentUser = {
+            username: session.userID.username,
+            icon: session.userID.icon,
+        };
 
         if (getPost) {
             res.render("edit-post", {
-                currentUser: currentUser,
+                currentUser: processCurrentUser,
                 title: getPost.title,
                 body: getPost.body,
                 postId: postId,
@@ -238,7 +234,6 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
             commentDate: Date.now(),
             post: post._id,
             author: currentUser._id,
-            totalVotes: 0,
         });
 
         // Save the new comment to the database
@@ -258,18 +253,65 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 });
 
 //renders edit comments hbs
-postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
-    console.log("PATCH RECIEVED");
+postRouter.get("/edit-comment/:postId/:commentId", async (req, res) => {
     try {
         const postId = req.params.postId;
-        const commentId = req.params.commentId;
-        const comment = await Comment.findOneAndUpdate({_id: commentId}, {body: req.body.updateComment}, {new: true});
-        console.log(comment);
-        // await Comment.updateOne({id: comment._id}, {body: req.body.updateComment});
+        const getPost = await Post.findOne({ _id: postId });
 
+        const commentId = req.params.commentId;
+        const getComment = await Comment.findOne({ _id: commentId });
+
+        const session = await UserSession.findOne({}).populate("author");
+
+        const processCurrentUser = {
+            username: session.userID.username,
+            icon: session.userID.icon,
+        };
+
+        if (getPost && getComment) {
+            res.render("edit-comment", {
+                currentUser: processCurrentUser,
+                body: getComment.body,
+                postId: postId,
+                commentId: commentId,
+            });
+        } else {
+            // No post found
+            console.log("No comment found");
+            // To redirect to an error page
+            res.status(404).send("comment not found");
+        }
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
         res.status(500).send("Internal Server Error"); // To redirect to an error page
+    }
+});
+
+//update comment from post
+postRouter.post("/update_comment/:postId/:commentId", async (req, res) => {
+    try {
+        const postId = req.params.postId;
+        const commentId = req.params.commentId;
+        const { text } = req.body;
+
+        const commentToUpdate = await Comment.findOne({ _id: commentId });
+
+        if (commentToUpdate) {
+            // Update the comment
+            commentToUpdate.body = text;
+
+            // Save the updated comment to the database
+            await commentToUpdate.save();
+
+            // Redirect to the updated post's view
+            res.redirect(`/view-post/${postId}`);
+        } else {
+            console.log("No comment found");
+            res.status(404).send("Comment not found");
+        }
+    } catch (error) {
+        console.error("Error occurred while updating post:", error);
+        res.status(500).send("Internal Server Error");
     }
 });
 
@@ -283,8 +325,7 @@ postRouter.get("/delete-comment/:postId/:commentId", async (req, res) => {
         const commentToDelete = await Comment.findOneAndDelete({
             _id: commentId,
         });
-
-        res.json({postId: postId, commentId: commentId});
+        res.redirect(`/view-post/${postId}`);
     } catch (error) {
         console.error("Error occurred while deleting post:", error);
         res.status(500).send("Internal Server Error");
@@ -314,30 +355,6 @@ postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
     await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount });
     res.sendStatus(200);
 });
-
-// COMMENT UPVOTINGS
-postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
-    console.log("PATCH RECIEVED");
-    const idParam = req.params._id;
-    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
-
-    let incrementVoteCount = comment.totalVotes + 1;
-    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
-    res.sendStatus(200);
-})
-
-// COMMENT DOWNVOTINGS
-postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
-    console.log("PATCH RECIEVED");
-    const idParam = req.params._id;
-
-    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
-
-    let incrementVoteCount = comment.totalVotes - 1;
-    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
-    res.sendStatus(200);
-})
-
 
 postRouter.post("/create_reply/:commentId", async (req, res) => {
     try {

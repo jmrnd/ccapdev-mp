@@ -1,6 +1,6 @@
 {{#if isIndex}}
     <div
-        class="post-card ow d-flex justify-content-center"
+        class="post-card row d-flex justify-content-center"
         data-date="{{this.postDate}}"
         data-upvotes="{{this.totalVotes}}"
     >
@@ -25,21 +25,25 @@
                         </span>
                     </div>
                     <p class="card-text custom-truncate">{{{this.body}}}</p>
-                    <div class="d-flex align-items-center justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-between"
+                    >
                         <div class="flex-center iconGrid">
-                                <i
-                                    id="upvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
-                                ></i>
-                                <span
-                                    id="voteCount/{{this._id}}"
-                                    class="iconGrid-text mx-1"
-                                >{{this.totalVotes}}</span>
-                                <i
-                                    id="downvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
-                                ></i>
-                            <span class="iconGrid-text mx-1">{{this.totalComments}}
+                            <i
+                                id="upvoteIcon/{{this._id}}"
+                                class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
+                            ></i>
+                            <span
+                                id="voteCount/{{this._id}}"
+                                class="iconGrid-text mx-1"
+                            >{{this.totalVotes}}</span>
+                            <i
+                                id="downvoteIcon/{{this._id}}"
+                                class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
+                            ></i>
+                            <span
+                                class="iconGrid-text mx-1"
+                            >{{this.totalComments}}
                                 comments</span>
                         </div>
                         <div class="iconGrid">
@@ -77,8 +81,8 @@
         </div>
     </div>
 {{else}}
-        <div
-        class="post-card ow d-flex justify-content-center"
+    <div
+        class="post-card row d-flex justify-content-center"
         data-date="{{this.postDate}}"
         data-upvotes="{{this.totalVotes}}"
     >
@@ -103,21 +107,25 @@
                         </span>
                     </div>
                     <p class="card-text custom-truncate">{{{this.body}}}</p>
-                    <div class="d-flex align-items-center justify-content-between">
+                    <div
+                        class="d-flex align-items-center justify-content-between"
+                    >
                         <div class="flex-center iconGrid">
-                                <i
-                                    id="upvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
-                                ></i>
-                                <span
-                                    id="voteCount/{{this._id}}"
-                                    class="iconGrid-text mx-1"
-                                >{{this.totalVotes}}</span>
-                                <i
-                                    id="downvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
-                                ></i>
-                            <span class="iconGrid-text mx-1">{{this.totalComments}}
+                            <i
+                                id="upvoteIcon/{{this._id}}"
+                                class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
+                            ></i>
+                            <span
+                                id="voteCount/{{this._id}}"
+                                class="iconGrid-text mx-1"
+                            >{{this.totalVotes}}</span>
+                            <i
+                                id="downvoteIcon/{{this._id}}"
+                                class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
+                            ></i>
+                            <span
+                                class="iconGrid-text mx-1"
+                            >{{this.totalComments}}
                                 comments</span>
                         </div>
                         <div class="iconGrid">
