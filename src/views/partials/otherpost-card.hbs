@@ -1,6 +1,9 @@
 <!-- Other post card -->
 {{#if isIndex}}
-    <div class="post-card row d-flex justify-content-center">
+    <div class="post-card row d-flex justify-content-center"
+        data-date="{{this.postDate}}"
+        data-upvotes="{{this.totalVotes}}"
+    >
         <div class="col-md-7">
             <div class="card mt-2 mb-0">
                 <div class="card-body rounded">
@@ -48,7 +51,9 @@
         </div>
     </div>
 {{else}}
-    <div class="post-card row d-flex justify-content-center">
+    <div class="post-card row d-flex justify-content-center"
+        data-date="{{this.postDate}}"
+        data-upvotes="{{this.totalVotes}}">
         <div class="col">
             <div class="card mt-2 mb-0">
                 <div class="card-body rounded">

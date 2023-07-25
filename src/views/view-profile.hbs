@@ -51,7 +51,7 @@
                     <h2 class="latest-post-card-title">Latest Posts</h2>
                     <!-- Post Cards -->
                     {{#each posts}}
-                        {{#if (isEqual user.username viewUser.username)}}
+                        {{#if (isEqual @root.currentUser.username @root.viewUser.username)}}
                             {{> mypost-card post=this isIndex=@root.isIndex}}
                         {{else}}
                             {{> otherpost-card post=this isIndex=@root.isIndex}}

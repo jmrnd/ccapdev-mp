@@ -11,9 +11,7 @@ const toggleSort = (sortOption) => {
     activeSort = sortOption;
 
     const postsContainer = document.getElementById("postsContainer");
-    const posts = Array.from(
-      postsContainer.getElementsByClassName("post-card")
-    );
+    const posts = Array.from(postsContainer.getElementsByClassName("post-card"));
 
     posts.sort((postA, postB) => {
       const dateA = new Date(postA.getAttribute("data-date"));
@@ -43,5 +41,6 @@ const sortUpvotesBtn = document.getElementById("sortUpvotes");
 sortDateBtn.classList.toggle("active", activeSort === 0);
 sortUpvotesBtn.classList.toggle("active", activeSort === 1);
 
+// Add event listeners for the first time
 sortDateBtn.addEventListener("click", () => toggleSort(0));
 sortUpvotesBtn.addEventListener("click", () => toggleSort(1));
