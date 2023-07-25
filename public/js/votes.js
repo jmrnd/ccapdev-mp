@@ -1,9 +1,8 @@
-
 let upvoteBtn = document.querySelectorAll('.postUpvote');
 let downvoteBtn = document.querySelectorAll('.postDownvote');
 
 upvoteBtn.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         console.log("I am here");
         const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
         const data = {
@@ -13,14 +12,16 @@ upvoteBtn.forEach(button => {
         const path = "/" + clickedButtonId; // construct path
 
         try{
-          const res = fetch(path, { // /upvoteIcon/{{this._id}}
+          const res = await fetch(path, { // /upvoteIcon/{{this._id}}
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(data), // parse ID
           })
-            location.reload();
+          if (res.status === 200) {
+            location.reload(); // Refresh page
+          }
         }
         //  FETCHING FROM SERVER
         // .then(response => response.json())
@@ -34,8 +35,9 @@ upvoteBtn.forEach(button => {
       });
     });
 
+
   downvoteBtn.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
       console.log("I am here");
       const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
       const data = {
@@ -45,7 +47,7 @@ upvoteBtn.forEach(button => {
       const path = "/" + clickedButtonId; // construct path
 
       try{
-        const res = fetch(path, { // /upvoteIcon/{{this._id}}
+        const res = await fetch(path, { // /upvoteIcon/{{this._id}}
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -53,6 +55,10 @@ upvoteBtn.forEach(button => {
           body: JSON.stringify(data), // parse ID
         })
           location.reload();
+
+          if (res.status === 200) {
+            location.reload(); // Refresh page
+          }
       }
       //  FETCHING FROM SERVER
       // .then(response => response.json())
@@ -70,7 +76,7 @@ let commentUpvoteBtn = document.querySelectorAll('.commentUpvote');
 let commentDownvoteBtn = document.querySelectorAll('.commentDownvote');
 
 commentUpvoteBtn.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
         console.log("I am here");
         const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
         const data = {
@@ -81,14 +87,16 @@ commentUpvoteBtn.forEach(button => {
 
         console.log(path);
         try{
-          const res = fetch(path, {
+          const res = await fetch(path, {
             method: 'PATCH',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(data), // parse ID
           })
-            location.reload();
+          if (res.status === 200) {
+            location.reload(); // Refresh page
+          }
         }
         catch(error){
           console.error('Error:', error);
@@ -98,7 +106,7 @@ commentUpvoteBtn.forEach(button => {
 
 
   commentDownvoteBtn.forEach(button => {
-    button.addEventListener("click", event => {
+    button.addEventListener("click", async event => {
       console.log("I am here");
       const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
       const data = {
@@ -108,14 +116,16 @@ commentUpvoteBtn.forEach(button => {
       const path = "/" + clickedButtonId; // construct path
 
       try{
-        const res = fetch(path, { // /upvoteIcon/{{this._id}}
+        const res = await fetch(path, { // /upvoteIcon/{{this._id}}
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify(data), // parse ID
         })
-          location.reload();
+        if (res.status === 200) {
+          location.reload(); // Refresh page
+        }
       }
       catch(error){
         console.error('Error:', error);

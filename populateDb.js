@@ -61,7 +61,9 @@ async function main() {
                         postDate: "2023-06-14T16:00:00.000Z",
                         author: joolzie123._id,
                         totalVotes: "15",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                     });
 
     const post2 = await Post.create({    title: "Favorite Binge-Worthy TV Shows",
@@ -69,7 +71,9 @@ async function main() {
                         postDate: "2023-04-14T16:00:00.000Z",
                         author: coc_man_2099._id,
                         totalVotes: "10",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                     });
 
     const post3 = await Post.create({    title: "Fitness Tips for Beginners",
@@ -77,7 +81,9 @@ async function main() {
                         postDate: "2020-04-30T16:00:00.000Z",
                         author: coco_san00._id,
                         totalVotes: "2",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                     });
 
     const post4 = await Post.create({    title: "Share Your Funniest \"Auto-correct Fails\"",
@@ -85,7 +91,9 @@ async function main() {
                         postDate: "2023-06-19T16:00:00.000Z",
                         author: cirup29._id,
                         totalVotes: "6",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                     });
 
     const post5 = await Post.create({    title: "Share Your Funniest Programming Jokes",
@@ -93,7 +101,9 @@ async function main() {
                         postDate: "2021-01-31T16:00:00.000Z",
                         author: joolzie123._id,
                         totalVotes: "7",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                 });
 
     const post6 = await Post.create({    title: "Laufey in Manila",
@@ -101,18 +111,22 @@ async function main() {
                         postDate: "2023-05-29T16:00:00.000Z",
                         author: joolzie123._id,
                         totalVotes: "23",
-                        totalComments: "3"
+                        totalComments: "3",
+                        upVoters: [],
+                        downVoters: [],
                     });
     console.log("-- Posts created");
     
     // Creating Sample Comments in Comments Collection
     const comment1 = await Comment.create({
                         author: cirup29._id,
-                        post: post1._id,
-                        body: "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
                         commentDate: "06/16/2023",
                         totalVotes: 3,
-                        isEdited: false,     
+                        isDeleted: false,
+                        body: "Whoa, that's neat! I'll definitely try it out on my next project. Thanks for sharing, joolzie123!",
+                        post: post1._id,
+                        upVoters: [],
+                        downVoters: [],
     });
 
     const comment2 = await Comment.create({
@@ -121,7 +135,10 @@ async function main() {
             totalVotes: 5,
             isDeleted: false,
             body: "That's a great tip! Videos can really enhance the author experience. I've used it before, and it worked like a charm.",
-            post: post1._id
+            post: post1._id,
+            upVoters: [],
+            downVoters: [],
+
     });
 
     const comment3 = await Comment.create({
@@ -130,8 +147,9 @@ async function main() {
         totalVotes: 3,
         isDeleted: false,
         body: "Nice find, can you also share any resources or tutorials to help us implement it effectively?",
-        post: post1._id
-
+        post: post1._id,
+        upVoters: [],
+        downVoters: [],
     });
 
     const comment4 = await Comment.create({
@@ -140,8 +158,9 @@ async function main() {
         totalVotes: 15,
         isDeleted: false,
         body: "Brooklyn Nine-Nine is my go-to comedy series. The hilarious cast and witty writing never fail to put a smile on my face.",
-        post: post2._id
-
+        post: post2._id,
+        upVoters: [],
+        downVoters: [],
     });
 
     const comment5 = await Comment.create({
@@ -150,8 +169,9 @@ async function main() {
         totalVotes: 6,
         isDeleted: false,
         body: "If you haven't watched Breaking Bad yet, you're missing out! The intense storyline and brilliant performances make it an absolute must-watch.",
-        post: post2._id
-
+        post: post2._id,
+        upVoters: [],
+        downVoters: [],
     });
 
     const comment6 = await Comment.create({
@@ -160,8 +180,9 @@ async function main() {
         totalVotes: 8,
         isDeleted: false,
         body: "Stranger Things is a fantastic sci-fi show that captures the '80s nostalgia perfectly. The suspenseful plot and lovable characters make it a binge-worthy delight.",
-        post: post2._id
-
+        post: post2._id,
+        upVoters: [],
+        downVoters: [],
     });
 
     const comment7 = await Comment.create({
@@ -170,7 +191,9 @@ async function main() {
         totalVotes: 4,
         isDeleted: false,
         body: "Consistency is key! Start with small achievable goals and gradually increase the intensity. Remember, progress is progress, no matter how small.",
-        post: post3._id
+        post: post3._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -180,7 +203,9 @@ async function main() {
         totalVotes: 8,
         isDeleted: false,
         body: "Don't forget to prioritize mental wellbeing alongside physical fitness. Incorporating mindfulness practices like yoga or meditation can bring balance and reduce stress.",
-        post: post3._id
+        post: post3._id,
+        upVoters: [],
+        downVoters: [],
     });
 
     const comment9 = await Comment.create({
@@ -189,7 +214,9 @@ async function main() {
         totalVotes: 1,
         isDeleted: false,
         body: "Don't underestimate the power of nutrition. Focus on incorporating whole, unprocessed foods into your diet and hydrate well. It's a game-changer for your overall health and fitness.",
-        post: post3._id
+        post: post3._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -199,7 +226,9 @@ async function main() {
         totalVotes: 3,
         isDeleted: false,
         body: "I once texted my friend, \"I'm heading to the bar for drinks.\" Auto-correct changed it to \"I'm heading to the bat for drinks.\" Needless to say, it raised some eyebrows!",
-        post: post4._id
+        post: post4._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -209,7 +238,9 @@ async function main() {
         totalVotes: 6,
         isDeleted: false,
         body: "I once sent my mom a text saying, \"Dinner will be owl-ready.\" Auto-correct turned \"owl-ready\" into \"bowling.\" She thought we were having a bowling party at home!",
-        post: post4._id
+        post: post4._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -219,7 +250,9 @@ async function main() {
         totalVotes: 9,
         isDeleted: false,
         body: "My friend texted me, \"I'll bring the wime.\" Auto-correct transformed \"wime\" into \"mime.\" We ended up having a good laugh about picturing a silent mime at the party!",
-        post: post4._id
+        post: post4._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -229,7 +262,9 @@ async function main() {
         totalVotes: 15,
         isDeleted: false,
         body: "Why do programmers prefer dark mode? Because light attracts bugs!",
-        post: post5._id
+        post: post5._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -239,7 +274,9 @@ async function main() {
         totalVotes: 6,
         isDeleted: false,
         body: "Why did the CSS developer go broke? Because he lost his style!",
-        post: post5._id
+        post: post5._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -249,7 +286,9 @@ async function main() {
         totalVotes: 3,
         isDeleted: false,
         body: "Why did the programmer quit his job? Because he didn't get arrays!",
-        post: post5._id
+        post: post5._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -259,7 +298,9 @@ async function main() {
         totalVotes: 7,
         isDeleted: false,
         body: "Oh, I wish I could've been there! How was the concert? I've been a fan of Laufey for a while now, and I can only imagine how amazing it must have been to see them perform live.",
-        post: post6._id
+        post: post6._id,
+        upVoters: [],
+        downVoters: [],
 
     });
 
@@ -269,7 +310,9 @@ async function main() {
         totalVotes: 5,
         isDeleted: false,
         body: "I'm so jealous! I've been obsessed with Laufey's debut EP, and I can only imagine how mesmerizing the live performance was",
-        post: post6._id
+        post: post6._id,
+        upVoters: [],
+        downVoters: [],
 
     });
     console.log("-- Comments created");

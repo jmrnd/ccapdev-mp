@@ -56,6 +56,8 @@ postRouter.post("/create_post", async (req, res) => {
             totalVotes: 0,
             totalComments: 0,
             comments: [],
+            upVoters: [],
+            downVoters: [],
         });
 
         // Save the new post to the database
@@ -238,6 +240,8 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
             post: post._id,
             author: currentUser._id,
             totalVotes: 0,
+            upVoters: [],
+            downVoters: [],
         });
 
         // Save the new comment to the database
@@ -295,11 +299,29 @@ postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
 
-    const post = await Post.findOne({ _id: idParam }); // get post via ID
+    const session = await UserSession.findOne({});
+    if(session) {
+        const currentUser = await User.findOne({ _id: session.userID });
 
-    let incrementvoteCount = post.totalVotes + 1;
-    await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount });
+        if(currentUser) {
+            const post = await Post.findOne({ _id: idParam }); // get post via ID
+            const hasVoted = post.upVoters.includes(currentUser._id);
+
+            if(hasVoted === false) {
+                let incrementvoteCount = post.totalVotes + 1;
+                await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount }, {new: true});
+                post.upVoters.push(currentUser._id);
+                await post.save();
+                const hasDownvoted = post.downVoters.includes(currentUser._id);
+                if(hasDownvoted) {
+                    const updateDownvoters = post.downVoters.filter(voter => !voter.equals(currentUser._id));
+                    await Post.updateOne({ _id: idParam }, { downVoters: updateDownvoters }, {new: true});
+                }
+            }
+        }
+    }
     res.sendStatus(200);
+
 });
 
 // DOWNVOTINGS
@@ -307,10 +329,27 @@ postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
 
-    const post = await Post.findOne({ _id: idParam }); // get post via ID
+    const session = await UserSession.findOne({});
+    if(session) {
+        const currentUser = await User.findOne({ _id: session.userID });
 
-    let incrementvoteCount = post.totalVotes - 1;
-    await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount });
+        if(currentUser) {
+            const post = await Post.findOne({ _id: idParam }); // get post via ID
+            const hasDownvoted = post.downVoters.includes(currentUser._id);
+
+            if(hasDownvoted === false) {
+                let decrementvoteCount = post.totalVotes - 1;
+                await Post.updateOne({ _id: idParam }, { totalVotes: decrementvoteCount }, {new: true});
+                post.downVoters.push(currentUser._id);
+                await post.save();
+                const hasVoted = post.upVoters.includes(currentUser._id);
+                if(hasVoted) {
+                    const updateUpvoters = post.upVoters.filter(voter => !voter.equals(currentUser._id));
+                    await Post.updateOne({ _id: idParam }, { upVoters: updateUpvoters }, {new: true});
+                }
+            }
+        }
+    }
     res.sendStatus(200);
 });
 
@@ -318,10 +357,27 @@ postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
 postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
-    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+    const session = await UserSession.findOne({});
+    if(session) {
+        const currentUser = await User.findOne({ _id: session.userID });
 
-    let incrementVoteCount = comment.totalVotes + 1;
-    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
+        if(currentUser) {
+            const comment = await Comment.findOne({ _id: idParam }); // get comment via ID
+            const hasVoted = comment.upVoters.includes(currentUser._id);
+
+            if(hasVoted === false) {
+                let incrementVoteCount = comment.totalVotes + 1;
+                await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount}, {new: true});
+                comment.upVoters.push(currentUser._id);
+                await comment.save();
+                const hasDownvoted = comment.downVoters.includes(currentUser._id);
+                if(hasDownvoted) {
+                    const updateDownvoters = comment.downVoters.filter(voter => !voter.equals(currentUser._id));
+                    await Comment.updateOne({ _id: idParam }, { downVoters: updateDownvoters }, {new: true});
+                }
+            }
+        }
+    }
     res.sendStatus(200);
 })
 
@@ -330,10 +386,27 @@ postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
 
-    const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+    const session = await UserSession.findOne({});
+    if(session) {
+        const currentUser = await User.findOne({ _id: session.userID });
 
-    let incrementVoteCount = comment.totalVotes - 1;
-    await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount});
+        if(currentUser) {
+            const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+            const hasDownvoted = comment.downVoters.includes(currentUser._id);
+
+            if(hasDownvoted === false) {
+                let decrementvoteCount = comment.totalVotes - 1;
+                await Comment.updateOne({ _id: idParam }, { totalVotes: decrementvoteCount }, {new: true});
+                comment.downVoters.push(currentUser._id);
+                await comment.save();
+                const hasVoted = comment.upVoters.includes(currentUser._id);
+                if(hasVoted) {
+                    const updateUpvoters = comment.upVoters.filter(voter => !voter.equals(currentUser._id));
+                    await Comment.updateOne({ _id: idParam }, { upVoters: updateUpvoters }, {new: true});
+                }
+            }
+        }
+    }
     res.sendStatus(200);
 })
 

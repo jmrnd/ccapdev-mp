@@ -8,6 +8,8 @@ const PostSchema = new mongoose.Schema({
     editDate: Date,
     totalVotes: Number,
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }], // Array of Comments
+    upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 export const Post = mongoose.model("Post", PostSchema);

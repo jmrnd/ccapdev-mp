@@ -7,7 +7,9 @@ const CommentSchema = new mongoose.Schema({
     commentDate: Date,
     totalVotes: Number,
     isEdited: Boolean,
-    replies: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}] // array of comments, self-referencing
+    replies: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}], // array of comments, self-referencing
+    upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 export const Comment = mongoose.model("Comment", CommentSchema);
