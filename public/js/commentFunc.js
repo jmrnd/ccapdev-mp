@@ -82,6 +82,7 @@
             const data = await response.json();
             // Handle the response data here
             const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+            
             commentElement.remove();
             console.log(data);
           } catch (error) {

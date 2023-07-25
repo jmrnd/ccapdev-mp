@@ -8,42 +8,54 @@ const searchRouter = Router();
 searchRouter.get("/search", async (req, res) => {
     try {
         const searchText = req.query.q;
-        const currentSession = await UserSession.findOne({}).populate("userID");
-        const currentUser = await User.findOne({ _id: currentSession.userID });
+        const checkSession = await UserSession.findOne({});
 
         if (searchText === "") {
             res.redirect("/");
-        } else {
-            const posts = await Post.find({
-                $or: [
-                    { title: { $regex: searchText, $options: "i" } },
-                    { body: { $regex: searchText, $options: "i" } },
-                ],
-            }).populate("author");
+        }
 
-            const postsArray = posts.map((post) => post.toObject());
+        const posts = await Post.find({
+            $or: [
+                { title: { $regex: searchText, $options: "i" } },
+                { body: { $regex: searchText, $options: "i" } },
+            ],
+        }).populate("author");
+
+        const postsArray = posts.map((post) => {
+            return {
+                ...post.toObject(),
+                totalComments: post.comments.length,
+            };
+        });
+
+        if (checkSession) {
+            const currentSession = await UserSession.findOne({}).populate("userID");
+            const currentUser = await User.findOne({ _id: currentSession.userID });
 
             if (currentUser) {
-                const processCurrentuser = {
+                const processCurrentUser = {
                     username: currentUser.username,
                     icon: currentUser.icon,
                 };
-
                 res.render("search-results", {
                     isIndex: true,
                     userFound: true,
                     headerTitle: "foroom",
-                    currentUser: processCurrentuser,
+                    currentUser: processCurrentUser,
                     posts: postsArray,
                     searchText: searchText,
                 });
             } else {
-                res.render("search-results", {
-                    isIndex: false,
-                    posts: postsArray,
-                    searchText: searchText,
-                });
+                res.status(404).send("User not found");
             }
+        } else {
+            res.render("index", {
+                isIndex: true,
+                userFound: false,
+                headerTitle: "foroom",
+                icon: "/static/images/profile_pictures/pfp_temp.svg",
+                posts: postsArray,
+            });
         }
     } catch (error) {
         console.error("Error occurred while performing search", error);

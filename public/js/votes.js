@@ -34,7 +34,6 @@ upvoteBtn.forEach(button => {
       });
     });
 
-
   downvoteBtn.forEach(button => {
     button.addEventListener("click", event => {
       console.log("I am here");
