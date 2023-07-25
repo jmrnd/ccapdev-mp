@@ -16,28 +16,30 @@
   {{> navbar-registered}}
 
   <!--create a post-->
-  <div class="container">
-    <div class="row d-flex justify-content-center">
-      <div class="col-md-7">
-        <div class="card mt-2 mb-0">
-          <div class="card-body  rounded">
-            <img class="rounded-circle" src="{{currentUser.icon}}" alt="profile_picture"
-              width="35" height="35">
-
-                <form id="create-post" method="POST" action="/create_post">
-                    <span class="post-author ms-1 pt-2">Posting as {{currentUser.username}}</span>
-                    <div class="create-post-content">
-                    <!--title box-->
-                    <div class="create-post-title-container">
-                        <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
-                        placeholder="Title ...">
+  <div class="row d-flex justify-content-center">
+        <div class="col-md-7">
+            <div class="card mt-4 mb-0">
+                <div class="card-body rounded">
+                    <div class="mt-2">
+                        <img class="rounded-circle ms-4" src="{{currentUser.icon}}" alt="profile_picture" width="50" height="50">
+                        <span class="post-author ms-2 pt-2"> Posting as {{currentUser.username}}</span>
                     </div>
-                    <!--text box-->
-                    <div class="create-post-text-container">
-                        <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text"
-                        placeholder="Text ..." required></textarea>
-                        <input class="create-post-button rounded" type="submit" value="Post" required>
-                </form>
+                    <form id="create-post" method="POST" action="/create_post/">
+                        <div class="create-post-content">
+                            <span>Title:</span>
+                            <div class="create-post-title-container">
+                                <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
+                                placeholder="Title ...">
+                            </div>
+                            <br><span>Body:</span>
+                            <div class="create-post-text-container">
+                                <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text" placeholder="Body ..."
+                                required>{{body}}</textarea>
+                                <br>
+                                <input class="create-post-button rounded" type="submit" value="Post">
+                            </div>
+                        </div>
+                    </form>
                 <!--Script for auto resize text box-->
                 <script>
                   const textarea = document.querySelector("textarea");
