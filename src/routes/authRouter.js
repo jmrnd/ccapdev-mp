@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
+import { UserSession } from "../models/UserSession.js";
+
 import express from 'express';
 
 const authRouter = Router();
@@ -37,7 +39,7 @@ authRouter.use(express.urlencoded({ extended: true })); // Parse URL-encoded bod
 
 authRouter.post("/login", async (req, res) => {
     const {email, password} = req.body; // Get email and password
-    const user = await User.findOne({email}).exec(); // Find email in User
+    const user = await User.findOne({email: email}).exec(); // Find email in User
 
     // console.log(email, password);
     // console.log(user);
@@ -62,7 +64,7 @@ authRouter.post("/login", async (req, res) => {
 });
 
 authRouter.get("/logout", async(req, res) => {
-    await UserSession.findOneAndDelete({}).exec();
+    const session = await UserSession.findOneAndDelete({}).exec();
     console.log("Just Logged out");
     res.redirect("/");
 })

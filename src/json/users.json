@@ -14,12 +14,12 @@
         "_id": {
             "$oid": "64ae1522ff8b56b04886c8b0"
         },
-        "username": "coc_man_2099",
+        "username": "jmrnd",
         "displayName": "Jamar",
-        "password": "$%hello%$",
-        "email": "coc_man@gmail.com",
+        "password": "1234",
+        "email": "jamarmiranda@gmail.com",
         "description": "Probably binge watching a TV show",
-        "icon": "/static/images/profile_pictures/coc_man_2099.jpeg"
+        "icon": "/static/images/profile_pictures/jmrnd.jpeg"
     },
     {
         "_id": {

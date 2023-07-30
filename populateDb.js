@@ -20,12 +20,12 @@ async function main() {
                     description: "hello world! :>",
                     icon: "/static/images/profile_pictures/joolzie123.jpeg" });
 
-    await User.create({   username: "coc_man_2099",
+    await User.create({   username: "jmrnd",
                     displayName: "Jamar",
-                    password: "$%hello%$",
-                    email: "coc_man@gmail.com",
+                    password: "1234",
+                    email: "jamarmiranda@gmail.com",
                     description: "Probably binge watching a TV show",
-                    icon: "/static/images/profile_pictures/coc_man_2099.jpeg" });
+                    icon: "/static/images/profile_pictures/jmrnd.jpeg" });
 
     await User.create({   username: "coco_san00",
                     displayName: "Coco",
