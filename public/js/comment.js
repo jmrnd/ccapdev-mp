@@ -38,16 +38,15 @@
             const paramId = get_id.split("/"); // In array
 
             const data = {
-                endPoint: paramId[1],
+                commentId: paramId[3],
                 postId: paramId[2],
-                currentComment: currentComment,
-                newComment: commentText.textContent,
+                updateComment: commentText.textContent,
             }
 
-            const fetchPoint =  "/" + data.postId + "/" + data.commentId;
             console.log(data);
+            console.log(get_id);
 
-            const res = fetch(fetchPoint, {
+            const response = fetch(get_id, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',

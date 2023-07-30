@@ -67,38 +67,23 @@ postRouter.post("/create_post", async (req, res) => {
 // VIEW POST
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
-        const userSession = await UserSession.findOne({}).populate("userID");
+        const userSession = await UserSession.findOne({}).populate("userID").exec();
 
         const postId = req.params.postId;
-        const post = await Post.findOne({
-            _id: postId,
-        }).populate("author");
+        const post = await Post.findOne({ _id: postId,}).populate("author").lean().exec();
+        console.log(post)
 
-        const comments = await Comment.find({ post: post.id }).populate(
-            "author"
-        );
-
-        const commentsArray = comments.map((comment) => comment.toObject());
+        const comments = await Comment.find({ post: post._id }).populate("author").lean().exec();
+        console.log(comments)
 
         if (post) {
-            const processPost = {
-                postId: postId,
-                author: post.author,
-                title: post.title,
-                body: post.body,
-                postDate: post.postDate,
-                editDate: post.editDate,
-                totalVotes: post.totalVotes,
-                totalComments: post.totalComments,
-            };
-
             const processPostAuthor = {
                 username: post.author.username,
                 icon: post.author.icon,
             };
 
             if (userSession) {
-                const processCurrentUser = {
+                const currentUser = {
                     username: userSession.userID.username,
                     icon: userSession.userID.icon,
                 };
@@ -106,11 +91,11 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 res.render("view-post", {
                     postId: postId,
                     userFound: true,
-                    currentUser: processCurrentUser,
-                    post: processPost,
+                    currentUser: currentUser,
+                    post: post,
                     postAuthor: processPostAuthor,
-                    comments: commentsArray,
-                    totalComments: commentsArray.length,
+                    comments: comments,
+                    totalComments: comments.length,
                 });
             } else {
                 res.render("view-post", {
@@ -262,7 +247,6 @@ postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
         const commentId = req.params.commentId;
         const comment = await Comment.findOneAndUpdate({_id: commentId}, {body: req.body.updateComment}, {new: true});
         console.log(comment);
-        // await Comment.updateOne({id: comment._id}, {body: req.body.updateComment});
 
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
