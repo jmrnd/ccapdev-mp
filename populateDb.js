@@ -22,7 +22,7 @@ async function main() {
 
     await User.create({   username: "jmrnd",
                     displayName: "Jamar",
-                    password: "1234",
+                    password: "111111",
                     email: "jamarmiranda@gmail.com",
                     description: "Probably binge watching a TV show",
                     icon: "/static/images/profile_pictures/jmrnd.jpeg" });
@@ -50,7 +50,7 @@ async function main() {
     console.log("-- Users created");
 
     const joolzie123 = await User.findOne({ username: "joolzie123"});
-    const coc_man_2099 = await User.findOne({ username: "coc_man_2099"});
+    const jmrnd = await User.findOne({ username: "jmrnd"});
     const coco_san00 = await User.findOne({ username: "coco_san00"});
     const gundamn = await User.findOne({ username: "gundamn"});
     const cirup29 = await User.findOne({ username: "cirup29"});
@@ -69,7 +69,7 @@ async function main() {
     const post2 = await Post.create({    title: "Favorite Binge-Worthy TV Shows",
                         body: "Calling all TV addicts! Let's talk about our favorite binge-worthy TV shows. Which series have kept you glued to the screen, eagerly clicking that \"Next Episode\" button? Whether it's gripping dramas, hilarious comedies, or thrilling sci-fi, share your top picks and let's indulge in some television talk!",
                         postDate: "2023-04-14T16:00:00.000Z",
-                        author: coc_man_2099._id,
+                        author: jmrnd._id,
                         totalVotes: "10",
                         totalComments: "3",
                         upVoters: [],
@@ -142,7 +142,7 @@ async function main() {
     });
 
     const comment3 = await Comment.create({
-        author: coc_man_2099._id,
+        author: jmrnd._id,
         commentDate: "06/18/2023",
         totalVotes: 3,
         isDeleted: false,
@@ -198,7 +198,7 @@ async function main() {
     });
 
     const comment8 = await Comment.create({
-        author: coc_man_2099._id, //reply to joolzie
+        author: jmrnd._id, //reply to joolzie
         commentDate: "05/01/2020",
         totalVotes: 8,
         isDeleted: false,
