@@ -1,5 +1,3 @@
-import Quill from "quill";
-
 const textEditor = new Quill("#editor-container", {
     theme: "snow",
     placeholder: "Write something...",

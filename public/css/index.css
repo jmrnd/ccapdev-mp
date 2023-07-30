@@ -43,7 +43,7 @@ body {
 .search-container input {
   width: 700px;
   height: 35px;
-  border-radius: 17px;
+  border-radius: 15px;
 }
 
 .search-container > input:focus {
