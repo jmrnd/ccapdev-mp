@@ -25,7 +25,7 @@ async function main() {
                     password: "111111",
                     email: "jamarmiranda@gmail.com",
                     description: "Probably binge watching a TV show",
-                    icon: "/static/images/profile_pictures/jmrnd.jpeg" });
+                    icon: "/static/images/profile_pictures/jmrnd.jpg" });
 
     await User.create({   username: "coco_san00",
                     displayName: "Coco",
