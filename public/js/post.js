@@ -46,15 +46,6 @@ sortUpvotesBtn.classList.toggle("active", activeSort === 1);
 sortDateBtn.addEventListener("click", () => toggleSort(0));
 sortUpvotesBtn.addEventListener("click", () => toggleSort(1));
 
-// COMMENT BOX TEXTAREA
-const textarea = document.querySelector("textarea");
-    textarea.addEventListener("keyup", e => {
-    textarea.style.height = "102px";
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
-});
-
-
 // DELETE POST CONFIRMATION
 const deleteButtons = document.querySelectorAll(".delete-post-button");
 

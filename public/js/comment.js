@@ -1,3 +1,4 @@
+// EDIT COMMENT
 // Get all the edit comment buttons
 const editCommentBtns = document.querySelectorAll(".edit-comment-btn");
 const deleteCommentBtns = document.querySelectorAll(".delete-comment-btn");
@@ -61,7 +62,7 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
     }});
 })});
 
-/*** DELETE COMMENT ***/
+// DELETE COMMENT
 deleteCommentBtns.forEach(event => {event.addEventListener("click", async function (e) {
     const confirmed = window.confirm('Are you sure you want to delete this comment?');
 
@@ -70,7 +71,6 @@ deleteCommentBtns.forEach(event => {event.addEventListener("click", async functi
         get_path = e.target.id;
         console.log(get_path);
         
-
         try {
             const dataArray = get_path.split('/');
             const data = {
@@ -101,3 +101,11 @@ deleteCommentBtns.forEach(event => {event.addEventListener("click", async functi
         console.log('Deletion canceled!');
     }
 })});
+
+// COMMENT BOX TEXTAREA
+const textarea = document.querySelector("textarea");
+    textarea.addEventListener("keyup", e => {
+    textarea.style.height = "102px";
+    let scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
+});
