@@ -6,7 +6,7 @@ import { Post } from "../models/Post.js";
 import profileRouter from "./profileRouter.js";
 import postRouter from "./postRouter.js";
 import searchRouter from "./searchRouter.js";
-import entryRouter from "./entryRouter.js";
+import authRouter from "./authRouter.js";
 
 const router = Router();
 
@@ -67,6 +67,6 @@ router.get("/homepage", (req, res) => {
 router.use(profileRouter);
 router.use(postRouter);
 router.use(searchRouter);
-router.use(entryRouter);
+router.use(authRouter);
 
 export default router;

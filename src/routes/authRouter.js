@@ -2,9 +2,9 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import express from 'express';
 
-const entryRouter = Router();
+const authRouter = Router();
 
-entryRouter.get("/sign-up", async (req, res) => {
+authRouter.get("/sign-up", async (req, res) => {
     try {
         res.render("sign-up", {
             layout: 'userEntry.hbs'
@@ -16,7 +16,7 @@ entryRouter.get("/sign-up", async (req, res) => {
     }
 })
 
-entryRouter.post("/sign-up",  async (req, res) => {
+authRouter.post("/sign-up",  async (req, res) => {
     try{
         await User.create(req.body);
         res.redirect("/login")
@@ -26,16 +26,16 @@ entryRouter.post("/sign-up",  async (req, res) => {
     }
 });
 
-entryRouter.get("/login", async(req, res) => {
+authRouter.get("/login", async(req, res) => {
     res.render("login", {
         layout: 'userEntry.hbs'
     });
     console.log("Currently in: Login Page")
 });
 
-entryRouter.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+authRouter.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
-entryRouter.post("/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
     const {email, password} = req.body; // Get email and password
     const user = await User.findOne({email}).exec(); // Find email in User
 
@@ -61,10 +61,10 @@ entryRouter.post("/login", async (req, res) => {
     }
 });
 
-entryRouter.get("/logout", async(req, res) => {
+authRouter.get("/logout", async(req, res) => {
     await UserSession.findOneAndDelete({}).exec();
     console.log("Just Logged out");
     res.redirect("/");
 })
 
-export default entryRouter;
+export default authRouter;
