@@ -1,55 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ headerTitle }}</title>
-    {{>headext}}
-</head>
-<body>
-
-    {{#if userFound}}
-        {{> navbar-registered}}
-    {{else}}
-        {{> navbar-unregistered}}
-    {{/if}}
-
-    <!-- Search keyword -->
-    <div class="container">
-      <div class="row d-flex justify-content-center">
+<div class="container">
+    <div class="row d-flex justify-content-center">
         <div class="col-md-7 mt-2">
-          <divclass="rounded d-flex justify-content-start align-items-center py-1 mt-2">
-            <h3 class="fw-bolder my-4" id="searchResultsHeading">Showing results for "{{{searchText}}}"</h3>
-          </div>
+            <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
+                <h3 class="fw-bolder my-4" id="searchResultsHeading">Showing results for "{{{searchText}}}"</h3>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    <!-- Sort button groups -->
+{{!-- SORT FILTERS --}}
+{{#if posts.length}}
+    {{> sort-buttons}}
+{{/if}}
+
+<!-- RESULTS -->
+<div class="container" id="postsContainer">
     {{#if posts.length}}
-        {{> sort-buttons}}
+        {{#each posts}}
+            {{#if (isEqual this.author.username @root.currentUser.username)}}
+                {{> mypost-card post=this isIndex=@root.isIndex}}
+            {{else}}
+                {{> otherpost-card post=this isIndex=@root.isIndex}}
+            {{/if}} 
+        {{/each}}
+    {{else}}
+        {{!-- TODO: update style --}}
+        <center>
+            <p>No results for "{{searchText}}"</p> 
+        </center>
     {{/if}}
-    
-    <!-- Display results -->
-
-    <div class="container" id="postsContainer">
-        {{#if posts.length}}
-            {{#each posts}}
-                {{#if (isEqual this.author.username @root.currentUser.username)}}
-                    {{> mypost-card post=this isIndex=@root.isIndex}}
-                {{else}}
-                    {{> otherpost-card post=this isIndex=@root.isIndex}}
-                {{/if}} 
-            {{/each}}
-        {{else}}
-            {{!-- TODO: update style --}}
-            <center>
-                <p>No results for "{{searchText}}"</p> 
-            </center>
-        {{/if}}
-    </div>
-
-</body>
-</html>
+</div>

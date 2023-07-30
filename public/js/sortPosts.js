@@ -44,3 +44,10 @@ sortUpvotesBtn.classList.toggle("active", activeSort === 1);
 // Add event listeners for the first time
 sortDateBtn.addEventListener("click", () => toggleSort(0));
 sortUpvotesBtn.addEventListener("click", () => toggleSort(1));
+
+const textarea = document.querySelector("textarea");
+    textarea.addEventListener("keyup", e => {
+    textarea.style.height = "102px";
+    let scHeight = e.target.scrollHeight;
+    textarea.style.height = `${scHeight}px`;
+});

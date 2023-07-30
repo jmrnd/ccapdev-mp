@@ -1,47 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{{!-- CREATE-POST --}}
+{{#if userFound}}
+    {{> create-postbox}}
+{{else}}
+    {{> unregistered-create-post}}
+{{/if}}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ headerTitle }}</title>
+{{!-- POST FILTERS --}}
+{{> sort-buttons}}
 
-    {{>headext}}
-    
-</head>
-<body>
-
-    <!-- Navbar -->
-    {{#if userFound}}
-        {{>navbar-registered}}
-    {{else}}
-        {{>navbar-unregistered}}
-    {{/if}}
-
-
-    <!-- CreatePost -->
-    {{#if userFound}}
-        {{>create-postbox}}
-    {{else}}
-        {{>unregistered-create-post}}
-    {{/if}}
-
-    {{>sort-buttons}}
-
-
-    <!-- Start of posts -->
-    <div class="container" id="postsContainer">
-
-        {{#each posts}}
-            {{#if (isEqual this.author.username @root.currentUser.username)}}
-                {{> mypost-card post=this isIndex=@root.isIndex}}
-            {{else}}
-                {{> otherpost-card post=this isIndex=@root.isIndex}}
-            {{/if}}
-        {{/each}}
-
-    </div>
-
-</body>
-</html>
+{{!-- POSTS --}}
+<div class="container" id="postsContainer">
+    {{#each posts}}
+        {{#if (isEqual this.author.username ../currentUser.username)}}
+            {{> mypost-card this isIndex=../isIndex}}
+        {{else}}
+            {{> otherpost-card this isIndex=../isIndex}}
+        {{/if}}
+    {{/each}}
+</div>

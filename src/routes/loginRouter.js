@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
 import { UserSession } from "../models/UserSession.js";
-// import MongoDBSession from "connect-mongodb-session";
 import express from 'express';
 
 const loginRouter = Router();
 
 loginRouter.get("/login", async(req, res) => {
-    res.render("login");
+    res.render("login", {
+        layout: 'account.hbs'
+    });
     console.log("Currently in: Login Page")
 })
 

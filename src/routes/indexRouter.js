@@ -16,7 +16,7 @@ router.get("/", async function (req, res) {
     try {
         const checkSession = await UserSession.findOne({});
 
-        const posts = await Post.find({}).populate("author");
+        const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -26,21 +26,16 @@ router.get("/", async function (req, res) {
         });
 
       if(checkSession){
-        const currentSession = await UserSession.findOne({}).populate("userID");
-        const currentUser = await User.findOne({ _id: currentSession.userID });
-
-        const processCurrentUser = {
-            username: currentUser.username,
-            icon: currentUser.icon,
-        };
+        const currentSession = await UserSession.findOne({}).populate("userID").exec();
+        const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
 
         if (currentUser) {
           res.render("index", {
             isIndex: true, // This is for adjusting post-width
             userFound: true,
             activeUserSession: currentSession,
-            headerTitle: "foroom",
-            currentUser: processCurrentUser,
+            pageTitle: "foroom",
+            currentUser: currentUser,
             posts: postsArray,
           });
         }
@@ -51,7 +46,7 @@ router.get("/", async function (req, res) {
         res.render("index", {
           isIndex: true,
           userFound: false,
-          headerTitle: "foroom",
+          pageTitle: "foroom",
           icon: "/static/images/profile_pictures/pfp_temp.svg",
           posts: postsArray,
         });

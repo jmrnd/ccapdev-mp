@@ -12,7 +12,9 @@ const signUp_Router = Router();
 /* View Sign Up Page */
 signUp_Router.get("/sign-up", async (req, res) => {
     try {
-        res.render("sign-up");
+        res.render("sign-up", {
+            layout: 'account.hbs'
+        });
         console.log("Currently in: Sign Up Page")
     }
     catch (error) {

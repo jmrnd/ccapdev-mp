@@ -8,7 +8,7 @@ const searchRouter = Router();
 searchRouter.get("/search", async (req, res) => {
     try {
         const searchText = req.query.q;
-        const checkSession = await UserSession.findOne({});
+        const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
         if (searchText === "") {
             res.redirect("/");
@@ -19,7 +19,7 @@ searchRouter.get("/search", async (req, res) => {
                 { title: { $regex: searchText, $options: "i" } },
                 { body: { $regex: searchText, $options: "i" } },
             ],
-        }).populate("author");
+        }).populate("author").exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -29,19 +29,14 @@ searchRouter.get("/search", async (req, res) => {
         });
 
         if (checkSession) {
-            const currentSession = await UserSession.findOne({}).populate("userID");
-            const currentUser = await User.findOne({ _id: currentSession.userID });
+            const currentUser = await User.findOne({ _id: checkSession.userID }).lean().exec();
 
             if (currentUser) {
-                const processCurrentUser = {
-                    username: currentUser.username,
-                    icon: currentUser.icon,
-                };
                 res.render("search-results", {
                     isIndex: true,
                     userFound: true,
-                    headerTitle: "foroom",
-                    currentUser: processCurrentUser,
+                    pageTitle: "foroom",
+                    currentUser: currentUser,
                     posts: postsArray,
                     searchText: searchText,
                 });
@@ -52,7 +47,7 @@ searchRouter.get("/search", async (req, res) => {
             res.render("index", {
                 isIndex: true,
                 userFound: false,
-                headerTitle: "foroom",
+                pageTitle: "foroom",
                 icon: "/static/images/profile_pictures/pfp_temp.svg",
                 posts: postsArray,
             });

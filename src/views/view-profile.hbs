@@ -1,81 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{user.username}}</title>
-
-    {{>headext}}
-    <link rel="stylesheet" href="/static/css/view-profile-stylesheet.css">
-</head>
-
-<body>
-
-     <!-- Navbar -->
-    {{#if userFound}}
-        {{>navbar-registered }}
-    {{else}}
-        {{>navbar-unregistered}}
-    {{/if}}
-
-
-    <!-- User Content -->
-    <div class="container-fluid p-5 ">
-        <div class="row mx-5 g-3">
-            <!-- User Profile Card-->
-            <div class="col-xl-2 col-lg-2 col-md-12">
-                <div class="card view-profile-card rounded-2">
-                    <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
-                        <img src="{{ viewUser.icon }}" alt="profile picture"
-                            class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+<!-- User Content -->
+<div class="container-fluid p-5 ">
+    <div class="row mx-5 g-3">
+        <!-- User Profile Card-->
+        <div class="col-xl-2 col-lg-2 col-md-12">
+            <div class="card view-profile-card rounded-2">
+                <div class="card-body text-center px-lg-5 px-md-2 py-5 rounded-2">
+                    <img src="{{ viewUser.icon }}" alt="profile picture"
+                        class="profile-pic img-fluid col-xl-9 col-lg-9 col-md-4">
+                    <br>
+                    {{#if (isEqual currentUser.username viewUser.username)}}
+                        <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
+                    {{else}}
                         <br>
-                        {{#if (isEqual currentUser.username viewUser.username)}}
-                            <a href="/edit-profile" class="btn edit-profile-btn my-4">Edit Profile</a>
-                        {{else}}
-                            <br>
-                        {{/if}}
-                        <h5 class="card-title display-name">{{ viewUser.displayName }}</h5>
-                        <h6 class="card-subtitle text-muted username">{{ viewUser.username }}</h6>
-                        <br>
-                        <p class="card-text bio">
-                            {{{ viewUser.description }}}
-                        </p>
-                    </div>
+                    {{/if}}
+                    <h5 class="card-title display-name">{{ viewUser.displayName }}</h5>
+                    <h6 class="card-subtitle text-muted username">{{ viewUser.username }}</h6>
+                    <br>
+                    <p class="card-text bio">
+                        {{{ viewUser.description }}}
+                    </p>
                 </div>
             </div>
-            <!-- User Latest Posts Card-->
-            <div class="col-xl-10 col-lg-10 col-md-12">
-                <div class="latest-post-card card p-4 rounded-2">
-                    <h2 class="latest-post-card-title">Latest Posts</h2>
-                    <!-- Post Cards -->
-                    {{#each posts}}
-                        {{#if (isEqual @root.currentUser.username @root.viewUser.username)}}
-                            {{> mypost-card post=this isIndex=@root.isIndex}}
-                        {{else}}
-                            {{> otherpost-card post=this isIndex=@root.isIndex}}
-                        {{/if}}
-                    {{/each}}
-                    <!-- View More Button -->
-                    <div class="row d-flex flex-column">
-                        {{#if posts.length}}
-                            <div class="col mt-3 text-end">
-                                <a href="/view-all-posts/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
-                            </div>
-                        {{else}}
-                            <div class="col-md-8" style="color: white;">
-                                <br>
-                                Hmmm... This user has no posts yet.
-                                <br>
-                                <br>
-                            </div>
-                        {{/if}}
-                    </div>
+        </div>
+
+        <!-- User Latest Posts Card-->
+        <div class="col-xl-10 col-lg-10 col-md-12">
+            <div class="latest-post-card card p-4 rounded-2">
+                <h2 class="latest-post-card-title">Latest Posts</h2>
+                <!-- Post Cards -->
+                {{#each posts}}
+                    {{#if (isEqual ../currentUser.username ../viewUser.username)}}
+                        {{> mypost-card this isIndex=../isIndex}}
+                    {{else}}
+                        {{> otherpost-card this isIndex=../isIndex}}
+                    {{/if}}
+                {{/each}}
+                <!-- View More Button -->
+                <div class="row d-flex flex-column">
+                    {{#if posts.length}}
+                        <div class="col mt-3 text-end">
+                            <a href="/view-all-posts/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
+                        </div>
+                    {{else}}
+                        <div class="col-md-8" style="color: white;">
+                            <br> Hmmm... This user has no posts yet. <br> <br>
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         </div>
     </div>
-</body>
-
-</html>
+</div>
