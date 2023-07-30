@@ -3,8 +3,7 @@ const editCommentBtns = document.querySelectorAll(".edit-comment-btn");
 const deleteCommentBtns = document.querySelectorAll(".delete-comment-btn");
 
 // Add click event listener to each edit comment button
-editCommentBtns.forEach(event => {
-event.addEventListener("click", function (e) {
+editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
     e.preventDefault();
 
     // we get the body where the text and try to replace it with an input
@@ -41,6 +40,9 @@ event.addEventListener("click", function (e) {
                 updateComment: commentText.textContent,
             }
 
+            console.log(paramId);
+            console.log(get_id);
+
             const res = fetch(get_id, {
                 method: 'PATCH',
                 headers: {
@@ -63,34 +65,33 @@ event.addEventListener("click", function (e) {
 });
 
 /*** DELETE COMMENT ***/
- deleteCommentBtns.forEach(event => {
-    event.addEventListener("click", async function (e) {
+deleteCommentBtns.forEach(event => {event.addEventListener("click", async function (e) {
 
-      const confirmed = window.confirm('Are you sure you want to delete this comment?');
-      console.log(confirmed);
+    const confirmed = window.confirm('Are you sure you want to delete this comment?');
+    console.log(confirmed);
 
-      // If user confirms (OK button clicked), proceed with deletion
-      if (confirmed) {
+    // If user confirms (OK button clicked), proceed with deletion
+    if (confirmed) {
 
-          get_path = e.target.id;
-          console.log(get_path);
-          // fetch req
-          try {
-            const response = await fetch(get_path);
-            const data = await response.json();
-            // Handle the response data here
-            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-            
-            commentElement.remove();
-            console.log(data);
-          } catch (error) {
-            // Handle errors here
-            console.error('Error deleting comment:', error);
-          }
-        } else {
-          // If user cancels (Cancel button clicked), do nothing or provide feedback
-          console.log('Deletion canceled!');
+        get_path = e.target.id;
+        console.log(get_path);
+        // fetch req
+        try {
+        const response = await fetch(get_path);
+        const data = await response.json();
+        // Handle the response data here
+        const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+        
+        commentElement.remove();
+        console.log(data);
+        } catch (error) {
+        // Handle errors here
+        console.error('Error deleting comment:', error);
         }
+    } else {
+        // If user cancels (Cancel button clicked), do nothing or provide feedback
+        console.log('Deletion canceled!');
+    }
   })
 });
 
