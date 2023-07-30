@@ -1,78 +1,73 @@
-<!--main post-->
+<!-- POST -->
 <div class="row d-flex justify-content-center">
     <div class="col-md-7">
-        <div class="card mt-2 mb-0">
+        <div class="card mt-4 mb-0">
             <div class="card-body rounded">
+                {{!-- POST HEADER --}}
                 <div class="d-flex justify-content-between mt-2">
-                    <div>
-                    <img class="rounded-circle ms-3" src="{{postAuthor.icon}}" alt="profile_picture" width="40" height="40">
-                    <span class="post-author pt-2">
-                    <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2">{{postAuthor.username}}</a>
-                    </span>
-                    <span class="post-author mx-1 pt-1 fw-sm fs-7">• {{relativeTime post.postDate}}</span>
+                     <div>
+                        <img class="rounded-circle ms-3" src="{{postAuthor.icon}}" alt="profile_picture" width="40" height="40">
+                        <span class="post-author pt-2">
+                        <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2">{{postAuthor.username}}</a>
+                        </span>
+                        <span class="post-author mx-1 pt-1 fw-sm fs-7">• Posted {{relativeTime post.postDate}}</span>
                     </div>
 
-        <div class="d-flex align-items-center">
-        {{#if (isEqual postAuthor.username currentUser.username)}}
-            <div class="iconGrid">
-                <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"aria-haspopup="true">
-                    <i class="bi bi-three-dots iconGrid-color"></i>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <a class="dropdown-item" href="/edit-post/{{postId}}">Edit Post<i class="bi bi-pencil ms-2"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item delete-post text-danger" href="/delete-post/{{postId}}">Delete Post<i class="bi bi-trash ms-2"></i>
-                        </a>
-                    </li>
+                    {{!-- MORE OPTIONS --}}
+                    <div class="d-flex align-items-center">
+                        {{#if (isEqual postAuthor.username currentUser.username)}}
+                            <div class="iconGrid">
+                                <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"aria-haspopup="true">
+                                    <i class="bi bi-three-dots iconGrid-color"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a class="dropdown-item" href="/edit-post/{{postId}}">Edit Post<i class="bi bi-pencil ms-2"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item delete-post text-danger" href="/delete-post/{{postId}}">Delete Post<i class="bi bi-trash ms-2"></i>
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        {{/if}}
+                    </div>
                 </div>
-            </div>
-        {{/if}}
-        </div>
-        </div>
-        <div class="post-content">
-            <div class="d-flex flex-row justify-content-start align-baseline" id="title">
-                <p class="post-title" id="postTitle">{{{post.title}}}</p>
-            </div>
 
-            <div class="post-para" id="post">
-                <p class="post-text" id="postText">
-                {{{post.body}}}
-                </p>
-            </div>
+                {{!-- POST CONTENT --}}
+                <div class="post-content">
+                    <p class="post-title" id="postTitle">{{{post.title}}}</p>
+                    {{{post.body}}}<br><br>
+                    <div class="flex-center iconGrid">
+                        <i id="upvoteIcon/{{postId}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{postId}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
+                        <i id="downvoteIcon/{{postId}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote" ></i>
+                        <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                        <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
+                    </div>
 
-            <div class="flex-center iconGrid">
-                <i id="upvoteIcon/{{postId}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
-                <span id="voteCount/{{postId}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
-                <i id="downvoteIcon/{{postId}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote" ></i>
-                <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
-                <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
-            </div>
-
-            <!--Comment box-->
-            {{#if userFound}}
-                <hr style="width: 100%">
-                <div class="comment-box-container">
-                        <span class="post-author ms-1 pt-2" id="commenting-as">Commenting as {{ currentUser.username }}</span>
-                    <form action="/create_comment/{{postId}}" method="post">
-                    <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
-                    id="CommentBox"></textarea>
-                    <button type="submit" class="comment-button rounded">Comment</button>
-                    </form>
+                    <!-- COMMENT BOX -->
+                    {{#if userFound}}
+                        <hr style="width: 100%">
+                        <div class="comment-box-container">
+                                <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
+                            <form action="/create_comment/{{postId}}" method="post">
+                            <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a Comment ..."
+                            id="CommentBox"></textarea>
+                            <button type="submit" class="comment-button rounded">Comment</button>
+                            </form>
+                        </div>
+                    {{/if}}
                 </div>
-            {{/if}}
-            </div>
             </div>
         </div>
     </div>
-    <span class="comment-label col-sm-6 mt-3 mb-2">Comments:</span>
 </div>
 
-{{!-- Check if there is a comment --}}
+{{!-- COMMENTS --}}
 {{#if comments}}
-    <div class="comment-space-container" id="commentSpace"> <!-- comments section-->
+    <div class="comment-space-container" id="commentSpace">
         {{#each comments}}
             {{#if (isEqual this.author.username ../currentUser.username)}}
                 {{>myComment this postId=../postId }}
