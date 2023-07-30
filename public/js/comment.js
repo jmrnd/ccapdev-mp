@@ -51,10 +51,8 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
 
         if(response.status == 200) { // Serevr successfully updates comment
             const responseData = await response.json();
-            const data = responseData.editDate;
-            const editDate = moment(data);
-            const newEditDate = editDate.fromNow();
-            commentDate.innerText = `• edited ${newEditDate}`;
+            const editDate = moment(responseData.editDate).fromNow();
+            commentDate.innerText = `• edited ${editDate}`;
         }
 
         } catch (err) {
