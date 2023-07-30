@@ -7,23 +7,23 @@ const profileRouter = Router();
 // Retrieve edit profile page
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
-        const session = await UserSession.findOne({});
+        const session = await UserSession.findOne({}).exec();
         if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
-    
-        if (currentUser) {
-            // User found
-            res.render("edit-profile", {
-                username: currentUser.username,
-                displayName: currentUser.displayName,
-                password: currentUser.password,
-                email: currentUser.email,
-                description: currentUser.description,
-                icon: currentUser.icon
-            });
-        } else {
-            res.status(404).send("User Not Found");
-        }
+            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+            if (currentUser) {
+                // User found
+                res.render("edit-profile", {
+                    layout: 'profile.hbs',
+                    username: currentUser.username,
+                    displayName: currentUser.displayName,
+                    password: currentUser.password,
+                    email: currentUser.email,
+                    description: currentUser.description,
+                    icon: currentUser.icon
+                });
+            } else {
+                res.status(404).send("User Not Found");
+            }
         } else {
             res.status(404).send("Session Not Found");
         }
@@ -37,8 +37,8 @@ profileRouter.get("/edit-profile", async (req, res) => {
 profileRouter.patch("/edit-profile", async (req, res) => {
     console.log("PATCH request received for /users");
     try {
-        const session = await UserSession.findOne({});
-        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true })
+        const session = await UserSession.findOne({}).exec();
+        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
         res.sendStatus(200);
     } catch (error) {
       console.error(error);
@@ -50,9 +50,8 @@ profileRouter.patch("/edit-profile", async (req, res) => {
 profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
         const usernameParam = req.params.username;
-        const viewUser = await User.findOne({ username: usernameParam});
-
-        const posts = await Post.find({ author: viewUser._id}).populate("author");
+        const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
+        const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -61,30 +60,19 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             };
         });
 
-        const viewUserData = {
-            username: viewUser.username,
-            displayName: viewUser.displayName,
-            description: viewUser.description,
-            icon: viewUser.icon
-        }
-
-        const session = await UserSession.findOne({});
+        const session = await UserSession.findOne({}).exec();
 
         console.log(session);
         // Checks if user is logged in
         if(session) {
-            const currentUser = await User.findOne({ _id: session.userID });
-            const currUserData = {
-                username: currentUser.username,
-                icon: currentUser.icon
-            }
+            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
             if (currentUser) {
                 // User found
                 res.render("view-profile", {
                     userFound: true,
                     isIndex: false,
-                    currentUser: currUserData,
-                    viewUser: viewUserData,
+                    currentUser: currentUser,
+                    viewUser: viewUser,
                     posts: postsArray,
                 });
             } else {
@@ -113,22 +101,25 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         const posts = await Post.find({ author: viewUser._id}).populate({
             path: 'author',
             select: 'username',
-        }).lean();
-        const session = await UserSession.findOne({});
+        }).lean().exec();
+
+        const postsArray = posts.map((post) => {
+            return {
+                ...post.toObject(),
+                totalComments: post.comments.length,
+            };
+        });
+        
+        const session = await UserSession.findOne({}).exec();
 
         if(session) {
-            const currentUser = await User.findOne({ _id: session.userID });
-
-            const currUserData = {
-                username: currentUser.username,
-                icon: currentUser.icon
-            }
+            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
 
             if (currentUser) {
                 res.render("view-all-posts", {
                     isIndex: true, // This is for adjusting post-width
                     userFound: true,
-                    currentUser: currUserData,
+                    currentUser: currentUser,
                     posts: posts,
                 });
             } else {

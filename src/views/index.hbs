@@ -1,20 +1,20 @@
 {{!-- CREATE-POST --}}
 {{#if userFound}}
-    {{> create-postbox}}
+    {{> myCreatePostBox}}
 {{else}}
-    {{> unregistered-create-post}}
+    {{> guestCreatePostBox}}
 {{/if}}
 
 {{!-- POST FILTERS --}}
-{{> sort-buttons}}
+{{> filterBox}}
 
 {{!-- POSTS --}}
 <div class="container" id="postsContainer">
     {{#each posts}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> mypost-card this isIndex=../isIndex}}
+            {{> myPostCard this isIndex=../isIndex}}
         {{else}}
-            {{> otherpost-card this isIndex=../isIndex}}
+            {{> otherPostCard this isIndex=../isIndex}}
         {{/if}}
     {{/each}}
 </div>

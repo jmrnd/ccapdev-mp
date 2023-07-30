@@ -68,9 +68,9 @@
     <div class="comment-space-container" id="commentSpace">
         {{#each comments}}
             {{#if (isEqual this.author.username ../currentUser.username)}}
-                {{>myComment this postId=../postId }}
+                {{> myComment this postId=../postId }}
             {{else}}
-                {{>otherComment postId=../postId}}
+                {{> otherComment postId=../postId}}
             {{/if}}
         {{/each}}
     </div>

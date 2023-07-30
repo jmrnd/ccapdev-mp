@@ -1,0 +1,9 @@
+<div class="container" id="postsContainer">
+    {{#each posts}}
+        {{#if (isEqual this.author.username @root.currentUser.username)}}
+            {{> myPostCard post=this isIndex=@root.isIndex}}
+        {{else}}
+            {{> otherPostCard post=this isIndex=@root.isIndex}}
+        {{/if}}
+    {{/each}}
+</div>

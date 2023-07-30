@@ -6,8 +6,7 @@ import { Post } from "../models/Post.js";
 import profileRouter from "./profileRouter.js";
 import postRouter from "./postRouter.js";
 import searchRouter from "./searchRouter.js";
-import signUp_Router from "./signUpRouter.js";
-import loginRouter from "./loginRouter.js";
+import entryRouter from "./entryRouter.js";
 
 const router = Router();
 
@@ -68,7 +67,6 @@ router.get("/homepage", (req, res) => {
 router.use(profileRouter);
 router.use(postRouter);
 router.use(searchRouter);
-router.use(signUp_Router);
-router.use(loginRouter);
+router.use(entryRouter);
 
 export default router;

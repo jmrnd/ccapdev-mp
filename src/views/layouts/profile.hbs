@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{pageTitle}}</title>
-
+    <title>{{currentUser.username}}</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
@@ -16,25 +16,13 @@
 
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script defer src="https://kit.fontawesome.com/f3e84a984d.js" crossorigin="anonymous"></script>
-    <script defer src="/static/js/sortPosts.js"></script>
-    <script defer src="/static/js/votes.js"></script>
-    <script defer src="/static/js/delete-notifs.js"></script>
-    <script defer src="/static/js/commentFunc.js"></script>
-    <script defer src="/static/js/sign-up.js"></script>
-    <script defer src="/static/js/reply.js"></script>
 
+    <script defer src="/static/js/profile.js"></script>
     <link rel="stylesheet" href="/static/css/stylesheet.css">
-    <link rel="stylesheet" href="/static/css/post.css">
     <link rel="stylesheet" href="/static/css/view-profile-stylesheet.css">
+    <link rel="stylesheet" href="/static/css/edit-profile-stylesheet.css">
 </head>
 <body>
-    {{!-- NAVBAR --}}
-    {{#if userFound}}
-        {{> myNavbar}}
-    {{else}}
-        {{> guestNavbar}}
-    {{/if}}
-
     {{{body}}}
 </body>
 </html>
