@@ -1,163 +1,50 @@
-{{#if isIndex}}
-    <div
-        class="post-card row d-flex justify-content-center"
-        data-date="{{this.postDate}}"
-        data-upvotes="{{this.totalVotes}}"
-    >
-        <div class="col-md-7">
-            <div class="card mt-2 mb-0">
-                <div class="card-body rounded">
-                    <div
-                        class="d-flex flex-row justify-content-start align-baseline"
-                    >
-                        <a
-                            href="/view-post/{{this._id}}"
-                            class="card-title link-underline link-underline-opacity-0"
-                        >{{{this.title}}}</a>
-                        <span class="post-author ms-1 pt-2">
-                            <a
-                                href="/view-profile/{{this.author.username}}"
-                                class="post-author-link link-underline link-underline-opacity-0"
-                            >• Posted by {{this.author.username}}</a>
-                            <span class="post-date">{{relativeTime
-                                    this.postDate
-                                }}</span>
-                        </span>
+<div class="post-card row d-flex justify-content-center" data-date="{{this.postDate}}" data-upvotes="{{this.totalVotes}}">
+    {{#if isIndex}}
+    <div class="col-md-7">
+    {{else}}
+    <div class="col-md-0">
+    {{/if}}
+        <div class="card mt-2 mb-0">
+            <div class="card-body rounded">
+                <div class="d-flex flex-row justify-content-start align-baseline">
+                    <a href="/view-post/{{this._id}}" class="card-title link-underline link-underline-opacity-0">{{{this.title}}}</a>
+                    <span class="post-author ms-1 pt-2">
+                        <a href="/view-profile/{{this.author.username}}" class="post-author-link link-underline link-underline-opacity-0">• Posted by {{this.author.username}}</a>
+                        <span class="post-date">{{relativeTime this.postDate}}</span>
+                    </span>
+                </div>
+                <p class="card-text custom-truncate">{{{this.body}}}</p>
+                <div class="d-flex align-items-center justify-content-between">
+                    {{!-- ICON GRID --}}
+                    <div class="flex-center iconGrid">
+                        <i id="upvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{this.totalVotes}}</span>
+                        <i id="downvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                        <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                        <span class="iconGrid-text mx-1">{{this.totalComments}} comments</span>
                     </div>
-                    <p class="card-text custom-truncate">{{{this.body}}}</p>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="flex-center iconGrid">
-                                <i
-                                    id="upvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
-                                ></i>
-                                <span
-                                    id="voteCount/{{this._id}}"
-                                    class="iconGrid-text mx-1"
-                                >{{this.totalVotes}}</span>
-                                <i
-                                    id="downvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
-                                ></i>
-                                <i
-                                class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"
-                            ></i>
-                            <span class="iconGrid-text mx-1">{{this.totalComments}}
-                                comments</span>
-                        </div>
-                        <div class="iconGrid">
-                            <button
-                                class="btn btn-sm"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-haspopup="true"
-                            >
-                                <i class="bi bi-three-dots iconGrid-color"></i>
-                            </button>
-                            <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                            >
-                                <li><a
-                                        class="dropdown-item"
-                                        href="/edit-post/{{this._id}}"
-                                    >Edit Post<i
-                                            class="bi bi-pencil ms-2"
-                                        ></i></a></li>
-                                <li><a
-                                        class="dropdown-item delete-post text-danger"
-                                        href="/delete-post/{{this._id}}"
-                                    >Delete Post<i
-                                            class="bi bi-trash ms-2"
-                                        ></i></a></li>
-                            </div>
+                    {{!-- MORE OPTIONS --}}
+                    <div class="iconGrid">
+                        <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                            <i class="bi bi-three-dots iconGrid-color"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" href="/edit-post/{{this._id}}">
+                                    Edit Post
+                                    <i class="bi bi-pencil ms-2"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item delete-post text-danger" href="/delete-post/{{this._id}}">
+                                    Delete Post
+                                    <i class="bi bi-trash ms-2"></i>
+                                </a>
+                            </li>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-{{else}}
-        <div
-        class="post-card row d-flex justify-content-center"
-        data-date="{{this.postDate}}"
-        data-upvotes="{{this.totalVotes}}"
-    >
-        <div class="col">
-            <div class="card mt-2 mb-0">
-                <div class="card-body rounded">
-                    <div
-                        class="d-flex flex-row justify-content-start align-baseline"
-                    >
-                        <a
-                            href="/view-post/{{this._id}}"
-                            class="card-title link-underline link-underline-opacity-0"
-                        >{{{this.title}}}</a>
-                        <span class="post-author ms-1 pt-2">
-                            <a
-                                href="/view-profile/{{this.author.username}}"
-                                class="post-author-link link-underline link-underline-opacity-0"
-                            >• Posted by {{this.author.username}}</a>
-                            <span class="post-date">{{relativeTime
-                                    this.postDate
-                                }}</span>
-                        </span>
-                    </div>
-                    <p class="card-text custom-truncate">{{{this.body}}}</p>
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="flex-center iconGrid">
-                                <i
-                                    id="upvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"
-                                ></i>
-                                <span
-                                    id="voteCount/{{this._id}}"
-                                    class="iconGrid-text mx-1"
-                                >{{this.totalVotes}}</span>
-                                <i
-                                    id="downvoteIcon/{{this._id}}"
-                                    class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"
-                                ></i>
-                                <i
-                                class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"
-                            ></i>
-                            <span class="iconGrid-text mx-1">{{this.totalComments}}
-                                comments</span>
-                        </div>
-                        <div class="iconGrid">
-                            <button
-                                class="btn btn-sm"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                aria-haspopup="true"
-                            >
-                                <i class="bi bi-three-dots iconGrid-color"></i>
-                            </button>
-                            <div
-                                class="dropdown-menu"
-                                aria-labelledby="dropdownMenuButton"
-                            >
-                                <li><a
-                                        class="dropdown-item"
-                                        href="/edit-post/{{this._id}}"
-                                    >Edit Post<i
-                                            class="bi bi-pencil ms-2"
-                                        ></i></a></li>
-                                <li><a
-                                        class="dropdown-item delete-post text-danger"
-                                        href="/delete-post/{{this._id}}"
-                                    >Delete Post<i
-                                            class="bi bi-trash ms-2"
-                                        ></i></a></li>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{{/if}}
+</div>
