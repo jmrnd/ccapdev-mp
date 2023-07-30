@@ -75,6 +75,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         if (post) {
             if (userSession) {
                 res.render("view-post", {
+                    pageTitle: post.title,
                     postId: postId,
                     userFound: true,
                     currentUser: {
@@ -91,6 +92,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 });
             } else {
                 res.render("view-post", {
+                    pageTitle: post.title,
                     postId: postId,
                     userFound: false,
                     post: post,
@@ -222,7 +224,6 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 
         // Add the comment to the post's comments array
         post.comments.push(newComment);
-        post.totalComments++; // Increase the total comments count
         await post.save();
 
         // Redirect to the updated post's view or any other desired action
@@ -241,7 +242,7 @@ postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
             { _id: req.body.commentId, post: req.body.postId },
             { body: req.body.updateComment, editDate: new Date()},
             { new: true }
-        );
+        ).exec();
 
         const editDate = comment.editDate;
         res.status(200).json({editDate});
@@ -252,17 +253,20 @@ postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
 });
 
 //delete comment
-postRouter.get("/delete-comment/:postId/:commentId", async (req, res) => {
+postRouter.delete("/delete-comment/:postId/:commentId", async (req, res) => {
     try {
-        const commentId = req.params.commentId;
-        const postId = req.params.postId;
+        const comment = await Comment.findOneAndDelete({
+            _id: req.body.commentId,
+            post: req.body.postId
+        }).exec();
 
-        // Find the comment to delete
-        const commentToDelete = await Comment.findOneAndDelete({
-            _id: commentId,
-        });
-
-        res.json({postId: postId, commentId: commentId});
+        // Update the array of comments of the post as well (fixes the wrong number of comments displayed in the post cards)
+        const post = await Post.updateOne(
+            {_id: req.body.postId},
+            {$pull: { comments: req.body.commentId}}
+        ).exec();
+        
+        res.status(200).json({postId: comment.post, commentId: comment._id});
     } catch (error) {
         console.error("Error occurred while deleting post:", error);
         res.status(500).send("Internal Server Error");

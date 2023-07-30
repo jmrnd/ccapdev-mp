@@ -49,7 +49,7 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
             body: JSON.stringify(data), // parse ID
         });
 
-        if(response.status == 200) { // Serevr successfully updates comment
+        if(response.status == 200) { // Server successfully updates comment
             const responseData = await response.json();
             const editDate = moment(responseData.editDate).fromNow();
             commentDate.innerText = `• edited ${editDate}`;
@@ -62,33 +62,42 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
 })});
 
 /*** DELETE COMMENT ***/
- deleteCommentBtns.forEach(event => {
-    event.addEventListener("click", async function (e) {
+deleteCommentBtns.forEach(event => {event.addEventListener("click", async function (e) {
+    const confirmed = window.confirm('Are you sure you want to delete this comment?');
 
-      const confirmed = window.confirm('Are you sure you want to delete this comment?');
-      console.log(confirmed);
+    // If user confirms (OK button clicked), proceed with deletion
+    if (confirmed) {
+        get_path = e.target.id;
+        console.log(get_path);
+        
 
-      // If user confirms (OK button clicked), proceed with deletion
-      if (confirmed) {
+        try {
+            const dataArray = get_path.split('/');
+            const data = {
+                postId: dataArray[2],
+                commentId: dataArray[3]
+            }
 
-          get_path = e.target.id;
-          console.log(get_path);
-          // fetch req
-          try {
-            const response = await fetch(get_path);
-            const data = await response.json();
-            // Handle the response data here
-            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+            const response = await fetch(get_path, {
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers: {
+                    'content-type': 'application/json'
+                }
+            });
             
-            commentElement.remove();
-            console.log(data);
-          } catch (error) {
-            // Handle errors here
-            console.error('Error deleting comment:', error);
-          }
-        } else {
-          // If user cancels (Cancel button clicked), do nothing or provide feedback
-          console.log('Deletion canceled!');
+            if (response.status == 200) { // Server successfully finds comment and deletes it
+                const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+                commentElement.remove();
+                location.reload();
+            }
+
+        } catch (error) {
+        // Handle errors here
+        console.error('Error deleting comment:', error);
         }
-  })
-})
+    } else {
+        // If user cancels (Cancel button clicked), do nothing or provide feedback
+        console.log('Deletion canceled!');
+    }
+})});
