@@ -17,6 +17,7 @@
       commentInput.value = commentText.textContent.trim();
 
       // Replace the comment text with the input field
+      const currentComment = commentText.innerText;
       commentText.replaceWith(commentInput);
 
       // Show the input field and focus on it
@@ -37,12 +38,16 @@
             const paramId = get_id.split("/"); // In array
 
             const data = {
-              postId: paramId[1],
-              commentId: paramId[2],
-              updateComment: commentText.textContent,
+                endPoint: paramId[1],
+                postId: paramId[2],
+                currentComment: currentComment,
+                newComment: commentText.textContent,
             }
 
-            const res = fetch(get_id, {
+            const fetchPoint =  "/" + data.postId + "/" + data.commentId;
+            console.log(data);
+
+            const res = fetch(fetchPoint, {
               method: 'PATCH',
               headers: {
                 'Content-Type': 'application/json',
