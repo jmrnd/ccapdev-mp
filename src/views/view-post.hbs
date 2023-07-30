@@ -8,7 +8,7 @@
                      <div>
                         <img class="rounded-circle ms-3" src="{{postAuthor.icon}}" alt="profile_picture" width="40" height="40">
                         <span class="post-author pt-2">
-                        <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2">{{postAuthor.username}}</a>
+                        <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2 fw-medium">{{postAuthor.username}}</a>
                         </span>
                         <span class="post-author mx-1 pt-1 fw-sm fs-7">• Posted {{relativeTime post.postDate}}</span>
                     </div>
@@ -46,16 +46,14 @@
                         <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
                         <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
                     </div>
-
                     <!-- COMMENT BOX -->
                     {{#if userFound}}
                         <hr style="width: 100%">
                         <div class="comment-box-container">
-                                <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
+                            <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
                             <form action="/create_comment/{{postId}}" method="post">
-                            <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..."
-                            id="CommentBox"></textarea>
-                            <button type="submit" class="comment-button rounded">Comment</button>
+                                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..." id="CommentBox"></textarea>
+                                <br><button type="submit" class="comment-button rounded">Comment</button>
                             </form>
                         </div>
                     {{/if}}
@@ -77,5 +75,5 @@
         {{/each}}
     </div>
 {{else}}
-    <p><center>No comments yet.</center></p>
+    <p><center>This post has no comments yet.</center></p>
 {{/if}}
