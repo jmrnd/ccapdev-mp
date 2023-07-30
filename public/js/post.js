@@ -1,3 +1,10 @@
+import Quill from "quill";
+
+const textEditor = new Quill("#editor-container", {
+    theme: "snow",
+    placeholder: "Write something...",
+});
+
 // SORT POSTS
 let activeSort = -1; // Default (0 - Date, 1 - Votes)
 

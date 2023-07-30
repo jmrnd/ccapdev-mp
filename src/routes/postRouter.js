@@ -22,6 +22,7 @@ postRouter.get("/create-post", async (req, res) => {
 
         if (userSession) {
             res.render("create-post", {
+                pageTitle: "Create a post",
                 userFound: true,
                 currentUser: processCurrentUser,
             });

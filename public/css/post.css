@@ -1,13 +1,4 @@
-.pencil-ico {
-  float: right;
-  margin-right: 10;
-  padding-left: 10px;
-}
-
-.comment-icos {
-  float: right;
-  margin-right: 10px;
-}
+@import "~quill/dist/quill.snow.css";
 
 .comment-label {
   font-size: x-large;
@@ -67,9 +58,10 @@
 }
 
 .create-a-post-title {
-  padding: 10px;
-  height: 45px;
-  width: 100%;
+    border: 1px solid #e4e1e1;
+    padding: 10px;
+    height: 45px;
+    width: 100%;
 }
 
 .create-post-content {

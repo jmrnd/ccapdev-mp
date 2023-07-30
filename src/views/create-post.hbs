@@ -10,18 +10,19 @@
                 </div>
                 <form id="create-post" method="POST" action="/create_post/">
                     <div class="create-post-content">
-                        <span>Title:</span>
                         <div class="create-post-title-container">
-                            <input type="text" name="title" id="post-title" class="create-a-post-title card col-md-12 mt-2 mb-0"
+                            <input type="text" name="title" id="post-title" class="create-a-post-title col-md-12 mt-2 mb-0"
                             placeholder="Title ...">
-                        </div>
-                        <br><span>Body:</span>
-                        <div class="create-post-text-container">
+                        </div><br>
+                        <div class="ql-container" id="editor-container">
+                            <div class="ql-editor"></div>
+                        </div><br>
+                        <input class="create-post-button rounded" type="submit" value="Post">
+                        {{!-- <div class="create-post-text-container">
                             <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text" placeholder="Body ..."
                             required>{{body}}</textarea>
-                            <br>
-                            <input class="create-post-button rounded" type="submit" value="Post">
-                        </div>
+                            
+                        </div> --}}
                     </div>
                 </form>
             </div>
