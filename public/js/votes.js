@@ -23,12 +23,7 @@ upvoteBtn.forEach(button => {
             location.reload(); // Refresh page
           }
         }
-        //  FETCHING FROM SERVER
-        // .then(response => response.json())
-        // .then(data => {
-        //   // Handle the response from the server
-        //   document.getElementById('voteCount').innerText = data.voteCount;
-        // })
+
         catch(error){
           console.error('Error:', error);
         };
@@ -36,41 +31,36 @@ upvoteBtn.forEach(button => {
     });
 
 
-  downvoteBtn.forEach(button => {
-    button.addEventListener("click", async event => {
-      console.log("I am here");
-      const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
-      const data = {
-        _id: clickedButtonId.substring(10) // {{this._id}}
-      }
+downvoteBtn.forEach(button => {
+button.addEventListener("click", async event => {
+    console.log("I am here");
+    const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
+    const data = {
+    _id: clickedButtonId.substring(10) // {{this._id}}
+    }
 
-      const path = "/" + clickedButtonId; // construct path
+    const path = "/" + clickedButtonId; // construct path
 
-      try{
-        const res = await fetch(path, { // /upvoteIcon/{{this._id}}
-          method: 'PATCH',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data), // parse ID
-        })
-          location.reload();
+    try{
+    const res = await fetch(path, { // /upvoteIcon/{{this._id}}
+        method: 'PATCH',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data), // parse ID
+    })
+        location.reload();
 
-          if (res.status === 200) {
-            location.reload(); // Refresh page
-          }
-      }
-      //  FETCHING FROM SERVER
-      // .then(response => response.json())
-      // .then(data => {
-      //   // Handle the response from the server
-      //   document.getElementById('voteCount').innerText = data.voteCount;
-      // })
-      catch(error){
-        console.error('Error:', error);
-      };
-    });
-  });
+        if (res.status === 200) {
+        location.reload(); // Refresh page
+        }
+    }
+
+    catch(error){
+    console.error('Error:', error);
+    };
+});
+});
 
 let commentUpvoteBtn = document.querySelectorAll('.commentUpvote');
 let commentDownvoteBtn = document.querySelectorAll('.commentDownvote');
@@ -105,30 +95,30 @@ commentUpvoteBtn.forEach(button => {
     });
 
 
-  commentDownvoteBtn.forEach(button => {
+commentDownvoteBtn.forEach(button => {
     button.addEventListener("click", async event => {
-      console.log("I am here");
-      const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
-      const data = {
+        console.log("I am here");
+        const clickedButtonId = event.target.id; // upvoteIcon/{{this._id}}
+        const data = {
         _id: clickedButtonId.substring(18) // {{this._id}}
-      }
+        }
 
-      const path = "/" + clickedButtonId; // construct path
+        const path = "/" + clickedButtonId; // construct path
 
-      try{
+        try{
         const res = await fetch(path, { // /upvoteIcon/{{this._id}}
-          method: 'PATCH',
-          headers: {
+            method: 'PATCH',
+            headers: {
             'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(data), // parse ID
+            },
+            body: JSON.stringify(data), // parse ID
         })
         if (res.status === 200) {
-          location.reload(); // Refresh page
+            location.reload(); // Refresh page
         }
-      }
-      catch(error){
+        }
+        catch(error){
         console.error('Error:', error);
-      };
+        };
     });
-  });
+});
