@@ -10,7 +10,11 @@
                         <span class="post-author ms-3 fw-medium">
                             <a href="/view-profile/{{author.username}}" class="link-unstyled">{{author.username}}</a>
                         </span>
-                        <span class="post-author ms-1 fw-sm">• {{relativeTime commentDate}}</span>
+                        {{#if this.editDate}}
+                        <span class="post-author ms-1 fw-sm" id="commentDate">• edited {{relativeTime editDate}}</span>
+                        {{else}}
+                        <span class="post-author ms-1 fw-sm" id="commentDate">• {{relativeTime commentDate}}</span>
+                        {{/if}}
                     </div>
                     {{!-- MORE OPTIONS --}}
                     <div class="d-flex align-items-center">

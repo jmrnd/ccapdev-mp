@@ -1,70 +1,67 @@
-
-  // Get all the edit comment buttons
-  const editCommentBtns = document.querySelectorAll(".edit-comment-btn");
-  const deleteCommentBtns = document.querySelectorAll(".delete-comment-btn");
+// Get all the edit comment buttons
+const editCommentBtns = document.querySelectorAll(".edit-comment-btn");
+const deleteCommentBtns = document.querySelectorAll(".delete-comment-btn");
 
   // Add click event listener to each edit comment button
-  editCommentBtns.forEach(event => {
-    event.addEventListener("click", function (e) {
-      e.preventDefault();
+editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
+    e.preventDefault();
 
-      // we get the body where the text and try to replace it with an input
-      const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
-      const commentInput = document.createElement("textarea"); // create input element
-      commentInput.classList.add("edit-text-area");
-      commentInput.setAttribute("rows", "5"); // Set the number of rows (you can change this value)
-      commentInput.setAttribute("cols", "20"); // Set the number of columns (you can change this value)
-      commentInput.value = commentText.textContent.trim();
+    // we get the body where the text and try to replace it with an input
+    const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
+    const commentInput = document.createElement("textarea"); // create input element
+    commentInput.classList.add("edit-text-area");
+    commentInput.setAttribute("rows", "5"); // Set the number of rows (you can change this value)
+    commentInput.setAttribute("cols", "20"); // Set the number of columns (you can change this value)
+    commentInput.value = commentText.textContent.trim();
 
-      // Replace the comment text with the input field
-      const currentComment = commentText.innerText;
-      commentText.replaceWith(commentInput);
+    // Replace the comment text with the input field
+    const currentComment = commentText.innerText;
+    commentText.replaceWith(commentInput);
 
-      // Show the input field and focus on it
-      commentInput.style.display = "block";
-      commentInput.focus();
+    // Show the input field and focus on it
+    commentInput.style.display = "block";
+    commentInput.focus();
 
-      const get_id = e.target.id;
+    const get_id = e.target.id;
+    console.log(get_id)
+    // Add event listener to save changes on Enter key press or blur
+    commentInput.addEventListener("keydown", async function (e) {
+    if (e.key === "Enter") {
+        // Save changes and update the comment text
+        commentText.textContent = this.value;
+        // Replace the input field with the updated comment text
+        this.replaceWith(commentText);
 
-      // Add event listener to save changes on Enter key press or blur
-      commentInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          // Save changes and update the comment text
-          commentText.textContent = this.value;
-          // Replace the input field with the updated comment text
-          this.replaceWith(commentText);
+        try{
+        const paramId = get_id.split("/"); // In array
 
-          try{
-            const paramId = get_id.split("/"); // In array
-
-            const data = {
-                commentId: paramId[3],
-                postId: paramId[2],
-                updateComment: commentText.textContent,
-            }
-
-            console.log(data);
-            console.log(get_id);
-
-            const response = fetch(get_id, {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(data), // parse ID
-            })
-
-          }catch(err){
-            console.log(err);
-          }
-          const notifyEdited = document.createElement("p");
-          notifyEdited.textContent = "Edited";
-          notifyEdited.classList.add("edited-notify");
-          commentText.insertAdjacentElement("afterend",notifyEdited);
+        const data = {
+            commentId: paramId[3],
+            postId: paramId[2],
+            updateComment: commentText.textContent,
         }
-      });
-    });
-  });
+
+        const response = await fetch(get_id, {
+            method: 'PATCH',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // parse ID
+        });
+
+        if(response.status == 200) { // Serevr successfully updates comment
+            const responseData = await response.json();
+            const data = responseData.editDate;
+            const editDate = moment(data);
+            const newEditDate = editDate.fromNow();
+            commentDate.innerText = `• edited ${newEditDate}`;
+        }
+
+        } catch (err) {
+            console.log(err);
+        }
+    }});
+})});
 
 /*** DELETE COMMENT ***/
  deleteCommentBtns.forEach(event => {

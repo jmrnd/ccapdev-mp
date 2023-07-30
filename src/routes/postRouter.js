@@ -68,32 +68,24 @@ postRouter.post("/create_post", async (req, res) => {
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
-
         const postId = req.params.postId;
         const post = await Post.findOne({ _id: postId,}).populate("author").lean().exec();
-        console.log(post)
-
         const comments = await Comment.find({ post: post._id }).populate("author").lean().exec();
-        console.log(comments)
 
         if (post) {
-            const processPostAuthor = {
-                username: post.author.username,
-                icon: post.author.icon,
-            };
-
             if (userSession) {
-                const currentUser = {
-                    username: userSession.userID.username,
-                    icon: userSession.userID.icon,
-                };
-
                 res.render("view-post", {
                     postId: postId,
                     userFound: true,
-                    currentUser: currentUser,
+                    currentUser: {
+                        username: userSession.userID.username,
+                        icon: userSession.userID.icon,
+                    },
                     post: post,
-                    postAuthor: processPostAuthor,
+                    postAuthor: {
+                        username: post.author.username,
+                        icon: post.author.icon
+                    },
                     comments: comments,
                     totalComments: comments.length,
                 });
@@ -101,10 +93,13 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 res.render("view-post", {
                     postId: postId,
                     userFound: false,
-                    post: processPost,
-                    postAuthor: processPostAuthor,
-                    comments: commentsArray,
-                    totalComments: commentsArray.length,
+                    post: post,
+                    postAuthor: {
+                        username: post.author.username,
+                        icon: post.author.icon
+                    },
+                    comments: comments,
+                    totalComments: comments.length,
                 });
             }
         } else {
@@ -121,22 +116,21 @@ postRouter.get("/view-post/:postId", async (req, res) => {
 postRouter.get("/edit-post/:postId", async (req, res) => {
     try {
         const postId = req.params.postId;
-        const getPost = await Post.findOne({ _id: postId });
+        const post = await Post.findOne({ _id: postId }).lean().exec();
 
-        const session = await UserSession.findOne({});
-        const currUserData = await User.findOne({ _id: session.userID });
+        const session = await UserSession.findOne({}).populate("userID").exec();
 
         const currentUser = {
-            username: currUserData.username,
-            icon: currUserData.icon
+            username: session.userID.username,
+            icon: session.userID.icon
         }
 
-        if (getPost) {
+        if (post) {
             res.render("edit-post", {
                 userFound: true,
                 currentUser: currentUser,
-                title: getPost.title,
-                body: getPost.body,
+                title: post.title,
+                body: post.body,
                 postId: postId,
             });
         } else {
@@ -243,14 +237,17 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
     console.log("PATCH RECIEVED");
     try {
-        const postId = req.params.postId;
-        const commentId = req.params.commentId;
-        const comment = await Comment.findOneAndUpdate({_id: commentId}, {body: req.body.updateComment}, {new: true});
-        console.log(comment);
+        const comment = await Comment.findOneAndUpdate(
+            { _id: req.body.commentId, post: req.body.postId },
+            { body: req.body.updateComment, editDate: new Date()},
+            { new: true }
+        );
 
+        const editDate = comment.editDate;
+        res.status(200).json({editDate});
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
-        res.status(500).send("Internal Server Error"); // To redirect to an error page
+        res.status(500).send("Internal Server Error"); // To redirect to an error 
     }
 });
 
