@@ -7,15 +7,13 @@ import bodyParser from "body-parser";
 
 const postRouter = Router();
 
-//used for parsing text from hbs files to here
 postRouter.use(bodyParser.urlencoded({ extended: true }));
 postRouter.use(bodyParser.json());
 
-//renders the create post page
+// renders the create post page
 postRouter.get("/create-post", async (req, res) => {
     try {
-        //gets current logged in user
-        const userSession = await UserSession.findOne({}).populate("userID");
+        const userSession = await UserSession.findOne({}).populate("userID").exec();
 
         const processCurrentUser = {
             username: userSession.userID.username,
@@ -28,14 +26,12 @@ postRouter.get("/create-post", async (req, res) => {
                 currentUser: processCurrentUser,
             });
         } else {
-            // No user found
             console.log("No user found");
-            // To redirect to an error page
             res.status(404).send("User not found");
         }
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
-        res.status(500).send("Internal Server Error"); // To redirect to an error page
+        res.status(500).send("Internal Server Error");
     }
 });
 
@@ -47,24 +43,21 @@ postRouter.post("/create_post", async (req, res) => {
 
         // Extract data from the form
         const { title, text } = req.body;
-        // Create a new Post instance
+        
         const newPost = new Post({
             title,
             body: text,
             author: currentUser,
             postDate: new Date(),
             totalVotes: 0,
-            totalComments: 0,
             comments: [],
             upVoters: [],
             downVoters: [],
         });
 
-        // Save the new post to the database
         await newPost.save();
 
-        // Redirect to a success page or perform any other actions
-        res.redirect("/");
+        res.redirect(`/view-post/${newPost._id}`);
     } catch (error) {
         console.error(error);
         res.status(500).send("Error saving post to the database.");
