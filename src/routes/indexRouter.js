@@ -14,11 +14,7 @@ router.get("/", async function (req, res) {
     try {
         const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
-        const posts = await Post.find({})
-            .populate("author")
-            .populate("upVoters")
-            .populate("downVoters")
-            .exec();
+        const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
             return {
