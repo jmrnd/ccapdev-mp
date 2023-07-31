@@ -43,22 +43,24 @@ postRouter.post("/create_post", async (req, res) => {
     try {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
         const currentUser = await User.findOne({ _id: userSession.userID }).lean().exec();
-        const richTextContent = req.body.content;
-        console.log(richTextContent);
-
+        
+        // Extract data from the form
+        const { title, text } = req.body;
+        
         const newPost = new Post({
-            title: "Sample post with RTF",
-            body: JSON.stringify(richTextContent),
+            title,
+            body: text,
             author: currentUser,
             postDate: new Date(),
             totalVotes: 0,
             comments: [],
             upVoters: [],
             downVoters: [],
-        }).save();
+        });
 
-        res.status(200).redirect("/");
-        // res.status(200).redirect(`/view-post/${newPost._id}`);
+        await newPost.save();
+
+        res.redirect(`/view-post/${newPost._id}`);
     } catch (error) {
         console.error(error);
         res.status(500).send("Error saving post to the database.");
