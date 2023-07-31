@@ -11,11 +11,14 @@ import authRouter from "./authRouter.js";
 const router = Router();
 
 router.get("/", async function (req, res) {
-
     try {
         const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
-        const posts = await Post.find({}).populate("author").exec();
+        const posts = await Post.find({})
+            .populate("author")
+            .populate("upVoters")
+            .populate("downVoters")
+            .exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -26,7 +29,7 @@ router.get("/", async function (req, res) {
 
         console.log(posts);
 
-        if(checkSession){
+        if (checkSession) {
             const currentSession = await UserSession.findOne({}).populate("userID").exec();
             const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
 

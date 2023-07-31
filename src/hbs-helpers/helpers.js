@@ -16,6 +16,20 @@ const customHelpers = {
     },
     parseBody: function (object) {
         return JSON.parse(object);
+    },
+    hasVoted: function (currentUser, upVoters, downVoters) {
+        let upVoter = upVoters.some((user) => user.username === currentUser.username);
+        let downVoter = downVoters.some((user) => user.username === currentUser.username);
+        if (upVoter) {
+            return "upvoter";
+        } else if (downVoter) {
+            return "downvoter";
+        } else {
+            return false;
+        }
+    },
+    isUpvoter: function (hasVotedResponse) {
+        return hasVotedResponse === "upvoter";
     }
 };
 
