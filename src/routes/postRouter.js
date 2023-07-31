@@ -154,22 +154,13 @@ postRouter.post("/update_post/:postId", async (req, res) => {
         const postId = req.params.postId;
         const { title, text } = req.body;
 
-        const postToUpdate = await Post.findOne({ _id: postId });
+        const post = await Post.findOneAndUpdate(
+            { _id: postId},
+            { body: text, title: title, editDate: new Date()},
+            { new: true}
+        ).exec();
 
-        if (postToUpdate) {
-            // Update the post properties
-            postToUpdate.title = title;
-            postToUpdate.body = text;
-
-            // Save the updated post to the database
-            await postToUpdate.save();
-
-            // Redirect to the updated post's view
-            res.redirect(`/view-post/${postId}`);
-        } else {
-            console.log("No post found");
-            res.status(404).send("Post not found");
-        }
+        res.redirect(`/view-post/${postId}`);
     } catch (error) {
         console.error("Error occurred while updating post:", error);
         res.status(500).send("Internal Server Error");

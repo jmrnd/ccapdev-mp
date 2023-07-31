@@ -10,7 +10,11 @@
                         <span class="post-author pt-2">
                         <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2 fw-medium">{{postAuthor.username}}</a>
                         </span>
+                        {{#if post.editDate}}
+                        <span class="post-author mx-1 pt-1 fw-sm fs-7">• edited {{relativeTime post.editDate}}</span>
+                        {{else}}
                         <span class="post-author mx-1 pt-1 fw-sm fs-7">• Posted {{relativeTime post.postDate}}</span>
+                        {{/if}}
                     </div>
                     {{!-- MORE OPTIONS --}}
                     <div class="d-flex align-items-center">
@@ -21,11 +25,13 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li>
-                                        <a class="dropdown-item edit-post-btn" href="/edit-post/{{postId}}"><i class="bi bi-pencil me-2"></i>Edit
+                                        <a class="dropdown-item edit-post-btn" href="/edit-post/{{postId}}">
+                                            <i class="bi bi-pencil me-2"></i>Edit Post
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item delete-post-btn" href="/delete-post/{{postId}}"><i class="bi bi-trash me-2"></i>Delete
+                                        <a class="dropdown-item delete-post-btn" href="/delete-post/{{postId}}">
+                                            <i class="bi bi-trash me-2"></i>Delete
                                         </a>
                                     </li>
                                 </div>
@@ -36,8 +42,12 @@
 
                 {{!-- POST CONTENT --}}
                 <div class="post-content">
-                    <p class="post-title" id="postTitle">{{{post.title}}}</p>
-                    {{{post.body}}}<br><br>
+                    <div id="postTitleDisplay">
+                        <p class="post-title">{{{post.title}}}</p>
+                    </div>
+                    <div id="postBodyDisplay">
+                        {{{post.body}}}
+                    </div><br>
                     <div class="flex-center iconGrid">
                         <i id="upvoteIcon/{{postId}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
                         <span id="voteCount/{{postId}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
@@ -45,34 +55,35 @@
                         <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
                         <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
                     </div>
+
+                    <hr style="width: 100%">
                     <!-- COMMENT BOX -->
                     {{#if userFound}}
-                        <hr style="width: 100%">
-                        <div class="comment-box-container">
-                            <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
-                            <form action="/create_comment/{{postId}}" method="post">
-                                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..." id="CommentBox"></textarea>
-                                <br><button type="submit" class="comment-button rounded">Comment</button>
-                            </form>
-                        </div>
+                    <div class="comment-box-container">
+                        <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
+                        <form action="/create_comment/{{postId}}" method="post">
+                            <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..." id="CommentBox"></textarea>
+                            <br><button type="submit" class="comment-button rounded">Comment</button>
+                        </form>
+                    </div>
                     {{/if}}
                 </div>
             </div>
         </div>
     </div>
 </div>
-
+<br>
 {{!-- COMMENTS --}}
 {{#if comments}}
-    <div class="comment-space-container" id="commentSpace">
-        {{#each comments}}
-            {{#if (isEqual this.author.username ../currentUser.username)}}
-                {{> myComment this postId=../postId }}
-            {{else}}
-                {{> otherComment postId=../postId}}
-            {{/if}}
-        {{/each}}
-    </div>
+<div class="comment-space-container" id="commentSpace">
+    {{#each comments}}
+        {{#if (isEqual this.author.username ../currentUser.username)}}
+            {{> myComment this postId=../postId }}
+        {{else}}
+            {{> otherComment postId=../postId}}
+        {{/if}}
+    {{/each}}
+</div>
 {{else}}
     <br><p><center>This post has no comments yet.</center></p>
 {{/if}}

@@ -69,6 +69,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             if (currentUser) {
                 // User found
                 res.render("view-profile", {
+                    pageTitle: viewUser.username,
                     userFound: true,
                     isIndex: false,
                     currentUser: currentUser,
