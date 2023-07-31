@@ -2,7 +2,6 @@ import { Router } from "express";
 import { User } from "../models/User.js";
 import { UserSession } from "../models/UserSession.js";
 import { Post } from "../models/Post.js";
-import { deltaToHTML } from "../../public/js/post.js"
 
 import profileRouter from "./profileRouter.js";
 import postRouter from "./postRouter.js";
@@ -21,10 +20,11 @@ router.get("/", async function (req, res) {
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
-                body: deltaToHTML(post.body),
                 totalComments: post.comments.length,
             };
         });
+
+        console.log(posts);
 
         if(checkSession){
             const currentSession = await UserSession.findOne({}).populate("userID").exec();

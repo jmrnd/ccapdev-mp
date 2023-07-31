@@ -55,9 +55,8 @@ postRouter.post("/create_post", async (req, res) => {
             comments: [],
             upVoters: [],
             downVoters: [],
-        });
+        }).save();
 
-        await newPost.save();
         res.status(200).redirect("/");
         // res.status(200).redirect(`/view-post/${newPost._id}`);
     } catch (error) {

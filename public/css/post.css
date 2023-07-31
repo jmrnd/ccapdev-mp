@@ -62,8 +62,13 @@
     width: 100%;
 }
 
+.create-a-post-box {
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
 .create-post-content {
-  margin: 20px;
+    margin: 20px;
 }
 
 /* COMMENT BUTTON AND SAVE BUTTON */
@@ -110,12 +115,4 @@
   padding: 10px;
   max-height: 500px;
   width: 600px;
-}
-
-.ql-container {
-    background-color: white; /* Replace with your desired background color */
-    resize: vertical; /* Allow vertical resizing */
-    min-height: 100px; /* Set a minimum height to prevent it from getting too small */
-    max-height: 500px; /* Set a maximum height to limit the resizing */
-    overflow-y: auto; /* Add vertical scrollbar when the content overflows */
 }

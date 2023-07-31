@@ -4,22 +4,18 @@
             <div class="card-body rounded">
                 <div class="mt-2">
                     <h1 class="fw-bolder my-3 ms-4" id="searchResultsHeading">Create a post</h1>
-                    {{!-- <img class="rounded-circle ms-4" src="{{currentUser.icon}}" alt="profile_picture" width="50" height="50">
-                    <span class="post-author ms-2 pt-2"> Posting as {{currentUser.username}}</span> --}}
                 </div>
-                <form id="create-post" method="POST" action="/create_post/">
+                <form id="create-post">
                     <div class="create-post-content">
                         <div class="create-post-title-container">
                             <input type="text" name="title" id="post-title" class="create-a-post-title"
-                            placeholder="Title ...">
-                        </div><br>
-                        <div class="ql-container mb-2" id="editor-container"></div>
-                        <input class="create-post-button rounded" type="submit" value="Post">
-                        {{!-- <div class="create-post-text-container">
-                            <textarea class="create-a-post-box card col-md-12 mt-2 mb-0" id="" name="text" placeholder="Body ..."
+                            placeholder="Title ..." required>
+                        </div>
+                        <div class="create-post-text-container">
+                            <textarea class="create-a-post-box col-md-12 mt-2 mb-0" id="" name="text" placeholder="Body ..."
                             required>{{body}}</textarea>
-                            
-                        </div> --}}
+                            <input class="create-post-button rounded" type="submit" value="Post">
+                        </div>
                     </div>
                 </form>
             </div>

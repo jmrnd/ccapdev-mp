@@ -1,34 +1,3 @@
-import quillRtfParser from 'quill-delta-to-rtf';
-
-const textEditor = new Quill("#editor-container", {
-    theme: "snow",
-    placeholder: "Write something...",
-});
-
-const postBtn = document.querySelector(".create-post-button");
-
-postBtn.addEventListener('click', async function () {
-    const richTextContent = textEditor.getContents().ops;
-    const response = await fetch("create_post", {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json'
-        },
-        body: JSON.stringify({content: richTextContent})
-    });
-
-    if (response.status == 200) {
-        console.log("Post success")
-    }
-});
-
-export const deltaToHTML = (delta) => {
-    const tempQuill = new Quill(document.getElementById('postBody'));
-    const deltaOps = JSON.parse(delta);
-    tempQuill.setContents(deltaOps);
-    return tempQuill.root.innerHTML;
-};
-
 // SORT POSTS
 let activeSort = -1; // Default (0 - Date, 1 - Votes)
 

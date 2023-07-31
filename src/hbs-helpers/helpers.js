@@ -14,6 +14,9 @@ const customHelpers = {
     relativeTime: function (date) {
         return moment(date).fromNow();
     },
+    parseBody: function (object) {
+        return JSON.parse(object);
+    }
 };
 
 export default customHelpers;
