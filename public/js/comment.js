@@ -105,7 +105,8 @@ deleteCommentBtns.forEach(event => {event.addEventListener("click", async functi
 // COMMENT BOX TEXTAREA
 const textarea = document.querySelector("textarea");
     textarea.addEventListener("keyup", e => {
-    textarea.style.height = "102px";
+    textarea.style.height = "100px";
+    textarea.style.minHeight = "100px";
     let scHeight = e.target.scrollHeight;
     textarea.style.height = `${scHeight}px`;
 });
