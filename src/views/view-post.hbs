@@ -11,7 +11,7 @@
                         <a href="/view-profile/{{postAuthor.username}}" class="post-author-link link-underline link-underline-opacity-0 fs-7 ms-2 fw-medium">{{postAuthor.username}}</a>
                         </span>
                         {{#if post.editDate}}
-                        <span class="post-author mx-1 pt-1 fw-sm fs-7">• edited {{relativeTime post.editDate}}</span>
+                        <span class="post-author mx-1 pt-1 fw-sm fs-7">• {{relativeTime post.postDate}} •<span class="fst-italic fw-light"> edited {{relativeTime post.editDate}}</span></span>
                         {{else}}
                         <span class="post-author mx-1 pt-1 fw-sm fs-7">• Posted {{relativeTime post.postDate}}</span>
                         {{/if}}

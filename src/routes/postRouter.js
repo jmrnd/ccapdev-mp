@@ -235,9 +235,9 @@ postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
             { body: req.body.updateComment, editDate: new Date()},
             { new: true }
         ).exec();
-
         const editDate = comment.editDate;
-        res.status(200).json({editDate});
+        const commentDate = comment.commentDate
+        res.status(200).json({ editDate, commentDate });
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
         res.status(500).send("Internal Server Error"); // To redirect to an error 

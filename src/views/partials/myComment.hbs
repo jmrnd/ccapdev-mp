@@ -7,11 +7,11 @@
                     {{!-- AUTHOR AND COMMENT DETAILS --}}
                     <div class="d-flex align-items-center">
                         <img class="rounded-circle" src="{{author.icon}}" alt="profile_picture" width="35" height="35"/>
-                        <span class="post-author ms-3 fw-medium">
+                        <span class="post-author ms-2 fw-medium">
                             <a href="/view-profile/{{author.username}}" class="link-unstyled">{{author.username}}</a>
                         </span>
                         {{#if this.editDate}}
-                        <span class="post-author ms-1 fw-sm" id="commentDate">• edited {{relativeTime editDate}}</span>
+                        <span class="post-author ms-1 fw-sm" id="commentDate">• {{relativeTime commentDate}} •<span class="fst-italic fw-light"> edited {{relativeTime this.editDate}}</span></span>
                         {{else}}
                         <span class="post-author ms-1 fw-sm" id="commentDate">• {{relativeTime commentDate}}</span>
                         {{/if}}

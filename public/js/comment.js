@@ -7,13 +7,15 @@ const deleteCommentBtns = document.querySelectorAll(".delete-comment-btn");
 editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
     e.preventDefault();
 
-    // we get the body where the text and try to replace it with an input
+    // Get the comment text element
     const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
-    const commentInput = document.createElement("textarea"); // create input element
+
+    // Create the textarea element for editing
+    const commentInput = document.createElement("textarea");
     commentInput.classList.add("edit-text-area");
-    commentInput.setAttribute("rows", "5"); // Set the number of rows (you can change this value)
-    commentInput.setAttribute("cols", "20"); // Set the number of columns (you can change this value)
     commentInput.value = commentText.textContent.trim();
+    commentText.replaceWith(commentInput); // Replace the comment text with the textarea
+
 
     // Replace the comment text with the input field
     const currentComment = commentText.innerText;
@@ -53,7 +55,10 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
         if(response.status == 200) { // Server successfully updates comment
             const responseData = await response.json();
             const editDate = moment(responseData.editDate).fromNow();
-            commentDate.innerText = `• edited ${editDate}`;
+            const resCommentDate = moment(responseData.commentDate).fromNow();
+            commentDate.innerHTML = `
+                • ${resCommentDate} •<span class="fst-italic fw-light"> edited ${editDate}</span>
+            `;
         }
 
         } catch (err) {
