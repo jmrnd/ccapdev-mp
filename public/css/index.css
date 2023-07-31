@@ -122,16 +122,29 @@ body {
     background: #081329;
 }
 
-.delete-post:hover {
-  background: #e0e0e0;
+.delete-post-btn {
+    color: #d01b1b;
+}
+
+.delete-post-btn:hover {
+    transition: background-color 0.3s ease;
+    background: #d01b1b;
+    color: #f5f5f5;
+    cursor: pointer;
 }
 
 .edit-comment-btn:hover {
     cursor: pointer;
 }
 
+.delete-comment-btn {
+    color: #d01b1b;
+}
+
 .delete-comment-btn:hover {
-    background: #e0e0e0;
+    transition: background-color 0.3s ease;
+    background: #d01b1b;
+    color: #f5f5f5;
     cursor: pointer;
 }
 
