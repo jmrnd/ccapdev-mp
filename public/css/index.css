@@ -117,8 +117,9 @@ body {
 }
 
 .dropdown-item:hover {
-  color: #f5f5f5;
-  background: #081329;
+    transition: background-color 0.3s ease;
+    color: #f5f5f5;
+    background: #081329;
 }
 
 .delete-post:hover {
