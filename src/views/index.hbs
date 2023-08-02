@@ -12,9 +12,9 @@
 <div class="container" id="postsContainer">
     {{#each posts}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> myPostCard this isIndex=../isIndex}}
+            {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
         {{else}}
-            {{> otherPostCard this isIndex=../isIndex}}
+            {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
         {{/if}}
     {{/each}}
 </div>

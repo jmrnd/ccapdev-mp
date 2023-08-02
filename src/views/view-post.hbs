@@ -48,12 +48,34 @@
                     <div id="postBodyDisplay">
                         {{{post.body}}}
                     </div><br>
+                    {{!-- <p>Current user: {{currentUser._id}}</p>
+                    <p>Upvoters: {{post.upVoters}}</p>
+                    <p>Downvoters: {{post.downVoters}}</p>
+                    <p>hasVoted: {{hasVoted currentUser._id post.upVoters post.downVoters}}</p> --}}
                     <div class="flex-center iconGrid">
+<<<<<<< Updated upstream
                         <i id="upvoteIcon/{{postId}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
                         <span id="voteCount/{{postId}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
                         <i id="downvoteIcon/{{postId}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote" ></i>
+=======
+                    {{#if (hasVoted currentUser._id post.upVoters post.downVoters)}} {{!-- User has voted on the post--}}
+                        {{#if (isUpvoter currentUser._id post.upVoters)}}
+                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
+                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                        {{else}}
+                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
+                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down-fill iconGrid-downvote iconGrid-color postDownvote"></i>
+                        {{/if}}
+                    {{else}}
+                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
+                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                    {{/if}}
+>>>>>>> Stashed changes
                         <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
-                        <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
+                        <span class="iconGrid-text mx-1">{{post.totalComments}} comments</span>
                     </div>
 
                     <hr style="width: 100%">
@@ -76,11 +98,11 @@
 {{!-- COMMENTS --}}
 {{#if comments}}
 <div class="comment-space-container" id="commentSpace">
-    {{#each comments}}
+    {{#each comments currentUser=currentUser._id}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> myComment this postId=../postId }}
+            {{> myComment this postId=../postId}}
         {{else}}
-            {{> otherComment postId=../postId}}
+            {{> otherComment this postId=../postId}}
         {{/if}}
     {{/each}}
 </div>

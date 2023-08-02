@@ -13,7 +13,6 @@ const router = Router();
 router.get("/", async function (req, res) {
     try {
         const checkSession = await UserSession.findOne({}).populate("userID").exec();
-
         const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
@@ -27,18 +26,20 @@ router.get("/", async function (req, res) {
             const currentSession = await UserSession.findOne({}).populate("userID").exec();
             const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
 
+            currentUser._id = currentUser._id.toString();
+
             if (currentUser) {
-            res.render("index", {
-                isIndex: true, // This is for adjusting post-width
-                userFound: true,
-                activeUserSession: currentSession,
-                pageTitle: "foroom",
-                currentUser: currentUser,
-                posts: postsArray,
-            });
+                res.render("index", {
+                    isIndex: true, // This is for adjusting post-width
+                    userFound: true,
+                    activeUserSession: currentSession,
+                    pageTitle: "foroom",
+                    currentUser: currentUser,
+                    posts: postsArray,
+                });
             }
             else{
-            res.status(404).send("User not found");
+                res.status(404).send("User not found");
             }
       } else {
         res.render("index", {

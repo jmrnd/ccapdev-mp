@@ -53,12 +53,7 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
         });
 
         if(response.status == 200) { // Server successfully updates comment
-            const responseData = await response.json();
-            const editDate = moment(responseData.editDate).fromNow();
-            const resCommentDate = moment(responseData.commentDate).fromNow();
-            commentDate.innerHTML = `
-                • ${resCommentDate} •<span class="fst-italic fw-light"> edited ${editDate}</span>
-            `;
+            location.reload();
         }
 
         } catch (err) {
