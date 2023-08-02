@@ -18,6 +18,7 @@ router.get("/", async function (req, res) {
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
+                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });

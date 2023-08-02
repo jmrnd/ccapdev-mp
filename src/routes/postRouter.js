@@ -73,10 +73,6 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
         const currentUser = await User.findOne({ _id : userSession.userID._id}).lean().exec();
         const postId = req.params.postId;
-<<<<<<< Updated upstream
-        const post = await Post.findOne({ _id: postId,}).populate("author").lean().exec();
-        const comments = await Comment.find({ post: post._id }).populate("author").lean().exec();
-=======
         const post = await Post.findOne({ _id : postId }).populate("author").exec();
         const comments = await Comment.find({ post: post._id }).populate("author").exec();
 
@@ -89,7 +85,6 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 currentUser: currentUser._id
             };
         });
->>>>>>> Stashed changes
 
         if (post) {
             const processPost = {
@@ -109,12 +104,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-<<<<<<< Updated upstream
-                    comments: comments,
-                    totalComments: comments.length,
-=======
                     comments: commentsArray,
->>>>>>> Stashed changes
                 });
             } else {
                 res.render("view-post", {
@@ -126,12 +116,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-<<<<<<< Updated upstream
-                    comments: comments,
-                    totalComments: comments.length,
-=======
                     comments: commentsArray,
->>>>>>> Stashed changes
                 });
             }
         } else {
@@ -298,89 +283,66 @@ postRouter.delete("/delete-comment/:postId/:commentId", async (req, res) => {
 postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    if (session) {
+        const post = await Post.findOne({ _id : idParam }).exec(); // get comment via ID
+        const hasVoted = post.upVoters.includes(session.userID._id);
 
-        if(currentUser) {
-            const post = await Post.findOne({ _id: idParam }); // get post via ID
-            const hasVoted = post.upVoters.includes(currentUser._id);
+        if (hasVoted === false) {
+            post.upVoters.push(session.userID._id);
+            await post.save();
+            const hasDownvoted = post.downVoters.includes(session.userID._id);
 
-<<<<<<< Updated upstream
-            if(hasVoted === false) {
-                let incrementvoteCount = post.totalVotes + 1;
-                await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount }, {new: true});
-                post.upVoters.push(currentUser._id);
-                await post.save();
-                const hasDownvoted = post.downVoters.includes(currentUser._id);
-                if(hasDownvoted) {
-                    const updateDownvoters = post.downVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Post.updateOne({ _id: idParam }, { downVoters: updateDownvoters }, {new: true});
-                }
-=======
             if (hasDownvoted) {
                 await Post.updateOne(
                     { _id : idParam },
                     { $pull : { downVoters : session.userID._id } },
                     { new : true }
                 ).exec();
->>>>>>> Stashed changes
             }
         } else {
             await Post.updateOne(
                 { _id : idParam },
-                { $pull: { upVoters : session.userID._id } },
-                { new: true },
+                { $pull : { upVoters : session.userID._id} },
+                { new : true }
             ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
-
 });
 
 // DOWNVOTINGS
 postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    if (session) {
+        const post = await Post.findOne({ _id: idParam }); // get post via ID
+        const hasDownvoted = post.downVoters.includes(session.userID._id);
 
-        if(currentUser) {
-            const post = await Post.findOne({ _id: idParam }); // get post via ID
-            const hasDownvoted = post.downVoters.includes(currentUser._id);
+        if(hasDownvoted === false) {
+            post.downVoters.push(session.userID._id);
+            await post.save();
+            const hasVoted = post.upVoters.includes(session.userID._id);
 
-<<<<<<< Updated upstream
-            if(hasDownvoted === false) {
-                let decrementvoteCount = post.totalVotes - 1;
-                await Post.updateOne({ _id: idParam }, { totalVotes: decrementvoteCount }, {new: true});
-                post.downVoters.push(currentUser._id);
-                await post.save();
-                const hasVoted = post.upVoters.includes(currentUser._id);
-                if(hasVoted) {
-                    const updateUpvoters = post.upVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Post.updateOne({ _id: idParam }, { upVoters: updateUpvoters }, {new: true});
-                }
-=======
             if (hasVoted) {
                 await Post.updateOne(
-                    { _id : idParam },
+                    { _id : idParam }, 
                     { $pull : { upVoters : session.userID._id }},
-                    { new : true }
+                    { new : true}
                 ).exec();
->>>>>>> Stashed changes
             }
         } else {
             await Post.updateOne(
                 { _id : idParam },
-                { $pull : { downVoters : session.userID._id }},
+                { $pull : { downVoters : session.userID._id } },
                 { new : true },
             ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
 });
 
 // COMMENT UPVOTINGS
@@ -422,15 +384,9 @@ postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
     const idParam = req.params._id;
     const session = await UserSession.findOne({}).populate("userID").exec();
 
-<<<<<<< Updated upstream
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
-=======
     if (session) {
         const comment = await Comment.findOne({ _id: idParam }); // get post via ID
         const hasDownvoted = comment.downVoters.includes(session.userID._id);
->>>>>>> Stashed changes
 
         if(hasDownvoted === false) {
             comment.downVoters.push(session.userID._id);
