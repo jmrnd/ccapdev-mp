@@ -94,6 +94,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
 
             if (userSession) {
                 res.render("view-post", {
+                    isIndex: true,
                     pageTitle: post.title,
                     postId: postId,
                     userFound: true,
@@ -107,6 +108,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 });
             } else {
                 res.render("view-post", {
+                    isIndex: true,
                     pageTitle: post.title,
                     postId: postId,
                     userFound: false,

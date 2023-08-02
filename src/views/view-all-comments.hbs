@@ -1,0 +1,19 @@
+<div class="container" id="postsContainer">
+    <div class="row d-flex justify-content-center">
+            <div class="col-md-7 mt-2">
+                <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
+                    <h3 class="fw-bolder my-4" id="searchResultsHeading">Comments by {{viewUser.username}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" id="postsContainer">
+    {{#each comments}}
+        {{#if (isEqual ../currentUser.username this.author.username)}}
+            {{> myComment this isIndex=../isIndex}}
+        {{else}}
+            {{> otherComment this isIndex=../isIndex}}
+        {{/if}}
+    {{/each}}
+</div>

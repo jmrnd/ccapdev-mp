@@ -1,5 +1,9 @@
 <div class="row d-flex justify-content-center">
+    {{#if isIndex}}
     <div class="col-md-7">
+    {{else}}
+    <div class="col-md-0">
+    {{/if}}
         <div class="card mt-2 mb-0">
             <div class="card-body rounded">
                 {{!-- COMMENT HEADER --}}
