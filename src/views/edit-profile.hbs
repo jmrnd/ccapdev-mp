@@ -7,7 +7,7 @@
         <div class="card-body rounded-bottom-2 px-5">
             <div class="row p-5">
                 <div class="col-3 text-center px-md-4">
-                    <img id="user-pfp" src="{{icon}}" alt="profile picture" class="edit-profile-pic img-fluid"><br><br>
+                    <img id="user-pfp" src="{{currentUser.icon}}" alt="profile picture" class="edit-profile-pic img-fluid"><br><br>
                     <label for="profile-picture" class="btn change-pic-btn">Change picture</label>
                     <input type="file" id="profile-picture" accept="image/*" style="display: none;"></input>
                     <button id="remove-picture" class="btn change-pic-btn">Remove picture</button>
@@ -16,23 +16,23 @@
                     <div class="row">
                         <form action="" class="edit-profile-form" id="editProfileForm">
                             <label for="username">USERNAME</label>
-                            <input type="text" name="username" id="username" value="{{username}}">
+                            <input type="text" name="username" id="username" value="{{currentUser.username}}">
 
                             <label for="display-name">DISPLAY NAME</label>
-                            <input type="text" name="display-name" id="display-name" value="{{displayName}}">
+                            <input type="text" name="display-name" id="display-name" value="{{currentUser.displayName}}">
 
                             <label for="description">DESCRIPTION</label>
-                            <textarea id="description" name="description" rows="2" cols="50">{{description}}</textarea>
+                            <textarea id="description" name="description" rows="2" cols="50">{{currentUser.description}}</textarea>
 
                             <label for="email">EMAIL</label>
-                            <input type="email" name="email" id="email" value="{{email}}">
+                            <input type="email" name="email" id="email" value="{{currentUser.email}}">
 
                             <label for="password">PASSWORD</label>
-                            <input type="password" name="password" id="password" value="{{password}}">
+                            <input type="password" name="password" id="password" value="{{currentUser.password}}">
                         </form>
                         <div class="row d-flex flex-column mt-2">
                             <div class="col text-end">
-                                <a href="/view-profile/{{username}}" class="btn reset-btn">Back</a>
+                                <a href="/view-profile/{{currentUser.username}}" class="btn reset-btn">Back</a>
                                 <button type="submit" class="btn save-btn ms-2">Save changes</button>
                             </div>
                         </div>

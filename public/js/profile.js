@@ -3,8 +3,11 @@ const profileForm = document.forms.editProfileForm;
 const reader = new FileReader();
 const userPfp = document.getElementById("user-pfp");
 const removePicBtn = document.getElementById("remove-picture");
+const profilePictureInput = document.getElementById("profile-picture");
 const defaultIcon = "/static/images/profile_pictures/pfp_temp.svg";
 let icon = null;
+
+const width = 200;
 
 // Data Object Constructor
 const Data = function(username,displayName,description,email,password,icon) {
@@ -16,19 +19,39 @@ const Data = function(username,displayName,description,email,password,icon) {
     this.icon = icon;
 };
 
-// Event listener for the file input element
-const profilePictureInput = document.getElementById("profile-picture");
 profilePictureInput.addEventListener("change", (event) => {
     const file = event.target.files[0];
 
-    // Read the uploaded file as a data URL
-    reader.readAsDataURL(file);
-  
     // Set the uploaded image as the source for the user-pfp element
-    reader.onload = () => {
-        userPfp.src = reader.result;
-        icon = reader.result; // Stores new image for profile picture
+    reader.onload = (event) => {
+        // Create image and set source as data image URL of uploaded image
+        const imageURL = event.target.result;
+        const image = document.createElement("img");
+        image.src = imageURL;
+
+        image.onload = (e) => {
+            const size = Math.min(image.width, image.height);
+            const canvas = document.createElement("canvas");
+            canvas.width = width;
+            canvas.height = width;
+
+            const context = canvas.getContext("2d");
+            // Set offset to crop image into square
+            const offsetX = (image.width - size) / 2;
+            const offsetY = (image.height - size) / 2;
+
+            context.drawImage(image, offsetX, offsetY, size, size, 0, 0, canvas.width, canvas.height);
+
+            // Convert canvas into an data image URL
+            newImageURL = canvas.toDataURL("image/jpeg", 80);
+
+            userPfp.src = newImageURL; 
+            icon = newImageURL;
+            console.log(newImageURL); 
+        };
     };
+
+    reader.readAsDataURL(file);
 });
 
 // Event listener for remove profile picture
@@ -67,7 +90,7 @@ saveBtn?.addEventListener("click", async (e) => {
             }
         });
         if (res.status === 200) {
-            location.reload(); // Refresh page
+            //location.reload(); // Refresh page
         } else {
             console.log("Status code received: " + res.status);
         }

@@ -42,9 +42,12 @@
                             <a href="/view-all-posts/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
                         </div>
                     {{else}}
-                        <div class="col-md-8" style="color: white;">
-                            <br> Hmmm... This user has no posts yet. <br> <br>
-                        </div>
+                        {{#if (isEqual posts.length 0)}}
+                            <div class="col-md-8" style="color: white;">
+                                <br> Hmmm... This user has no posts yet.
+                            </div>
+                        {{/if}}
+                        <br> <br>
                     {{/if}}
                 </div>
             </div>

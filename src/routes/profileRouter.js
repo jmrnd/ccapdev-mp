@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
 import { UserSession } from '../models/UserSession.js';
+
 const profileRouter = Router();
 
 // Retrieve edit profile page
@@ -11,15 +12,9 @@ profileRouter.get("/edit-profile", async (req, res) => {
         if(session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
             if (currentUser) {
-                // User found
                 res.render("edit-profile", {
                     layout: 'profile.hbs',
-                    username: currentUser.username,
-                    displayName: currentUser.displayName,
-                    password: currentUser.password,
-                    email: currentUser.email,
-                    description: currentUser.description,
-                    icon: currentUser.icon
+                    currentUser: currentUser,
                 });
             } else {
                 res.status(404).send("User Not Found");
@@ -35,7 +30,6 @@ profileRouter.get("/edit-profile", async (req, res) => {
 
 // Edit profile
 profileRouter.patch("/edit-profile", async (req, res) => {
-    console.log("PATCH request received for /users");
     try {
         const session = await UserSession.findOne({}).exec();
         const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
@@ -51,7 +45,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
-        const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
+        const posts = await Post.find({ author: viewUser._id}).populate("author").limit(3).exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -62,7 +56,6 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
 
         const session = await UserSession.findOne({}).exec();
 
-        console.log(session);
         // Checks if user is logged in
         if(session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
@@ -98,11 +91,8 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
 profileRouter.get("/view-all-posts/:username", async (req, res) => {
     try {
         const usernameParam = req.params.username;
-        const viewUser = await User.findOne({ username: usernameParam});
-        const posts = await Post.find({ author: viewUser._id}).populate({
-            path: 'author',
-            select: 'username',
-        }).lean().exec();
+        const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
+        const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -110,7 +100,7 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
                 totalComments: post.comments.length,
             };
         });
-        
+
         const session = await UserSession.findOne({}).exec();
 
         if(session) {
@@ -118,10 +108,11 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
 
             if (currentUser) {
                 res.render("view-all-posts", {
-                    isIndex: true, // This is for adjusting post-width
+                    isIndex: true, 
                     userFound: true,
                     currentUser: currentUser,
-                    posts: posts,
+                    viewUser: viewUser,
+                    posts: postsArray
                 });
             } else {
                 res.status(404).send("User not found");

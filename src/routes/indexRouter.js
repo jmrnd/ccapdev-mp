@@ -23,8 +23,6 @@ router.get("/", async function (req, res) {
             };
         });
 
-        console.log(posts);
-
         if (checkSession) {
             const currentSession = await UserSession.findOne({}).populate("userID").exec();
             const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
