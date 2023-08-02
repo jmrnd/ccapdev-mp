@@ -73,7 +73,22 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
         const postId = req.params.postId;
         const post = await Post.findOne({ _id: postId,}).populate("author").lean().exec();
-        const comments = await Comment.find({ post: post._id }).populate("author").lean().exec();
+        const comments = await Comment.find({ post: post._id })
+            .populate({
+                path: "author",
+                model: "User",
+                select: "username icon",
+            })
+            .populate({
+                path: "replies",
+                populate: {
+                    path: "author",
+                    model: "User",
+                    select: "username icon",
+                },
+            })
+            .lean()
+            .exec();
 
         if (post) {
             if (userSession) {
@@ -426,5 +441,6 @@ postRouter.post("/create_reply/:commentId", async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
 
 export default postRouter;
