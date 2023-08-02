@@ -7,12 +7,17 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 import express from "express";
 import exphbs from "express-handlebars";
+import session from "express-session";
+import connectMongoDBSession from 'connect-mongodb-session';
+
 
 // Routes modules
 import router from "./src/routes/indexRouter.js";
 
 // Custom hbs helpers
 import customHelpers from "./src/hbs-helpers/helpers.js";
+
+const MongoDBStore = connectMongoDBSession(session);
 
 // TO DO: Move to separate file, db.js
 const mongoURI = process.env.MONGODB_URI;
@@ -29,6 +34,20 @@ async function main() {
         partialsDir: __dirname + "/src/views/partials",
         extname: "hbs",
     });
+
+    const store = new MongoDBStore({
+        uri: process.env.MONGODB_URI, // Replace with your MongoDB connection URI
+        collection: 'usersessions', // Replace with your desired collection name for sessions
+    });
+
+    app.set('trust proxy', 1) // trust first proxy
+    app.use(session({
+        secret: 'this-is-a-secret',
+        resave: false,
+        saveUninitialized: false,
+        cookie: { secure: true },
+        store: store,
+    }))
 
     app.engine("hbs", hbs.engine);
     app.set("view engine", "hbs");

@@ -62,9 +62,15 @@ body {
   margin-bottom: 30px;
 }
 
+.form-sign-up div{
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
 .form-sign-up input {
   border-color: #081735;
-  margin-bottom: 15px;
+
   padding: 10px 10px;
   border-radius: 10px;
   font-size: small;
@@ -74,7 +80,6 @@ body {
 
 .form-sign-up input:focus {
   border-color: #081735;
-  margin-bottom: 15px;
   padding: 10px 10px;
   border-radius: 10px;
   font-size: small;
@@ -86,7 +91,6 @@ body {
   font-size: small;
   font-weight: 700;
   color: #5545a5;
-  margin-bottom: 5px;
   letter-spacing: 1px;
   text-transform: uppercase;
 }
@@ -122,9 +126,25 @@ button:hover {
   align-self: center;
 }
 
-.modal-footer {
-  display: none;
+.error-message{
+  color: red;
+  font-size: 10px;
 }
+
+.success-message{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.invalid{
+  border-color:red;
+}
+
+.success-message{
+  font-size: large;
+}
+
 
 @media (max-width: 800px) {
   .body {

@@ -1,13 +1,10 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
+import bcrypt, { hash } from "bcrypt";
 
 const signUp_Router = Router();
 
-/**********************************
-    Things to do more:
-    1. Hash Password
-
- ***********************************/
+const saltRounds = 10;
 
 /* View Sign Up Page */
 signUp_Router.get("/sign-up", async (req, res) => {
@@ -20,15 +17,34 @@ signUp_Router.get("/sign-up", async (req, res) => {
     }
 })
 
-// signUp_Router.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
-
+/* Registering an Account: POST */
 signUp_Router.post("/sign-up",  async (req, res) => {
+
+    const validateUser = await User.find({}, {username: true, email: true});
+
     try{
-        await User.create(req.body);
-        res.redirect("/login")
+        // Generate Salt
+        const salt = bcrypt.genSaltSync(saltRounds);
+
+        // Hashing process
+        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+        const processData = {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+            joinDate: req.body.joinDate,
+            icon: req.body.icon,
+        }
+
+        //Storing
+        const result = await User.create(processData);
+
+        console.log("Result:" + result);
     }
     catch(error) {
-        console.log(error);
+        console.log("Username or Email is already taken");
+        res.json(validateUser); // Send the username and email
     }
 });
 

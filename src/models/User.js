@@ -1,12 +1,23 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-    username: String,
+    username: {
+        type:String,
+        required: true,
+        unique: true
+    },
     displayName: String,
     description: String,
-    email: String,
+    email: {
+        type:String,
+        required: true,
+        unique: true
+    },
     icon: String,
-    password: String, // TODO: password hashing for phase 3
+    password: {
+        type:String,
+        require:true,
+    },
     joinDate: Date,
 });
 

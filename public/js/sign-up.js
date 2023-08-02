@@ -23,12 +23,46 @@ buttonSignUp.addEventListener("click", async (e) => {
             headers: {
                 "Content-Type": "application/json"
             }
-        })
+        });
 
-        if(res.status === 200){
-            alert("Successfully Registered"); // Test Purpose
-            window.location.href = "/login";
+        if (res.status === 200) {
+            const validateData = await res.json(); // Recieve data
+            const displayErrorUsername = buttonSignUp.parentElement.querySelector(".error-username");
+            const displayErrorEmail = buttonSignUp.parentElement.querySelector(".error-email");
+
+            // Front-end effect changes
+            displayErrorEmail.textContent = ""; // Reset if clicked more
+            displayErrorUsername.textContent =""; // Reset if clicked more
+            buttonSignUp.parentElement.querySelector("#username").style.borderColor = "#081735";
+            buttonSignUp.parentElement.querySelector("#email").style.borderColor = "#081735";
+
+            // Check if valid
+            for (const items of validateData) {
+                if(items.username === data.username){
+                    const errorMessage = "Username is already taken. Try another"
+
+                    /********************************  Change style for UX purpose********************************/
+                    buttonSignUp.parentElement.querySelector(".username-section").style.marginBottom = "5px";
+                    buttonSignUp.parentElement.querySelector("#username").style.borderColor = "red"
+                    /********************************************************************************************/
+
+                     displayErrorUsername.textContent+= errorMessage;
+                }
+
+                if(items.email === data.email){
+                    const errorMessage = "Email is already taken. Try another"
+
+                    /********************************  Change style for UX purpose********************************/
+                    buttonSignUp.parentElement.querySelector(".email-section").style.marginBottom = "5px";
+                    buttonSignUp.parentElement.querySelector("#email").style.borderColor = "red"
+                    /********************************************************************************************/
+
+                    displayErrorEmail.textContent += errorMessage;
+                }
+            }
+
         }
+
     } catch (err){
         console.error(err);
     }

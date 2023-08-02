@@ -1,8 +1,10 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
 import { UserSession } from "../models/UserSession.js";
-// import MongoDBSession from "connect-mongodb-session";
+
+import bcrypt from "bcrypt";
 import express from 'express';
+
 
 const loginRouter = Router();
 
@@ -32,8 +34,11 @@ loginRouter.post("/login", async (req, res) => {
             res.redirect("/sign-up")
         }
         else{
+
+            req.session.userID =  user.id;
+            // await UserSession.create({userID: user.id})
+
             console.log("Login Successfuly")
-            await UserSession.create({userID: user.id})
             res.redirect("/");
         }
     }
