@@ -52,7 +52,6 @@ postRouter.post("/create_post", async (req, res) => {
             body: text,
             author: currentUser,
             postDate: new Date(),
-            totalVotes: 0,
             comments: [],
             upVoters: [],
             downVoters: [],
@@ -220,7 +219,6 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
             commentDate: Date.now(),
             post: post._id,
             author: currentUser._id,
-            totalVotes: 0,
             upVoters: [],
             downVoters: [],
         });
