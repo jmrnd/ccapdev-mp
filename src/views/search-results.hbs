@@ -8,23 +8,20 @@
     </div>
 </div>
 
-{{!-- SORT FILTERS --}}
 {{#if posts.length}}
-    {{> filterBox}}
+    {{> filterPostBox}}
 {{/if}}
 
-<!-- RESULTS -->
 <div class="container" id="postsContainer">
     {{#if posts.length}}
         {{#each posts}}
             {{#if (isEqual this.author.username ../currentUser.username)}}
-                {{> myPostCard this isIndex=../isIndex}}
+                {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
             {{else}}
-                {{> otherPostCard this isIndex=../isIndex}}
-            {{/if}} 
+                {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
+            {{/if}}
         {{/each}}
     {{else}}
-        {{!-- TODO: update style --}}
         <center>
             <p>No results for "{{searchText}}"</p> 
         </center>

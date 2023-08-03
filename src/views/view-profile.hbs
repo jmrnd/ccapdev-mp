@@ -29,10 +29,10 @@
                 <h3 class="latest-post-card-title">Latest Posts</h3>
                 <!-- Post Cards -->
                 {{#each posts}}
-                    {{#if (isEqual ../currentUser.username ../viewUser.username)}}
-                        {{> myPostCard this isIndex=../isIndex}}
+                    {{#if (isEqual this.author.username ../currentUser.username)}}
+                        {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
                     {{else}}
-                        {{> otherPostCard this isIndex=../isIndex}}
+                        {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
                     {{/if}}
                 {{/each}}
                 <!-- View More Button -->
@@ -56,11 +56,11 @@
             <!-- User Latest Comments Card-->
             <div class="latest-post-card card p-4 rounded-2">
                 <h3 class="latest-post-card-title">Latest Comments</h3>
-                {{#each comments}}
-                    {{#if (isEqual ../currentUser.username this.author.username)}}
-                        {{> myComment this isIndex=../isIndex}}
+                {{#each comments currentUser=currentUser._id}}
+                    {{#if (isEqual this.author.username ../currentUser.username)}}
+                        {{> myComment this postId=../postId isIndex=../isIndex}}
                     {{else}}
-                        {{> otherComment this isIndex=../isIndex}}
+                        {{> otherComment this postId=../postId isIndex=../isIndex}}
                     {{/if}}
                 {{/each}}
                 <!-- View More Button -->

@@ -1,4 +1,4 @@
-<div class="container" id="postsContainer">
+<div class="container">
     <div class="row d-flex justify-content-center">
             <div class="col-md-7 mt-2">
                 <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
@@ -8,12 +8,15 @@
         </div>
     </div>
 </div>
-<div class="container" id="postsContainer">
-    {{#each comments}}
-        {{#if (isEqual ../currentUser.username this.author.username)}}
-            {{> myComment this isIndex=../isIndex}}
+
+{{> filterCommentBox}}
+
+<div class="container" id="commentsContainer">
+    {{#each comments currentUser=currentUser._id}}
+        {{#if (isEqual this.author.username ../currentUser.username)}}
+            {{> myComment this postId=../postId isIndex=../isIndex}}
         {{else}}
-            {{> otherComment this isIndex=../isIndex}}
+            {{> otherComment this postId=../postId isIndex=../isIndex}}
         {{/if}}
     {{/each}}
 </div>

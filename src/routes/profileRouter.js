@@ -47,24 +47,36 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const posts = await Post.find({ author: viewUser._id}).populate("author").sort({ postDate: -1 }).limit(3).exec();
-        const postsArray = posts.map((post) => {
-            return {
-                ...post.toObject(),
-                totalComments: post.comments.length,
-            };
-        });
-        const comments = await Comment.find({ author: viewUser._id}).populate("author").populate("post").sort({ commentDate: -1 }).limit(3).exec();
-        const commentsArray = comments.map((comment) => comment.toObject());
-
+        const comments = await Comment.find({ author: viewUser._id}).populate("author").sort({ commentDate: -1 }).limit(3).exec();
         const session = await UserSession.findOne({}).exec();
 
         // Checks if user is logged in
-        if(session) {
+        if (session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+
             if (currentUser) {
+                currentUser._id = currentUser._id.toString();
+
+                const postsArray = posts.map((post) => {
+                    return {
+                        ...post.toObject(),
+                        totalVotes: (post.upVoters.length - post.downVoters.length),
+                        totalComments: post.comments.length,
+                    };
+                });
+
+                const commentsArray = comments.map((comments) => {
+                    return {
+                        ...comments.toObject(),
+                        totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                        currentUser: currentUser._id
+                    }
+                });
+
                 // User found
                 res.render("view-profile", {
                     isIndex: false,
+                    isPost: false,
                     pageTitle: viewUser.username,
                     userFound: true,
                     isIndex: false,
@@ -80,6 +92,7 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             // If no logged in user, render page with unregistered navbar
             res.render("view-profile", {
                 isIndex: false,
+                isPost: false,
                 userFound: false,
                 isIndex: false,
                 viewUser: viewUserData,
@@ -98,23 +111,25 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
-
-        const postsArray = posts.map((post) => {
-            return {
-                ...post.toObject(),
-                totalComments: post.comments.length,
-            };
-        });
-
         const session = await UserSession.findOne({}).exec();
 
-        if(session) {
+        if (session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+            currentUser._id = currentUser._id.toString();
+
+            const postsArray = posts.map((post) => {
+                return {
+                    ...post.toObject(),
+                    totalVotes: (post.upVoters.length - post.downVoters.length),
+                    totalComments: post.comments.length,
+                };
+            });
 
             if (currentUser) {
                 res.render("view-all-posts", {
                     isIndex: true, 
                     userFound: true,
+                    pageTitle: `Posts by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
                     posts: postsArray
@@ -126,6 +141,7 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
             res.render("view-all-posts", {
                 isIndex: true,
                 userFound: false,
+                pageTitle: `Posts by ${usernameParam}`,
                 posts: postsArray
             });
         }
@@ -142,17 +158,26 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const comments = await Comment.find({ author: viewUser._id}).populate("author").exec();
 
-        const commentsArray = comments.map((comment) => comment.toObject());
-
         const session = await UserSession.findOne({}).exec();
 
-        if(session) {
+        if (session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+            currentUser._id = currentUser._id.toString();
+
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                    currentUser: currentUser._id
+                }
+            });
 
             if (currentUser) {
                 res.render("view-all-comments", {
-                    isIndex: true, 
+                    isIndex: true,
+                    isPost: false, 
                     userFound: true,
+                    pageTitle: `Comments by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
                     comments: commentsArray
@@ -163,7 +188,9 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
         } else {
             res.render("view-all-posts", {
                 isIndex: true,
+                isPost: false,
                 userFound: false,
+                pageTitle: `Comments by ${usernameParam}`,
                 comments: commentsArray
             });
         }
