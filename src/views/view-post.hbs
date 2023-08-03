@@ -48,6 +48,10 @@
                     <div id="postBodyDisplay">
                         {{{post.body}}}
                     </div><br>
+                    {{!-- <p>Current user: {{currentUser._id}}</p>
+                    <p>Upvoters: {{post.upVoters}}</p>
+                    <p>Downvoters: {{post.downVoters}}</p>
+                    <p>hasVoted: {{hasVoted currentUser._id post.upVoters post.downVoters}}</p> --}}
                     <div class="flex-center iconGrid">
                     {{#if (hasVoted currentUser._id post.upVoters post.downVoters)}} {{!-- User has voted on the post--}}
                         {{#if (isUpvoter currentUser._id post.upVoters)}}
@@ -88,11 +92,11 @@
 {{!-- COMMENTS --}}
 {{#if comments}}
 <div class="comment-space-container" id="commentSpace">
-    {{#each comments currentUser=currentUser._id }}
+    {{#each comments currentUser=currentUser._id}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> myComment this postId=../postId isIndex=../isIndex isPost=../isPost}}
+            {{> myComment this postId=../postId isIndex=../isIndex}}
         {{else}}
-            {{> otherComment this postId=../postId isIndex=../isIndex isPost=../isPost}}
+            {{> otherComment this postId=../postId isIndex=../isIndex}}
         {{/if}}
     {{/each}}
 </div>

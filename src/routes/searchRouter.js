@@ -8,7 +8,7 @@ const searchRouter = Router();
 searchRouter.get("/search", async (req, res) => {
     try {
         const searchText = req.query.q;
-        const session = await UserSession.findOne({}).populate("userID").exec();
+        const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
         if (searchText === "") {
             res.redirect("/");
@@ -24,23 +24,25 @@ searchRouter.get("/search", async (req, res) => {
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
-                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });
 
-        if (session) {
-            const currentUser = await User.findOne({ _id : session.userID }).lean().exec();
-            currentUser._id = currentUser._id.toString();
+        if (checkSession) {
+            const currentUser = await User.findOne({ _id: checkSession.userID }).lean().exec();
 
-            res.render("search-results", {
-                isIndex: true,
-                userFound: true,
-                pageTitle: "foroom",
-                currentUser: currentUser,
-                posts: postsArray,
-                searchText: searchText,
-            });
+            if (currentUser) {
+                res.render("search-results", {
+                    isIndex: true,
+                    userFound: true,
+                    pageTitle: "foroom",
+                    currentUser: currentUser,
+                    posts: postsArray,
+                    searchText: searchText,
+                });
+            } else {
+                res.status(404).send("User not found");
+            }
         } else {
             res.render("index", {
                 isIndex: true,

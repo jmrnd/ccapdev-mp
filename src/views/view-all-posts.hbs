@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="postsContainer">
     <div class="row d-flex justify-content-center">
             <div class="col-md-7 mt-2">
                 <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
@@ -8,15 +8,12 @@
         </div>
     </div>
 </div>
-
-{{> filterPostBox}}
-
 <div class="container" id="postsContainer">
     {{#each posts}}
-        {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
+        {{#if (isEqual this.author.username @root.currentUser.username)}}
+            {{> myPostCard post=this isIndex=@root.isIndex}}
         {{else}}
-            {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
+            {{> otherPostCard post=this isIndex=@root.isIndex}}
         {{/if}}
     {{/each}}
 </div>

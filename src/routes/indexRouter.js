@@ -12,7 +12,7 @@ const router = Router();
 
 router.get("/", async function (req, res) {
     try {
-        const session = await UserSession.findOne({}).populate("userID").exec();
+        const checkSession = await UserSession.findOne({}).populate("userID").exec();
         const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
@@ -23,14 +23,17 @@ router.get("/", async function (req, res) {
             };
         });
 
-        if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+        if (checkSession) {
+            const currentSession = await UserSession.findOne({}).populate("userID").exec();
+            const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+
             currentUser._id = currentUser._id.toString();
 
             if (currentUser) {
                 res.render("index", {
                     isIndex: true, // This is for adjusting post-width
                     userFound: true,
+                    activeUserSession: currentSession,
                     pageTitle: "foroom",
                     currentUser: currentUser,
                     posts: postsArray,
@@ -41,16 +44,16 @@ router.get("/", async function (req, res) {
             }
       } else {
         res.render("index", {
-            isIndex: true,
-            userFound: false,
-            pageTitle: "foroom",
-            icon: "/static/images/profile_pictures/pfp_temp.svg",
-            posts: postsArray,
+          isIndex: true,
+          userFound: false,
+          pageTitle: "foroom",
+          icon: "/static/images/profile_pictures/pfp_temp.svg",
+          posts: postsArray,
         });
       }
     } catch (error) {
-        console.error("Error finding user", error);
-        res.status(500).send("Internal Server Error");
+      console.error("Error finding user", error);
+      res.status(500).send("Internal Server Error");
     }
   });
 
@@ -69,23 +72,24 @@ router.get("/about", async function (req, res) {
       if (checkSession) {
         const currentSession = await UserSession.findOne({}).populate("userID").exec();
         const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+
         currentUser._id = currentUser._id.toString();
 
         if (currentUser) {
-            res.render("about", {
-                pageTitle: "About",
-                userFound: true,
-                currentUser: currentUser,
-            });
+          res.render("about", {
+            pageTitle: "About",
+            userFound: true,
+            currentUser: currentUser,
+          });
         } else{
             res.status(404).send("User not found");
         }
     } else {
-        res.render("about", {
-            pageTitle: "About",
-            userFound: false,
-            currentUser: currentUser,
-        });
+      res.render("about", {
+        pageTitle: "About",
+        userFound: false,
+        currentUser: currentUser,
+      });
     }
   } catch (error) {
     res.status(500).send("Internal Server Error");

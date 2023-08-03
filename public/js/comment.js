@@ -8,13 +8,14 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
     e.preventDefault();
 
     // Get the comment text element
-    const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
+    const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
 
     // Create the textarea element for editing
     const commentInput = document.createElement("textarea");
     commentInput.classList.add("edit-text-area");
     commentInput.value = commentText.textContent.trim();
     commentText.replaceWith(commentInput); // Replace the comment text with the textarea
+
 
     // Replace the comment text with the input field
     const currentComment = commentText.innerText;
@@ -26,7 +27,6 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
 
     const get_id = e.target.id;
     console.log(get_id)
-
     // Add event listener to save changes on Enter key press or blur
     commentInput.addEventListener("keydown", async function (e) {
     if (e.key === "Enter") {
@@ -47,7 +47,7 @@ editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
         const response = await fetch(get_id, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
             },
             body: JSON.stringify(data), // parse ID
         });
@@ -110,50 +110,3 @@ const textarea = document.querySelector("textarea");
     let scHeight = e.target.scrollHeight;
     textarea.style.height = `${scHeight}px`;
 });
-
-// SORT COMMENTS
-let activeSortComment = -1; // Default (0 - Date, 1 - Votes)
-
-const toggleSortComment = (sortOption) => {
-  if (activeSortComment !== sortOption) {
-    const sortDateBtnComment = document.getElementById("sortDateComment");
-    const sortUpvotesBtnComment = document.getElementById("sortUpvotesComment");
-
-    sortDateBtnComment.classList.toggle("active", sortOption === 0);
-    sortUpvotesBtnComment.classList.toggle("active", sortOption === 1);
-
-    activeSortComment = sortOption;
-
-    const commentsContainer = document.getElementById("commentsContainer");
-    const comments = Array.from(commentsContainer.getElementsByClassName("comment-card"));
-
-    comments.sort((commentA, commentB) => {
-      const dateA = new Date(commentA.getAttribute("data-date-comments"));
-      const dateB = new Date(commentB.getAttribute("data-date-comments"));
-      const upvotesA = Number(commentA.getAttribute("data-upvotes-comments"));
-      const upvotesB = Number(commentB.getAttribute("data-upvotes-comments"));
-
-      if (activeSortComment === 0) {
-        // Sort by Date
-        return dateB - dateA;
-      } else {
-        // Sort by Upvotes
-        return upvotesB - upvotesA;
-      }
-    });
-
-    commentsContainer.innerHTML = "";
-    comments.forEach((comment) => {
-        commentsContainer.appendChild(comment);
-    });
-  }
-};
-
-const sortDateBtnComment = document.getElementById("sortDateComment");
-const sortUpvotesBtnComment = document.getElementById("sortUpvotesComment");
-
-sortDateBtnComment.classList.toggle("active", activeSortComment === 0);
-sortUpvotesBtnComment.classList.toggle("active", activeSortComment === 1);
-
-sortDateBtnComment.addEventListener("click", () => toggleSortComment(0));
-sortUpvotesBtnComment.addEventListener("click", () => toggleSortComment(1));

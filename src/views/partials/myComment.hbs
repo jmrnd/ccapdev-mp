@@ -1,4 +1,4 @@
-<div class="comment-card row d-flex justify-content-center" data-date-comments="{{commentDate}}" data-upvotes-comments="{{totalVotes}}">
+<div class="row d-flex justify-content-center">
     {{#if isIndex}}
     <div class="col-md-7">
     {{else}}
@@ -28,14 +28,10 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <li>
-                                    {{#if isPost}}
-                                        <a class="dropdown-item edit-comment-btn" id="/edit-comment/{{this.post}}/{{this._id}}"><i class="bi bi-pencil me-2"></i>Edit</a>
-                                    {{else}}
-                                        <a href="/view-post/{{this.post}}" class="dropdown-item"><i class="bi bi-box-arrow-up-right me-2"></i>Go to post</a>
-                                    {{/if}}
+                                    <a class="dropdown-item edit-comment-btn" id="/edit-comment/{{postId}}/{{this._id}}"><i class="bi bi-pencil me-2"></i>Edit</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item delete-comment-btn" id="/delete-comment/{{this.post}}/{{this._id}}"><i class="bi bi-trash me-2"></i>Delete comment</a>
+                                    <a class="dropdown-item delete-comment-btn" id="/delete-comment/{{postId}}/{{this._id}}"><i class="bi bi-trash me-2"></i>Delete comment</a>
                                 </li>
                             </div>
                         </div>

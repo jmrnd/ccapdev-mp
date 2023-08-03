@@ -1,11 +1,14 @@
+{{!-- CREATE-POST --}}
 {{#if userFound}}
     {{> myCreatePostBox}}
 {{else}}
     {{> guestCreatePostBox}}
 {{/if}}
 
-{{> filterPostBox}}
+{{!-- POST FILTERS --}}
+{{> filterBox}}
 
+{{!-- POSTS --}}
 <div class="container" id="postsContainer">
     {{#each posts}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
