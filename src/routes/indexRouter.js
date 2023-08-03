@@ -88,7 +88,6 @@ router.get("/about", async function (req, res) {
       res.render("about", {
         pageTitle: "About",
         userFound: false,
-        currentUser: currentUser,
       });
     }
   } catch (error) {
