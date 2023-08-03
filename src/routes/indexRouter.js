@@ -65,6 +65,37 @@ router.get("/homepage", (req, res) => {
     res.redirect("/");
 });
 
+router.get("/about", async function (req, res) {
+  try {
+      const checkSession = await UserSession.findOne({}).populate("userID").exec();
+
+      if (checkSession) {
+        const currentSession = await UserSession.findOne({}).populate("userID").exec();
+        const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+
+        currentUser._id = currentUser._id.toString();
+
+        if (currentUser) {
+          res.render("about", {
+            pageTitle: "About",
+            userFound: true,
+            currentUser: currentUser,
+          });
+        } else{
+            res.status(404).send("User not found");
+        }
+    } else {
+      res.render("about", {
+        pageTitle: "About",
+        userFound: false,
+        currentUser: currentUser,
+      });
+    }
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 router.use(profileRouter);
 router.use(postRouter);
 router.use(searchRouter);

@@ -1,0 +1,56 @@
+.body {
+    background-color: #5545a5;
+}
+
+.creators-pic {
+    border-radius: 50%;
+    border: 5px solid #5545a5;
+    background-color: white;
+}
+
+.creators-pic:hover {
+    border-radius: 50%;
+    /* border: 5px solid #15f700; #a096d2; */
+    border: 5px solid #15f700;
+    background-color: white;
+}
+
+#creators-heading:after {
+    content: 'Creators';
+    color: #15f700;
+}
+
+.white-text {
+    color: white;
+}
+
+.dark-block {
+    background-color: #081329;
+}
+
+.purple-block {
+    background-color: #5545a5;
+}
+
+.green-block {
+    background-color: #15f700;
+}
+
+
+.start-btn {
+    background-color: #15f700;
+    border-color: #15f700;
+    color: #081329;
+    font-weight:600;
+    margin-bottom: 10px;
+}
+
+.start-btn:hover {
+    background-color: #a096d2;
+    border-color: #a096d2;
+    color: white;
+}
+
+.about-foroom {
+    font-weight:300;
+}
