@@ -20,21 +20,10 @@
                         <div class="d-inline-block mb-0 mt-1">
                             <i class="bi bi-bell-fill notification-bell"></i>
                             {{!-- UNREAD NOTIFICATIONS --}}
-                            {{#if notifs.length}}
-                            <span class="position-absolute"></span>
-                            {{!-- <span class="position-absolute translate-middle badge rounded-pill bg-danger">{{notifs.unread}}</span> --}}
-                            {{else}}
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger">{{notifs.unread}}</span>
-                            {{/if}}
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger">3</span>
                         </div>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <span class="ms-3">Notifications</span>
-                        <li><hr class="dropdown-divider"></li>
-                        {{#each notifs}}
-                            {{> notification this}}
-                        {{/each}}
-                    </ul>
+                    
                 </li>
 
                 {{!-- CREATE A POST --}}
