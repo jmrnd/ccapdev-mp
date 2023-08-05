@@ -10,7 +10,7 @@ const profileRouter = Router();
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
         const session = await UserSession.findOne({}).exec();
-        if(session) {
+        if (session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
             if (currentUser) {
                 res.render("edit-profile", {
@@ -44,23 +44,34 @@ profileRouter.patch("/edit-profile", async (req, res) => {
 // View profile
 profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
+        const session = await UserSession.findOne({}).populate("userID").exec();
+        
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const posts = await Post.find({ author: viewUser._id}).populate("author").sort({ postDate: -1 }).limit(3).exec();
+        const comments = await Comment.find({ author: viewUser._id}).populate("author").sort({ commentDate: -1 }).limit(3).exec();
+        
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
+                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });
-        const comments = await Comment.find({ author: viewUser._id}).populate("author").populate("post").sort({ commentDate: -1 }).limit(3).exec();
-        const commentsArray = comments.map((comment) => comment.toObject());
-
-        const session = await UserSession.findOne({}).exec();
 
         // Checks if user is logged in
-        if(session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+        if (session) {
+            const currentUser = await User.findOne({ _id : session.userID }).lean().exec();
+            currentUser._id = currentUser._id.toString();
+
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                    currentUser: currentUser._id
+                }
+            });
+
             if (currentUser) {
                 // User found
                 res.render("view-profile", {
@@ -77,13 +88,24 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                 res.status(404).send("User not found");
             }
         } else {
+
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                }
+            });
+
             // If no logged in user, render page with unregistered navbar
             res.render("view-profile", {
                 isIndex: false,
+                isPost: false,
+                pageTitle: viewUser.username,
                 userFound: false,
                 isIndex: false,
-                viewUser: viewUserData,
+                viewUser: viewUser,
                 posts: postsArray,
+                comments: commentsArray
             });
         }
       } catch (error) {

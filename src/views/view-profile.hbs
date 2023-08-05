@@ -56,8 +56,8 @@
             <!-- User Latest Comments Card-->
             <div class="latest-post-card card p-4 rounded-2">
                 <h3 class="latest-post-card-title">Latest Comments</h3>
-                {{#each comments}}
-                    {{#if (isEqual ../currentUser.username this.author.username)}}
+                {{#each comments currentUser=currentUser._id}}
+                    {{#if (isEqual this.author.username ../currentUser.username)}}
                         {{> myComment this isIndex=../isIndex}}
                     {{else}}
                         {{> otherComment this isIndex=../isIndex}}
@@ -70,7 +70,7 @@
                             <a href="/view-all-comments/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
                         </div>
                     {{else}}
-                        {{#if (isEqual posts.length 0)}}
+                        {{#if (isEqual comments.length 0)}}
                             <div class="col-md-8" style="color: white;">
                                 <br> Hmmm... This user has no comments yet.
                             </div>

@@ -13,7 +13,7 @@ postRouter.use(bodyParser.json());
 // renders the create post page
 postRouter.get("/create-post", async (req, res) => {
     try {
-        const userSession = await UserSession.findOne({}).populate("userID").exec();
+        const session = await UserSession.findOne({}).populate("userID").exec();
 
         console.log(req.body);
 
@@ -22,7 +22,7 @@ postRouter.get("/create-post", async (req, res) => {
             icon: userSession.userID.icon,
         };
 
-        if (userSession) {
+        if (session) {
             res.render("create-post", {
                 pageTitle: "Post to foroom",
                 userFound: true,
@@ -44,7 +44,6 @@ postRouter.post("/create_post", async (req, res) => {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
         const currentUser = await User.findOne({ _id: userSession.userID }).lean().exec();
         
-        // Extract data from the form
         const { title, text } = req.body;
         
         const newPost = new Post({
@@ -69,60 +68,66 @@ postRouter.post("/create_post", async (req, res) => {
 // VIEW POST
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
-        const userSession = await UserSession.findOne({}).populate("userID").exec();
-        const currentUser = await User.findOne({ _id : userSession.userID._id}).lean().exec();
+        const session = await UserSession.findOne({}).populate("userID").exec();
         const postId = req.params.postId;
         const post = await Post.findOne({ _id : postId }).populate("author").exec();
         const comments = await Comment.find({ post: post._id }).populate("author").exec();
 
-        currentUser._id = currentUser._id.toString();
+        const processPost = {
+            ...post.toObject(),
+            totalVotes: (post.upVoters.length - post.downVoters.length),
+            totalComments: post.comments.length
+        }
 
-        const commentsArray = comments.map((comments) => {
-            return {
-                ...comments.toObject(),
-                totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                currentUser: currentUser._id
-            };
-        });
+        if (session) {
+            const currentUser = await User.findOne({ _id : session.userID._id }).lean().exec();
+            currentUser._id = currentUser._id.toString();
 
-        if (post) {
-            const processPost = {
-                ...post.toObject(),
-                totalVotes: (post.upVoters.length - post.downVoters.length),
-                totalComments: post.comments.length,
-            };
+            if (post) {
+                const commentsArray = comments.map((comments) => {
+                    return {
+                        ...comments.toObject(),
+                        totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                        currentUser: currentUser._id
+                    };
+                });
 
-            if (userSession) {
                 res.render("view-post", {
+                    userFound: true,
                     isIndex: true,
                     pageTitle: post.title,
-                    postId: postId,
-                    userFound: true,
                     currentUser: currentUser,
                     post: processPost,
                     postAuthor: {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-                    comments: commentsArray,
+                    comments: commentsArray
                 });
             } else {
-                res.render("view-post", {
-                    isIndex: true,
-                    pageTitle: post.title,
-                    postId: postId,
-                    userFound: false,
-                    post: processPost,
-                    postAuthor: {
-                        username: post.author.username,
-                        icon: post.author.icon
-                    },
-                    comments: commentsArray,
-                });
+                console.log("No post found.");
+                res.status(404).send("Post not found.");
             }
         } else {
-            console.log("No post found");
-            res.status(404).send("Post not found");
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                };
+            });
+
+            res.render("view-post", {
+                userFound: false,
+                isIndex: true,
+                isPost: true,
+                pageTitle: post.title,
+                post: processPost,
+                postAuthor: {
+                    username: post.author.username,
+                    icon: post.author.icon
+                },
+                comments: commentsArray
+            })
         }
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);

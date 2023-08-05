@@ -31,7 +31,7 @@ router.get("/", async function (req, res) {
 
             if (currentUser) {
                 res.render("index", {
-                    isIndex: true, // This is for adjusting post-width
+                    isIndex: true,
                     userFound: true,
                     activeUserSession: currentSession,
                     pageTitle: "foroom",
@@ -39,18 +39,18 @@ router.get("/", async function (req, res) {
                     posts: postsArray,
                 });
             }
-            else{
+            else {
                 res.status(404).send("User not found");
             }
-      } else {
-        res.render("index", {
-          isIndex: true,
-          userFound: false,
-          pageTitle: "foroom",
-          icon: "/static/images/profile_pictures/pfp_temp.svg",
-          posts: postsArray,
-        });
-      }
+        } else {
+            res.render("index", {
+                isIndex: true,
+                userFound: false,
+                pageTitle: "foroom",
+                icon: "/static/images/profile_pictures/pfp_temp.svg",
+                posts: postsArray,
+            });
+        }
     } catch (error) {
       console.error("Error finding user", error);
       res.status(500).send("Internal Server Error");
