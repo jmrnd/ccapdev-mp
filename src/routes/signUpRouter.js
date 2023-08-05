@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
-import bcrypt, { hash } from "bcrypt";
+import passwordUtils from '../userAuth/passwordHelpers.js';
+import { hash } from 'bcrypt';
 
 const signUp_Router = Router();
 
@@ -23,12 +24,11 @@ signUp_Router.post("/sign-up",  async (req, res) => {
     const validateUser = await User.find({}, {username: true, email: true});
 
     try{
-        // Generate Salt
-        const salt = bcrypt.genSaltSync(saltRounds);
 
-        // Hashing process
-        const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+        // Hash Proces
+        const hashedPassword = passwordUtils.generatePassword(req.body.password);
 
+        // Process Data
         const processData = {
             username: req.body.username,
             email: req.body.email,
@@ -37,13 +37,14 @@ signUp_Router.post("/sign-up",  async (req, res) => {
             icon: req.body.icon,
         }
 
-        //Storing
+        //Store in MongoDB
         const result = await User.create(processData);
 
         console.log("Result:" + result);
     }
     catch(error) {
         console.log("Username or Email is already taken");
+        console.log("Error: " + error)
         res.json(validateUser); // Send the username and email
     }
 });

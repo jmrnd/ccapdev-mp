@@ -1,53 +1,33 @@
 import { Router } from 'express';
-import { User } from '../models/User.js';
-import { UserSession } from "../models/UserSession.js";
+import passport from 'passport';
 
-import bcrypt from "bcrypt";
-import express from 'express';
+
 
 
 const loginRouter = Router();
 
-loginRouter.get("/login", async(req, res) => {
+loginRouter.get("/login", async (req, res) => {
     res.render("login");
     console.log("Currently in: Login Page")
 })
 
-loginRouter.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+// passport.autheticate('local') = use local strategy
+loginRouter.post('/login', passport.authenticate('local', { failureRedirect: '/sign-up', successRedirect: '/'}));
 
-loginRouter.post("/login", async (req, res) => {
-    const {email, password} = req.body; // Get email and password
-    const user = await User.findOne({email}); // Find email in User
 
-    // console.log(email, password);
-    // console.log(user);
+loginRouter.get("/logout", async(req, res, next) => {
+    // await UserSession.findOneAndDelete({});
 
-    // Check if email already Registered
-    if(!user){
-        res.redirect("/sign-up")
-        console.log( email + " is not found");
-    }
-    else{
-        // Check password
-        if(password != user.password){
-            console.log("Wrong password")
-            res.redirect("/sign-up")
+    /*
+    *   Logout from passport and Destroy Session for security
+    */
+
+    req.logout(function(err) {
+        if (err) {
+            return next(err);
         }
-        else{
-
-            req.session.userID =  user.id;
-            // await UserSession.create({userID: user.id})
-
-            console.log("Login Successfuly")
-            res.redirect("/");
-        }
-    }
-});
-
-loginRouter.get("/logout", async(req, res) => {
-    await UserSession.findOneAndDelete({});
-    console.log("Just Logged out");
-    res.redirect("/");
+        res.redirect("/")
+    });
 })
 
 

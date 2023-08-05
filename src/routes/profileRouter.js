@@ -7,9 +7,9 @@ const profileRouter = Router();
 // Retrieve edit profile page
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
-        const session = await UserSession.findOne({});
-        if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+
+        if(req.isAuthenticated) {
+        const currentUser = await User.findById(req.user._id);
     
         if (currentUser) {
             // User found
@@ -25,7 +25,7 @@ profileRouter.get("/edit-profile", async (req, res) => {
             res.status(404).send("User Not Found");
         }
         } else {
-            res.status(404).send("Session Not Found");
+            res.status(404).send("User not authenticated");
         }
     } catch (error) {
         console.error("Error occurred while retrieving user:", error);
@@ -37,9 +37,14 @@ profileRouter.get("/edit-profile", async (req, res) => {
 profileRouter.patch("/edit-profile", async (req, res) => {
     console.log("PATCH request received for /users");
     try {
-        const session = await UserSession.findOne({});
-        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true })
-        res.sendStatus(200);
+
+        if(req.isAuthenticated){
+            const data = await User.findOneAndUpdate({ _id: req.user._id }, req.body, { new: true })
+            res.sendStatus(200);
+        } else {
+            console.log("User not Found");
+        }
+
     } catch (error) {
       console.error(error);
       res.sendStatus(500);
@@ -68,12 +73,9 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             icon: viewUser.icon
         }
 
-        const session = await UserSession.findOne({});
-
-        console.log(session);
         // Checks if user is logged in
-        if(session) {
-            const currentUser = await User.findOne({ _id: session.userID });
+        if(req.isAuthenticated) {
+            const currentUser = await User.findById(req.user._id);
             const currUserData = {
                 username: currentUser.username,
                 icon: currentUser.icon
@@ -114,10 +116,10 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
             path: 'author',
             select: 'username',
         }).lean();
-        const session = await UserSession.findOne({});
 
-        if(session) {
-            const currentUser = await User.findOne({ _id: session.userID });
+
+        if(req.isAuthenticated) {
+            const currentUser = await User.findOne({ _id: req.user._id});
 
             const currUserData = {
                 username: currentUser.username,

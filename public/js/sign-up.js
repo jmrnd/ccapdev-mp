@@ -27,6 +27,7 @@ buttonSignUp.addEventListener("click", async (e) => {
 
         if (res.status === 200) {
             const validateData = await res.json(); // Recieve data
+
             const displayErrorUsername = buttonSignUp.parentElement.querySelector(".error-username");
             const displayErrorEmail = buttonSignUp.parentElement.querySelector(".error-email");
 
