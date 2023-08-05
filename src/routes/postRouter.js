@@ -95,6 +95,7 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 res.render("view-post", {
                     userFound: true,
                     isIndex: true,
+                    isPost: true,
                     pageTitle: post.title,
                     currentUser: currentUser,
                     post: processPost,
