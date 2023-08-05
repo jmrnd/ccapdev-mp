@@ -3,9 +3,6 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import { User } from "../models/User.js";
 import passwordUtils from '../userAuth/passwordHelpers.js';
 
-console.log("IM IN PASSPORT");
-
-
 /*
 *   Function -> Pertains to field verifyCallback will accept
 *   Importance -> email field cannot be passed so we customize the field usernameField = 'email'

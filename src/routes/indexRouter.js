@@ -13,6 +13,8 @@ const router = Router();
 
 router.get("/", async function (req, res) {
 
+
+/**************************** TESTING **************************************** */
     // if(req.isAuthenticated()){
     //     console.log("Username:" + req.user.username);
     //     console.log("userID:" + req.user._id)
@@ -23,7 +25,6 @@ router.get("/", async function (req, res) {
     //     res.send("No user Found")
     // }
 
-/**************************** TESTING **************************************** */
     // if(req.session.viewCount){
     //   req.session.viewCount = req.session.viewCount + 1;
     // }else{
