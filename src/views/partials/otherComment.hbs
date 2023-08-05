@@ -81,8 +81,7 @@
                                         </div>
                                         <!-- Reply form ends here for nested replies -->
                                         {{#each this.replies}}
-                                        
-                                            {{> myComment this postId=../postId}} {{!-- Recursively call the partial for nested replies --}}
+                                            {{> replyPartial}} {{!-- Recursively call the partial for nested replies --}}
                                         {{/each}}
                                         <!-- More fields can be added as needed -->
                                     </div>
