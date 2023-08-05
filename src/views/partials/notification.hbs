@@ -1,0 +1,11 @@
+<li class="notification-dropdown-item">
+    <a href="{{link}}" class="d-flex flex-column d-inline-block text-wrap ms-1 me-2 mt-1 link-unstyled" style="width: 20rem;">
+        <div class="d-flex flex-row align-item-center text-wrap mt-2">
+            <img src="{{fromUser.icon}}" class="rounded-circle notification-pfp mx-2" alt="profile_picture">
+            <span class="notification-header me-2">{{fromUser.username}} {{notifBody}}</span>
+        </div>
+        <span class="notification-body custom-truncate mx-3 mt-1" style="max-width: 20rem;">
+            {{{content}}}
+        </span>
+    </a>
+</li>
