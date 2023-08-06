@@ -4,6 +4,15 @@ import { Post } from '../models/Post.js';
 import { Comment } from '../models/Comment.js';
 import { UserSession } from '../models/UserSession.js';
 
+import { check, validationResult } from "express-validator";
+
+// Validation Rules
+const usernameValidation = check("username").isLength({ min: 5, max: 20 }).withMessage("usernameFormat");
+const displayNameValidation = check("displayName").isLength({ min: 0, max: 20 }).withMessage("displayNameFormat");
+const descriptionValidation = check("description").isLength({ min: 0, max: 100 }).withMessage("descriptionFormat");
+const emailValidation = check("email").isEmail().withMessage("emailFormat");
+const passwordValidation = check("password").isLength({ min: 6, max: 15 }).withMessage("passwordFormat");
+
 const profileRouter = Router();
 
 // Retrieve edit profile page
@@ -24,21 +33,69 @@ profileRouter.get("/edit-profile", async (req, res) => {
             res.status(404).send("Session Not Found");
         }
     } catch (error) {
-        console.error("Error occurred while retrieving user:", error);
-        res.status(500).send("Internal Server Error"); // To redirect to an error page
+        console.error("Error occurred:" + error);
+        res.status(500).send("Internal Server Error");
     }
 });
 
 // Edit profile
-profileRouter.patch("/edit-profile", async (req, res) => {
-    try {
-        const session = await UserSession.findOne({}).exec();
-        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
-        res.sendStatus(200);
-    } catch (error) {
-      console.error(error);
-      res.sendStatus(500);
+profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation, descriptionValidation, emailValidation, passwordValidation], async (req, res) => {
+    
+    // If the input data fails format validation rules, the error data is stored in the errorsArray
+    const errors = validationResult(req);
+    let errorsArray = errors.array();
+
+    const session = await UserSession.findOne({}).exec();
+    const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+    const existingUserWithUsername = await User.findOne({ username: req.body.username }).exec();
+    const existingUserWithEmail = await User.findOne({ email: req.body.email }).exec();
+
+    // Check if username is taken
+    if(existingUserWithUsername) {
+        // Checks if username is taken by another user who is not the current user
+        if(currentUser.username !== req.body.username) {
+            // Create usernameExists error data
+            const usernameExistsErr = {
+                type: 'field',
+                value: req.body.username,
+                msg: 'usernameExists',
+                path: 'username'
+            }
+            // usernameExists error data is pushed to errorsArray
+            errorsArray.push(usernameExistsErr);
+        }
     }
+
+    // Check if email is taken
+    if(existingUserWithEmail) {
+        // Checks if email is taken by another user who is not the current user
+        if(currentUser.email !== req.body.email) {
+            // Create usernameExists error data
+            const emailExistsErr = {
+                type: 'field',
+                value: req.body.email,
+                msg: 'emailExists',
+                path: 'email'
+            }
+            // emailExists error data is pushed to errorsArray
+            errorsArray.push(emailExistsErr);
+        }
+    }
+
+    if(errorsArray.length > 0) {
+        // Sends errorsArray as JSON to frontend to display respective form validation messages
+        res.status(422).json({ errors: errorsArray });
+    } else {
+        // Input data is validated and used to update profile details
+        try {
+            const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
+            res.sendStatus(200);
+        } catch (error) {
+            console.error("Error occurred:" + error);
+            res.status(500).send("Internal Server Error");
+        }
+    }
+
 });
 
 // View profile
@@ -110,8 +167,8 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             });
         }
       } catch (error) {
-          console.error("Error occurred while retrieving user:", error);
-          res.status(500).send("Internal Server Error"); // or redirect to an error page
+          console.error("Error occurred:" + error);
+          res.status(500).send("Internal Server Error");
       }
 });
 
@@ -152,11 +209,12 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
                 isIndex: true,
                 userFound: false,
                 pageTitle: `Posts by ${usernameParam}`,
+                viewUser: viewUser,
                 posts: postsArray
             });
         }
       } catch (error) {
-        console.error("Error finding user", error);
+        console.error("Error occurred: ", error);
         res.status(500).send("Internal Server Error");
       }
 });
@@ -207,11 +265,12 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
                 isPost: false,
                 userFound: false,
                 pageTitle: `Comments by ${usernameParam}`,
+                viewUser: viewUser,
                 comments: commentsArray
             });
         }
       } catch (error) {
-        console.error("Error finding user", error);
+        console.error("Error occurred:" + error);
         res.status(500).send("Internal Server Error");
       }
 });

@@ -3,6 +3,29 @@
     <div class="col-md-7">
         <div class="card mt-4 mb-0">
             <div class="card-body rounded">
+            {{#if isDeleted}}
+                {{!-- POST HEADER --}}
+                <div class="d-flex justify-content-between mt-2 mb-4">
+                     <div>
+                        <img class="rounded-circle ms-3" src="/static/images/profile_pictures/pfp_temp.svg" alt="profile_picture" width="40" height="40">
+                        <span class="post-author pt-0">
+                        [Deleted]
+                        </span>
+                    </div>
+                </div>
+                {{!-- POST CONTENT --}}
+                <div class="post-content">
+                    <div id="postTitleDisplay">
+                        <p class="post-title">[Deleted]</p>
+                    </div>
+                    <div id="postBodyDisplay">
+                        This post has been deleted by the author.
+                    </div><br>
+                    <hr style="width: 100%">
+                    <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
+                    <span class="iconGrid-text mx-1">{{comments.length}} comments</span>
+                </div>
+            {{else}}
                 {{!-- POST HEADER --}}
                 <div class="d-flex justify-content-between mt-2">
                      <div>
@@ -84,7 +107,10 @@
                         </form>
                     </div>
                     {{/if}}
+
+            
                 </div>
+            {{/if}}
             </div>
         </div>
     </div>

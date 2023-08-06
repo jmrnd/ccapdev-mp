@@ -1,10 +1,6 @@
-.body {
-    background-color: #5545a5;
-}
-
 .creators-pic {
     border-radius: 50%;
-    border: 5px solid #5545a5;
+    border: 5px solid #7933ff;
     background-color: white;
 }
 
@@ -16,7 +12,7 @@
 }
 
 #creators-heading:after {
-    content: 'Creators';
+    content: 'Developers';
     color: #15f700;
 }
 
@@ -24,18 +20,29 @@
     color: white;
 }
 
+.purple-text {
+    color: #7933ff;
+}
+
 .dark-block {
     background-color: #081329;
 }
 
+.blue-block {
+    background-color: #213147;
+}
+
 .purple-block {
-    background-color: #5545a5;
+    background-color: #7933ff;
 }
 
 .green-block {
     background-color: #15f700;
 }
 
+.white-block {
+    background-color: #e4e1e1;
+}
 
 .start-btn {
     background-color: #15f700;

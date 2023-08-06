@@ -34,7 +34,7 @@ router.get("/", async function (req, res) {
                     isIndex: true,
                     userFound: true,
                     activeUserSession: currentSession,
-                    pageTitle: "foroom",
+                    pageTitle: "Foroom",
                     currentUser: currentUser,
                     posts: postsArray,
                 });

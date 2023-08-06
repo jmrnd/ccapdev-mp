@@ -18,8 +18,8 @@ postRouter.get("/create-post", async (req, res) => {
         console.log(req.body);
 
         const processCurrentUser = {
-            username: userSession.userID.username,
-            icon: userSession.userID.icon,
+            username: session.userID.username,
+            icon: session.userID.icon,
         };
 
         if (session) {
@@ -71,31 +71,31 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         const session = await UserSession.findOne({}).populate("userID").exec();
         const postId = req.params.postId;
         const post = await Post.findOne({ _id : postId }).populate("author").exec();
-        const comments = await Comment.find({ post: post._id }).populate("author").exec();
-
-        const processPost = {
-            ...post.toObject(),
-            totalVotes: (post.upVoters.length - post.downVoters.length),
-            totalComments: post.comments.length
-        }
+        const comments = await Comment.find({ post: postId }).populate("author").exec();
 
         if (session) {
             const currentUser = await User.findOne({ _id : session.userID._id }).lean().exec();
             currentUser._id = currentUser._id.toString();
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                    currentUser: currentUser._id
+                };
+            });
 
             if (post) {
-                const commentsArray = comments.map((comments) => {
-                    return {
-                        ...comments.toObject(),
-                        totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                        currentUser: currentUser._id
-                    };
-                });
-
+                const processPost = {
+                    ...post.toObject(),
+                    totalVotes: (post.upVoters.length - post.downVoters.length),
+                    totalComments: post.comments.length
+                }
+                
                 res.render("view-post", {
                     userFound: true,
                     isIndex: true,
                     isPost: true,
+                    isDeleted: false,
                     pageTitle: post.title,
                     currentUser: currentUser,
                     post: processPost,
@@ -106,8 +106,16 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                     comments: commentsArray
                 });
             } else {
-                console.log("No post found.");
-                res.status(404).send("Post not found.");
+                // No post found
+                res.render("view-post", {
+                    userFound: true,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: true,
+                    pageTitle: "Post Not Found",
+                    currentUser: currentUser,
+                    comments: commentsArray
+                });
             }
         } else {
             const commentsArray = comments.map((comments) => {
@@ -117,21 +125,40 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                 };
             });
 
-            res.render("view-post", {
-                userFound: false,
-                isIndex: true,
-                isPost: true,
-                pageTitle: post.title,
-                post: processPost,
-                postAuthor: {
-                    username: post.author.username,
-                    icon: post.author.icon
-                },
-                comments: commentsArray
-            })
+            if (post) {
+                const processPost = {
+                    ...post.toObject(),
+                    totalVotes: (post.upVoters.length - post.downVoters.length),
+                    totalComments: post.comments.length
+                }
+
+                res.render("view-post", {
+                    userFound: false,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: false,
+                    pageTitle: post.title,
+                    post: processPost,
+                    postAuthor: {
+                        username: post.author.username,
+                        icon: post.author.icon
+                    },
+                    comments: commentsArray
+                })
+            } else {
+                // No post found
+                res.render("view-post", {
+                    userFound: false,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: true,
+                    pageTitle: "Post Not Found",
+                    comments: commentsArray
+                })
+            }
         }
     } catch (error) {
-        console.error("Error occurred while retrieving user:", error);
+        console.error("Error occurred: ", error);
         res.status(500).send("Internal Server Error"); // To redirect to an error page
     }
 });
@@ -195,6 +222,7 @@ postRouter.get("/delete-post/:postId", async (req, res) => {
 
         // Find the post to delete
         const postToDelete = await Post.findOneAndDelete({ _id: postId });
+        //const commentsToDelete = await Comment.deleteMany({post: postId});
         res.redirect("/");
     } catch (error) {
         console.error("Error occurred while deleting post:", error);
@@ -248,7 +276,7 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 
 //renders edit comments hbs
 postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
-    console.log("PATCH RECIEVED");
+    console.log("PATCH RECEIVED");
     try {
         const comment = await Comment.findOneAndUpdate(
             { _id: req.body.commentId, post: req.body.postId },

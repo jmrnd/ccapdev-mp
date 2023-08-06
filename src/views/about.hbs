@@ -1,15 +1,20 @@
+
 {{!-- FOROOM SECTION --}}
-<div class="container-fluid purple-block m-0">
+<div class="container-fluid dark-block m-0">
     <div class="container-md p-5">
         <div class="row justify-content-center d-flex">
             <div class="col-6">
             <img src="/static/images/icon-glow.png" alt="profile picture" class="img-fluid mb-3">
             </div>
             <div class="col-6 p-4 d-flex flex-column justify-content-center align-items-center">
-                <h1 class="text-center w-100 white-text">What is Foroom?</h1>
+                <h1 class="text-center w-100 white-text">What is <span class="purple-text">Foroom</span>?</h1>
                 <h4 class="text-center w-100 white-text about-foroom"></p>Foroom is a platform that offers a space where you can express and showcase your skills, passions, and hobbies. Discover like-minded communities where you truly belong and connect with others today.</h4>
                 <div class="mt-4">
-                    <a href="/" class="btn start-btn">Start now</a>
+                    {{#if userFound}}
+                        <a href="/" class="btn start-btn">Start now</a>
+                    {{else}}
+                        <a href="/sign-up" class="btn start-btn">Start now</a>
+                    {{/if}}
                 </div>
             </div>
         </div>
@@ -17,16 +22,16 @@
 </div>
 {{!-- DIVIDER --}}
 <div class="row justify-content-center d-flex w-10">
-    <div class="col-10 purple-block"><br></div>
-    <div class="col-2 dark-block "><br></div>
+    <div class="col-10 dark-block"><br></div>
+    <div class="col-2 purple-block "><br></div>
 </div>
 <div class="row justify-content-center d-flex w-10">
-    <div class="col-8 dark-block"><br></div>
+    <div class="col-8 blue-block"><br></div>
     <div class="col-2 green-block "><br></div>
-    <div class="col-2 dark-block "><br></div>
+    <div class="col-2 blue-block "><br></div>
 </div>
 {{!-- CREATORS SECTION --}}
-<div class="container-fluid dark-block py-5">
+<div class="container-fluid blue-block py-5">
     <div class="container-md p-5">
         <div class="row justify-content-center d-flex">
             <h1 id="creators-heading" class="text-center w-100 white-text py-4">The </h1>
@@ -53,12 +58,12 @@
 </div>
 {{!-- DIVIDER --}}
 <div class="row justify-content-center d-flex w-10">
-    <div class="col-2 dark-block "><br></div>
+    <div class="col-2 blue-block"><br> </div>
     <div class="col-2 purple-block"><br></div>
-    <div class="col-8"><br></div>
+    <div class="col-8 #e4e1e1"><br></div>
     <div class="row justify-content-center d-flex w-10">
-    <div class="col-2 green-block "><br></div>
-    <div class="col-10"><br></div>
+    <div class="col-2 green-block"><br></div>
+    <div class="col-10 #e4e1e1"><br></div>
 {{!-- DEPENDENCIES --}}
 <div class="container-fluid py-5">
     <div class="container-md p-5">
