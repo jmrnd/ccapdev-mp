@@ -77,7 +77,7 @@ async function main() {
 
     app.use(router);
 
-    app.listen(process.env.SERVER_PORT, () => {
+    app.listen(process.env.PORT, () => {
         console.log("Hello! Listening at localhost:3000");
     });
 }
