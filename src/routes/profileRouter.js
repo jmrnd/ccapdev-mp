@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
 import { Comment } from '../models/Comment.js';
+import passwordUtils from '../userAuth/passwordHelpers.js';
 
 import { check, validationResult } from "express-validator";
 
@@ -10,7 +11,7 @@ const usernameValidation = check("username").isLength({ min: 5, max: 20 }).withM
 const displayNameValidation = check("displayName").isLength({ min: 0, max: 20 }).withMessage("displayNameFormat");
 const descriptionValidation = check("description").isLength({ min: 0, max: 100 }).withMessage("descriptionFormat");
 const emailValidation = check("email").isEmail().withMessage("emailFormat");
-const passwordValidation = check("password").isLength({ min: 6, max: 15 }).withMessage("passwordFormat");
+const passwordValidation = check("password").isLength({ min: 0, max: 15 }).withMessage("passwordFormat");
 
 const profileRouter = Router();
 
@@ -37,8 +38,8 @@ profileRouter.get("/edit-profile", async (req, res) => {
 });
 
 // Edit profile
-profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation, descriptionValidation, emailValidation, passwordValidation], async (req, res) => {
-    
+profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation, descriptionValidation, emailValidation, passwordValidation] , async (req, res) => {
+
     // If the input data fails format validation rules, the error data is stored in the errorsArray
     const errors = validationResult(req);
     let errorsArray = errors.array();
@@ -79,13 +80,49 @@ profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation,
         }
     }
 
+    if(req.body.password.length < 6) {
+        if(req.body.password.length !== 0) {
+            const passwordFormatErr = {
+                type: 'field',
+                value: req.body.password,
+                msg: 'passwordFormat',
+                path: 'password'
+            }
+            errorsArray.push(passwordFormatErr);
+        }
+        
+    }
+
     if(errorsArray.length > 0) {
         // Sends errorsArray as JSON to frontend to display respective form validation messages
         res.status(422).json({ errors: errorsArray });
     } else {
         // Input data is validated and used to update profile details
         try {
-            const data = await User.findOneAndUpdate({ _id: req.user._id }, req.body, { new: true });
+            let data;
+            // Check if user wants to change password
+            if(req.body.password.length !== 0) {
+                // Hash password
+                const hashedPassword = passwordUtils.generatePassword(req.body.password);
+                data = {
+                    username: req.body.username,
+                    displayName: req.body.displayName,
+                    description: req.body.description,
+                    email: req.body.email,
+                    password: hashedPassword,
+                    icon: req.body.icon,
+                }
+            } else {
+                data = {
+                    username: req.body.username,
+                    displayName: req.body.displayName,
+                    description: req.body.description,
+                    email: req.body.email,
+                    icon: req.body.icon,
+                }
+            }
+
+            const update = await User.findOneAndUpdate({ _id: req.user._id }, data, { new: true });
             res.sendStatus(200);
         } catch (error) {
             console.error("Error occurred:" + error);
