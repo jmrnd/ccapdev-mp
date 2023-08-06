@@ -63,8 +63,17 @@
                             <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{totalVotes}}</span>
                             <i id="commentDownvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
                         {{/if}}
-                            <i class="bi bi-reply mx-2"></i>
+                            <i class="bi bi-reply mx-2 reply-button" data-id="{{this._id}}"></i>
                         </div>
+                        <!-- Replies section -->
+                        <div class="replies">
+                            <!-- Reply form ends here for nested replies -->
+                            {{#each this.replies}}
+                                {{> replyPartial parent=this reply=this}}
+                            {{/each}}
+                            <!-- More fields can be added as needed -->
+                        </div>
+                        <!-- Replies section ends here -->
                     </div>
                 </div>
             </div>
