@@ -76,7 +76,6 @@ document.addEventListener("DOMContentLoaded", ( event ) => {
             }
         });
         
-
         iconGridBox.appendChild(editCommentButton);
         iconGridBox.appendChild(cancelEditCommentButton);
     })});
