@@ -13,7 +13,7 @@ const router = Router();
 
 router.get("/", async function (req, res) {
     try {
-        const checkSession = await UserSession.findOne({}).populate("userID").exec();
+        const session = await UserSession.findOne({}).populate("userID").exec();
         const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
@@ -24,8 +24,8 @@ router.get("/", async function (req, res) {
             };
         });
 
-        if (checkSession) {
-            const currentUser = await User.findOne({ _id: checkSession.userID }).populate({
+        if (session) {
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
                 path: "notifications",
                 populate: {
                     path: "fromUser",
@@ -79,10 +79,10 @@ router.get("/homepage", (req, res) => {
 
 router.get("/about", async function (req, res) {
   try {
-      const checkSession = await UserSession.findOne({}).populate("userID").exec();
+      const session = await UserSession.findOne({}).populate("userID").exec();
 
-      if (checkSession) {
-        const currentUser = await User.findOne({ _id: checkSession.userID }).populate({
+      if (session) {
+        const currentUser = await User.findOne({ _id: session.userID }).populate({
             path: "notifications",
             populate: {
                 path: "fromUser",

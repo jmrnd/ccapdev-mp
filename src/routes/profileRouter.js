@@ -3,6 +3,7 @@ import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
 import { Comment } from '../models/Comment.js';
 import { UserSession } from '../models/UserSession.js';
+import { Notification } from "../models/Notification.js"
 
 const profileRouter = Router();
 
@@ -61,8 +62,19 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
 
         // Checks if user is logged in
         if (session) {
-            const currentUser = await User.findOne({ _id : session.userID }).lean().exec();
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             const commentsArray = comments.map((comments) => {
                 return {
@@ -83,7 +95,9 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                     currentUser: currentUser,
                     viewUser: viewUser,
                     posts: postsArray,
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");
@@ -132,8 +146,20 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         });
 
         if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            // Unread notifications
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             if (currentUser) {
                 res.render("view-all-posts", {
@@ -142,7 +168,9 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
                     pageTitle: `Posts by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
-                    posts: postsArray
+                    posts: postsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");
@@ -171,8 +199,20 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
         const session = await UserSession.findOne({}).exec();
 
         if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            // Unread notifications
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             const commentsArray = comments.map((comments) => {
                 return {
@@ -190,7 +230,9 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
                     pageTitle: `Comments by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");
