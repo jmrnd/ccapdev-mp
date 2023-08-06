@@ -1,8 +1,15 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
 import passport from 'passport';
+import passwordUtils from '../userAuth/passwordHelpers.js';
+import { check, validationResult} from 'express-validator';
 
 const authRouter = Router();
+
+// Validation Rules
+const usernameValidation = check("username").isLength({ min: 5, max: 20 }).withMessage("usernameFormat");
+const emailValidation = check("email").isEmail().withMessage("emailFormat");
+const passwordValidation = check("password").isLength({ min: 6, max: 15 }).withMessage("passwordFormat");
 
 // View Sign Up Page
 authRouter.get("/sign-up", async (req, res) => {
@@ -18,32 +25,76 @@ authRouter.get("/sign-up", async (req, res) => {
 })
 
 // Registering an account
-authRouter.post("/sign-up",  async (req, res) => {
-    const validateUser = await User.find({}, {username: true, email: true});
+authRouter.post("/sign-up", [usernameValidation, emailValidation, passwordValidation] ,async (req, res) => {
 
     try{
 
-        // Hash Proces
-        const hashedPassword = passwordUtils.generatePassword(req.body.password);
+        // If the input data fails format validation rules, the error data is stored in the errorsArray
+        const errors = validationResult(req);
+        var errorsArray = errors.array();
 
-        // Process Data
-        const processData = {
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPassword,
-            joinDate: req.body.joinDate,
-            icon: req.body.icon,
+        const existingUser = await User.findOne({username: req.body.username}).exec();
+
+        if(existingUser){
+            if(existingUser.username == req.body.username){
+                const usernameExistsErr = {
+                    type: 'field',
+                    value: req.body.username,
+                    msg: 'usernameExists',
+                    path: 'username'
+                }
+                // usernameExist error data is pushed to errorsArray
+                errorsArray.push(usernameExistsErr);
+            }
+
+            if(existingUser.email == req.body.email){
+                const emailExistsErr = {
+                    type: 'field',
+                    value: req.body.email,
+                    msg: 'emailExists',
+                    path: 'email'
+                }
+                // emailExist error data is pushed to errorsArray
+                errorsArray.push(emailExistsErr);
+            }
         }
 
-        //Store in MongoDB
-        const result = await User.create(processData);
+        console.log("-- Validation Errors --");
+        console.log(errorsArray);
 
-        console.log(result);
+        if(errorsArray.length > 0) {
+            // Sends errorsArray as JSON to frontend to display respective form validation messages
+            res.status(422).json({ errors: errorsArray });
+
+        } else {
+            // Input data is validated and used to update profile details
+            try {
+
+            // Hash Proces
+            const hashedPassword = passwordUtils.generatePassword(req.body.password);
+
+            // Process Data
+            const processData = {
+                username: req.body.username,
+                email: req.body.email,
+                password: hashedPassword,
+                joinDate: req.body.joinDate,
+                icon: req.body.icon,
+            }
+
+            //Store in MongoDB
+            const result = await User.create(processData);
+
+            console.log("Result:" + result);
+                    res.sendStatus(200);
+                } catch (error) {
+                    res.sendStatus(500);
+                }
+            }
     }
     catch(error) {
-        console.log("Username or Email is already taken");
         console.log("Error: " + error)
-        res.json(validateUser); // Send the username and email
+        // res.json(validateUser);
     }
 });
 
@@ -54,17 +105,11 @@ authRouter.get("/login", async(req, res) => {
     console.log("Currently in: Login Page")
 });
 
-authRouter.get("/login", async (req, res) => {
-    res.render("login");
-    console.log("Currently in: Login Page")
-})
-
 // passport.autheticate('local') = use local strategy
 authRouter.post('/login', passport.authenticate('local', { failureRedirect: '/sign-up', successRedirect: '/'}));
 
 
-authRouter.post("/logout", async (req, res, next) => {
-
+authRouter.get("/logout", async (req, res, next) => {
     /*
     *   Logout from passport and Destroy Session for security
     */
@@ -73,7 +118,8 @@ authRouter.post("/logout", async (req, res, next) => {
         if (err) {
             return next(err);
         }
-        res.redirect('/');
+        req.session.destroy();
+        res.redirect("/");
     });
 
 });

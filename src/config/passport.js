@@ -27,7 +27,7 @@ const verifyCallback = async (email, password, done) => {
           return done(null, false) // null = no error, but no user
       }
 
-      const isValid = passwordUtils.generatePassword(password, user.password);
+      const isValid = passwordUtils.validatePassword(password, user.password);
 
       if(isValid){
           return done(null, user); // null = no error, pass 'user' object

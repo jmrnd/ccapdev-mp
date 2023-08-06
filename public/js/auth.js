@@ -23,47 +23,86 @@ buttonSignUp.addEventListener("click", async (e) => {
             headers: {
                 "Content-Type": "application/json"
             }
-        })
+        });
 
         if (res.status === 200) {
-            const validateData = await res.json(); // Recieve data
+            const contentSection = document.querySelector(".sign-up-content-container");
+            const changeSizeContainer = document.querySelector(".sign-up-container");
 
+
+            const innerHTML = `
+            <div class="d-flex flex-column justify-content-center align-items-center py-0">
+                <div class="d-flex flex-column justify-content-center align-items-center successful px-4 py-3">
+
+                    <p id="success-title"> SUCCESS! </p>
+                    <p id="success-message"> Your account has been created </p>
+                    <i class="fa-solid fa-circle-check success-img" style="color: #7933ff;"></i>
+
+                    <a href="/login" class="btn btn-sm rounded px-4 py-2 success"> Continue </a>
+                </div>
+            `
+
+            changeSizeContainer.style.removeProperty('height');
+            contentSection.innerHTML = innerHTML;
+
+        }else{
+            const validationResult= await res.json(); // Recieve data
+            console.log(validationResult.errors)
+
+            // Retrieving error message elements
             const displayErrorUsername = buttonSignUp.parentElement.querySelector(".error-username");
             const displayErrorEmail = buttonSignUp.parentElement.querySelector(".error-email");
+            const displayErrorPassword = buttonSignUp.parentElement.querySelector(".error-password");
 
-            // Front-end effect changes
-            displayErrorEmail.textContent = ""; // Reset if clicked more
-            displayErrorUsername.textContent =""; // Reset if clicked more
+            // Reset content of error message elements
+            displayErrorEmail.textContent = "";
+            displayErrorUsername.textContent ="";
+            displayErrorPassword.textContent ="";
+
+            // Reseting style of form input fields
             buttonSignUp.parentElement.querySelector("#username").style.borderColor = "#081735";
             buttonSignUp.parentElement.querySelector("#email").style.borderColor = "#081735";
+            buttonSignUp.parentElement.querySelector("#password").style.borderColor = "#081735"
 
             // Check if valid
-            for (const items of validateData) {
-                if(items.username === data.username){
-                    const errorMessage = "Username is already taken. Try another"
+            for (const items of validationResult.errors) {
+                var errorType = items.msg;
 
-                    /********************************  Change style for UX purpose********************************/
+                if(errorType === "usernameFormat") {
+                    errorMessage = "Username should be 5 to 20 characters long.";
+                    document.querySelector("#username").style.borderColor = "red";
                     buttonSignUp.parentElement.querySelector(".username-section").style.marginBottom = "5px";
-                    buttonSignUp.parentElement.querySelector("#username").style.borderColor = "red"
-                    /********************************************************************************************/
-
-                     displayErrorUsername.textContent+= errorMessage;
+                    displayErrorUsername.textContent += errorMessage;
+                }
+                if(errorType === "usernameExists") {
+                    const errorMessage = "Username is already taken. Try another.";
+                    document.querySelector("#username").style.borderColor = "red";
+                    buttonSignUp.parentElement.querySelector(".username-section").style.marginBottom = "5px";
+                    displayErrorUsername.textContent += errorMessage;
                 }
 
-                if(items.email === data.email){
-                    const errorMessage = "Email is already taken. Try another"
-
-                    /********************************  Change style for UX purpose********************************/
+                if(errorType === "emailFormat") {
+                    errorMessage = "Invalid email entered.";
+                    document.querySelector("#email").style.borderColor = "red";
                     buttonSignUp.parentElement.querySelector(".email-section").style.marginBottom = "5px";
-                    buttonSignUp.parentElement.querySelector("#email").style.borderColor = "red"
-                    /********************************************************************************************/
-
                     displayErrorEmail.textContent += errorMessage;
+                    return;
+                }
+                if(errorType === "emailExists") {
+                    const errorMessage = "Email is already taken. Try another."
+                    document.querySelector("#email").style.borderColor = "red";
+                    buttonSignUp.parentElement.querySelector(".email-section").style.marginBottom = "5px";
+                    displayErrorEmail.textContent += errorMessage;
+                }
+                if(errorType === "passwordFormat") {
+                    errorMessage = "Password should be 6 to 15 characters long.";
+                    document.querySelector("#password").style.borderColor = "red";
+                    displayErrorPassword.textContent += errorMessage;
                 }
             }
 
         }
-        
+
     } catch (err){
         console.error(err);
     }

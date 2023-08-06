@@ -1,44 +1,52 @@
-
-<nav class="navbar navbar-expand-lg sticky-top">
+  {{!-- CSS FOR SIGNUP--}}
+  <link rel="stylesheet" href="/static/css/signup.css">
+ 
+  <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid my-0 mx-auto px-5">
-        <a href="/" class="navbar-brand ">
-        <img src="/static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
-        </a>
+      <a href="/" class="navbar-brand ">
+        <img src="static/images/navbar/foroom-logo.png" alt="forum_icon" width="150px">
+      </a>
     </div>
-</nav>
+  </nav>
 
-<div class="container-fluid sign-up-container">
+  <div class="container-fluid sign-up-container">
     <div class="d-flex sign-up-content-container">
-        <div class="form-container">
-            {{!-- Sign Up Form --}}
-            <form action="/sign-up"class="form-sign-up" id="signupForm" method="POST">
-                <h2>Create an <br> account</h2>
+      <div class="form-container">
+        {{!-- Sign Up Form --}}
+        <form action="/sign-up"class="form-sign-up" id="signupForm" method="POST">
+          <h2>Create an <br> account</h2>
 
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5"
-                maxlength="20" required>
+          <div class="username-section">
+          <label for="username">Username</label>
+          <input type="text" name="username" id="username" placeholder="Enter your username" minlength="5"
+            maxlength="20" required>
+          <span class="error-message error-username"></span> {{!-- Display error message here--}}
+          </div>
 
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Enter your email" required>
+          <div class="email-section">
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" placeholder="Enter your email" required>
+          <span class="error-message error-email"></span> {{!-- Display error message here--}}
+          </div>
 
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6"
-                maxlength="15" required>
+          <div class="password-section">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" placeholder="Enter your password" minlength="6"
+            maxlength="15" required>
+          <span class="error-message error-password"></span>
+          </div>
 
-                <a href="/login">Already have an account? Log In</a>
+          <a href="/login">Already have an account? Login</a>
 
-                <button type="submit">Sign Up</button>
-            </form>
-        </div>
+          <button type="submit">Sign up</button>
+        </form>
+      </div>
 
-        <div class="img">
-            <img src="static/images/signup-bg.jpeg">
-            <div>The web where <br> everything starts</div>
-            <img src="static/images/foroom-icon.png" id="poster-logo">
-            <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
-        </div>
+      <div class="img">
+        <img src="static/images/signup-bg.jpeg">
+        <div>The web where <br> everything starts</div>
+        <img src="static/images/foroom-icon.png" alt="" id="poster-logo">
+        <!-- IMAGE FROM BEHANCE Credits to https://www.behance.net/gallery/118828249/OPENCLASSROOMS-->
+      </div>
     </div>
-</div>
-
-<!-- Login Modal -->
-{{login-modal}}
+  </div>
