@@ -2,7 +2,7 @@
 Machine Project for CCAPDEV T3 2022-2023
 
 ## Foroom
-[insert render link here]
+https://ccapdev-mp-webforum.onrender.com
 
 ## Group Members
 - HIDALGO, FRANCISCO JOSE NANZAN
@@ -10,7 +10,28 @@ Machine Project for CCAPDEV T3 2022-2023
 - SARMIENTO, RAFAEL MICHAEL RAMOS
 - SIMBAHON, JOOLZ RYANE CHAVEZ
 
+## .env Setup
+- `MONGODB_URI=mongodb://0.0.0.0:27017/foroom`
+- `PORT=3000`
+- `SECRET_KEY=keep-this-a-secret`
+
+## Setting Server Port
+- Locate the `main()` function in your `app.js` file.
+- Find the line of code that looks like this
+```
+app.listen(process.env.PORT, () => {
+    console.log("Express app now listening...");
+});
+```
+- Replace process.env.PORT with process.env.SERVER_PORT, like so:
+```
+app.listen(process.env.SERVER_PORT, () => {
+    console.log("Express app now listening...");
+});
+```
+
 ## Local Setup
+- Make sure that you have a `.env` file present in your build directory.
 - Ensure that MongoDB is installed - https://www.mongodb.com/try/download/community
 - Clone the repository or download the ZIP file of the repository and unzip.
 - Open a terminal in the directory of the unzipped folder.
