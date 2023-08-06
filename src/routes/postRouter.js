@@ -3,6 +3,7 @@ import { User } from "../models/User.js";
 import { Post } from "../models/Post.js";
 import { UserSession } from "../models/UserSession.js";
 import { Comment } from "../models/Comment.js";
+import { Notification } from "../models/Notification.js";
 import bodyParser from "body-parser";
 
 const postRouter = Router();
@@ -18,8 +19,8 @@ postRouter.get("/create-post", async (req, res) => {
         console.log(req.body);
 
         const processCurrentUser = {
-            username: userSession.userID.username,
-            icon: userSession.userID.icon,
+            username: session.userID.username,
+            icon: session.userID.icon,
         };
 
         if (session) {
@@ -238,6 +239,24 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
         post.comments.push(newComment);
         await post.save();
 
+        const notifRecipient = await User.findOne({ _id: post.author._id}).exec();
+
+        if (!(notifRecipient === currentUser)) { // prevents users from sending notifs to themselves
+            const newNotif = new Notification({
+                recipient: notifRecipient,
+                fromUser: currentUser._id,
+                content: newComment.body,
+                link: `/view-post/${postId}`,
+                notifClass: 'Comment',
+                contentClass: 'Comment',
+                createdAt: newComment.commentDate
+            });
+    
+            const savedNotif = await newNotif.save();
+            notifRecipient.notifications.push(savedNotif);
+            await notifRecipient.save();
+        }
+
         // Redirect to the updated post's view or any other desired action
         res.redirect(`/view-post/${postId}`);
     } catch (error) {
@@ -287,9 +306,9 @@ postRouter.delete("/delete-comment/:postId/:commentId", async (req, res) => {
 
 // UPVOTINGS
 postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
-    console.log("PATCH RECIEVED");
     const idParam = req.params._id;
     const session = await UserSession.findOne({}).populate("userID").exec();
+    const currentUser = await User.findOne({ _id : session.userID._id}).exec();
 
     if (session) {
         const post = await Post.findOne({ _id : idParam }).exec(); // get comment via ID
@@ -307,7 +326,25 @@ postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
                     { new : true }
                 ).exec();
             }
-        } else {
+
+            const notifRecipient = await User.findOne({ _id : post.author._id }).exec();
+
+            if (!(notifRecipient === currentUser)) {
+                const newNotif = new Notification({
+                    recipient: notifRecipient,
+                    fromUser: session.userID,
+                    content: post.body,
+                    link: `/view-post/${idParam}`,
+                    notifClass: 'Upvote',
+                    contentClass: 'Post',
+                    createdAt: new Date()
+                });
+    
+                const savedNotif = await newNotif.save();
+                notifRecipient.notifications.push(savedNotif);
+                await notifRecipient.save();
+            }
+        } else { // Uncast vote
             await Post.updateOne(
                 { _id : idParam },
                 { $pull : { upVoters : session.userID._id} },
@@ -356,6 +393,7 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
     const session = await UserSession.findOne({}).populate("userID").exec();
+    const currentUser = await User.findOne({ _id : session.userID._id}).exec();
 
     if (session) {
         const comment = await Comment.findOne({ _id : idParam }).exec(); // get comment via ID
@@ -372,6 +410,24 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
                     { $pull : { downVoters : session.userID._id } },
                     { new : true }
                 ).exec();
+            }
+
+            const notifRecipient = await User.findOne({ _id : comment.author }).exec();
+
+            if (!(notifRecipient === currentUser)) {
+                const newNotif = new Notification({
+                    recipient: notifRecipient,
+                    fromUser: session.userID,
+                    content: comment.body,
+                    link: `/view-post/${comment.post}`,
+                    notifClass: 'Upvote',
+                    contentClass: 'Comment',
+                    createdAt: new Date()
+                })
+    
+                const savedNotif = await newNotif.save();
+                notifRecipient.notifications.push(savedNotif);
+                await notifRecipient.save();
             }
         } else {
             await Comment.updateOne(

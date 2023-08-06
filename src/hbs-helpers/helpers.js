@@ -34,6 +34,21 @@ const customHelpers = {
             return false;
         }
     },
+    getNotifHeader: function (notifClass, contentClass) {
+        switch (notifClass) {
+            case "Comment":
+                return "commented on your post";
+            case "Reply":
+                return "relpied to your comment";
+            case "Upvote":
+                if (contentClass == "Post")
+                    return "upvoted your post.";
+                else 
+                    return "upvoted your comment.";
+            default:
+                return "Notification not classified";
+        }
+    }
 };
 
 export default customHelpers;

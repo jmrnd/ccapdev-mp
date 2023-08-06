@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", ( event ) => {
+document.addEventListener("DOMContentLoaded", (event) => {
     // EDIT COMMENT
     // Get all the edit comment buttons
     const editCommentBtns = document.querySelectorAll(".edit-comment-btn");
@@ -80,10 +80,10 @@ document.addEventListener("DOMContentLoaded", ( event ) => {
             };
 
             const response = await fetch(get_path, {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'content-type': 'application/json',
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers: {
+                    'content-type': 'application/json',
             },
             });
 
