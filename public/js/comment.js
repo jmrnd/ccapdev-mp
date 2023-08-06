@@ -8,59 +8,77 @@ document.addEventListener("DOMContentLoaded", ( event ) => {
     editCommentBtns.forEach(event => {event.addEventListener("click", function (e) {
         e.preventDefault();
 
-        // Get the comment text element
+        const get_id = e.target.id;
+        const paramId = get_id.split("/"); // In array
+
         const commentText = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.querySelector(".comment-text")
 
         // Create the textarea element for editing
         const commentInput = document.createElement("textarea");
-        commentInput.classList.add("edit-text-area");
+        commentInput.classList.add("edit-text-area", "form-control", "mb-3");
         commentInput.value = commentText.textContent.trim();
-        commentText.replaceWith(commentInput); // Replace the comment text with the textarea
-
-        // Replace the comment text with the input field
+        commentText.replaceWith(commentInput);
+    
         const currentComment = commentText.innerText;
         commentText.replaceWith(commentInput);
 
-        // Show the input field and focus on it
         commentInput.style.display = "block";
         commentInput.focus();
 
-        const get_id = e.target.id;
-        console.log(get_id)
+        const iconGridBox = document.getElementById(`iconGrid${paramId[3]}`); // Get the iconGrid element
+        const editCommentButton = document.createElement("button");
+        const cancelEditCommentButton = document.createElement("button");
 
-        // Add event listener to save changes on Enter key press or blur
-        commentInput.addEventListener("keydown", async function (e) {
-        if (e.key === "Enter") {
-            // Save changes and update the comment text
-            commentText.textContent = this.value;
-            // Replace the input field with the updated comment text
-            this.replaceWith(commentText);
-
-            try{
-            const paramId = get_id.split("/"); // In array
-
-            const data = {
-                commentId: paramId[3],
-                postId: paramId[2],
-                updateComment: commentText.textContent,
+        editCommentButton.classList.add("comment-button", "rounded", "float-end");
+        editCommentButton.textContent = "Edit"; // Set the button text
+        cancelEditCommentButton.classList.add("cancel-edit-button", "rounded", "float-end", "mx-2");
+        cancelEditCommentButton.textContent = "Cancel";
+        
+        cancelEditCommentButton.addEventListener("click", function() {
+            if (commentInput.parentElement) {
+                commentInput.parentElement.replaceChild(commentText, commentInput);
             }
 
-            const response = await fetch(get_id, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data), // parse ID
-            });
+            editCommentButton.remove();
+            cancelEditCommentButton.remove();
 
-            if(response.status == 200) { // Server successfully updates comment
-                location.reload();
-            }
+            commentText.textContent = currentComment;
+        });
 
+        editCommentButton.addEventListener("click", async function() {
+
+            const updatedCommentText = commentInput.value;
+            commentText.textContent = updatedCommentText;
+        
+            commentInput.replaceWith(commentText);
+        
+            try {
+                const data = {
+                    commentId: paramId[3],
+                    postId: paramId[2],
+                    updateComment: updatedCommentText, // Use the updated text here
+                }
+        
+                const response = await fetch(get_id, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data), // parse ID
+                });
+        
+                if(response.status == 200) { // Server successfully updates comment
+                    location.reload();
+                }
+        
             } catch (err) {
                 console.log(err);
             }
-        }});
+        });
+        
+
+        iconGridBox.appendChild(editCommentButton);
+        iconGridBox.appendChild(cancelEditCommentButton);
     })});
 
     // DELETE COMMENT
@@ -99,15 +117,6 @@ document.addEventListener("DOMContentLoaded", ( event ) => {
             console.log('Deletion canceled!');
         }
     });
-    });
-
-    // COMMENT BOX TEXTAREA
-    const textarea = document.querySelector("textarea");
-    textarea.addEventListener("keyup", e => {
-    textarea.style.height = "100px";
-    textarea.style.minHeight = "100px";
-    let scHeight = e.target.scrollHeight;
-    textarea.style.height = `${scHeight}px`;
     });
 })
 

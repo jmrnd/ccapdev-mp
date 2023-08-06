@@ -72,12 +72,8 @@
                     <div id="postBodyDisplay">
                         {{{post.body}}}
                     </div><br>
-                    {{!-- <p>Current user: {{currentUser._id}}</p>
-                    <p>Upvoters: {{post.upVoters}}</p>
-                    <p>Downvoters: {{post.downVoters}}</p>
-                    <p>hasVoted: {{hasVoted currentUser._id post.upVoters post.downVoters}}</p> --}}
                     <div class="flex-center iconGrid">
-                    {{#if (hasVoted currentUser._id post.upVoters post.downVoters)}} {{!-- User has voted on the post--}}
+                    {{#if (hasVoted currentUser._id post.upVoters post.downVoters)}}
                         {{#if (isUpvoter currentUser._id post.upVoters)}}
                         <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
                         <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
@@ -102,13 +98,11 @@
                     <div class="comment-box-container">
                         <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
                         <form action="/create_comment/{{post._id}}" method="POST">
-                            <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..." id="commentBox"></textarea>
-                            <br><button type="submit" class="comment-button rounded">Comment</button>
+                            <textarea class="comment-box form-control mt-3" name="comment" placeholder="Leave a comment ..." id="commentBox"></textarea>
+                            <br><button type="submit" class="comment-button rounded float-end">Comment</button>
                         </form>
                     </div>
                     {{/if}}
-
-            
                 </div>
             {{/if}}
             </div>

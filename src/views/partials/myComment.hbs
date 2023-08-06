@@ -47,7 +47,7 @@
                 <div class="comment-thread">
                     <div class="comment-content">
                         <p class="comment-text">{{{body}}}</p>   
-                        <div class="flex-center iconGrid">
+                        <div class="flex-center" id="iconGrid{{this._id}}">
                         {{#if (hasVoted currentUser upVoters downVoters)}} {{!-- User has voted on the post--}}
                             {{#if (isUpvoter currentUser upVoters)}}
                             <i id="commentUpvoteIcon/{{this._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
