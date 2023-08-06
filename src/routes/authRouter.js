@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import passport from 'passport';
 import passwordUtils from '../userAuth/passwordHelpers.js';
-import { check, validationResult } from 'express-validator';
+import { check, validationResult} from 'express-validator';
 
 const authRouter = Router();
 
