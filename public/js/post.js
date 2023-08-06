@@ -1,3 +1,40 @@
+const deletePostBtns = document.querySelectorAll(".delete-post-btn");
+
+    // DELETE COMMENT
+    deletePostBtns.forEach(btn => {
+      btn.addEventListener("click", async function (e) {
+          const confirmed = window.confirm('Are you sure you want to delete this post?');
+  
+          if (confirmed) {
+          const get_path = e.target.id;
+          console.log(get_path);
+  
+          try {
+              const dataArray = get_path.split('/');
+              const data = {
+                postId: dataArray[2]
+              };
+  
+              const response = await fetch(get_path, {
+                  method: 'DELETE',
+                  body: JSON.stringify(data),
+                  headers: {
+                      'content-type': 'application/json',
+                  },
+              });
+  
+              if (response.status == 200) {
+                  location.reload();
+              }
+          } catch (error) {
+              console.error('Error deleting comment:', error);
+          }
+          } else {
+              console.log('Deletion canceled!');
+          }
+      });
+});
+
 // SORT POSTS
 let activeSort = -1; // Default (0 - Date, 1 - Votes)
 

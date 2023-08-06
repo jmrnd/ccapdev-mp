@@ -230,14 +230,12 @@ postRouter.post("/update_post/:postId", async (req, res) => {
 });
 
 // Delete post
-postRouter.get("/delete-post/:postId", async (req, res) => {
+postRouter.delete("/delete-post/:postId", async (req, res) => {
     try {
-        const postId = req.params.postId;
-
         // Find the post to delete
-        const postToDelete = await Post.findOneAndDelete({ _id: postId });
-
-        res.redirect("/");
+        const postToDelete = await Post.findOneAndDelete({ _id: req.body.postId });
+        
+        res.sendStatus(200);
     } catch (error) {
         console.error("Error occurred while deleting post:", error);
         res.status(500).send("Internal Server Error");
