@@ -1,5 +1,9 @@
-<div class="row d-flex justify-content-center">
+<div class="comment-card row d-flex justify-content-center" data-date-comments="{{commentDate}}" data-upvotes-comments="{{totalVotes}}">
+    {{#if isIndex}}
     <div class="col-md-7">
+    {{else}}
+    <div class="col-md-0">
+    {{/if}}
         <div class="card mt-2 mb-0">
             <div class="card-body rounded">
                 {{!-- COMMENT HEADER --}}
@@ -12,13 +16,39 @@
                         </span>
                         <span class="post-author ms-1 fw-sm">• {{relativeTime commentDate}}</span>
                     </div>
+                    {{!-- MORE OPTIONS --}}
+                    {{#unless isPost}}
+                    <div class="d-flex align-items-center">
+                        <div class="iconGrid">
+                            <button class="btn btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                                <i class="bi bi-three-dots iconGrid-color"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a href="/view-post/{{this.post}}" class="dropdown-item"><i class="bi bi-box-arrow-up-right me-2"></i>Go to post</a>
+                                </li>
+                            </div>
+                        </div>
+                    </div>
+                    {{/unless}}
                 </div>
                 {{!-- COMMENT BODY --}}
                 <div class="comment-thread">
                     <div class="comment-content">
-                        <p class="comment-text">{{{body}}}</p>   
+                        <p class="comment-text">{{{body}}}</p>
                         <div class="flex-center iconGrid">
-                            <i id="commentUpvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color commentUpvote"></i>
+                        {{#if (hasVoted currentUser upVoters downVoters)}} {{!-- User has voted on the post--}}
+                            {{#if (isUpvoter currentUser upVoters)}}
+                            <i id="commentUpvoteIcon/{{this._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
+                            <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{totalVotes}}</span>
+                            <i id="commentDownvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                            {{else}}
+                            <i id="commentUpvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                            <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{totalVotes}}</span>
+                            <i id="commentDownvoteIcon/{{this._id}}" class="bi bi-caret-down-fill iconGrid-downvote iconGrid-color postDownvote"></i>
+                            {{/if}}
+                        {{else}}
+                            <i id="commentUpvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
                             <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{totalVotes}}</span>
                             <i id="commentDownvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color commentDownvote"></i>
                             <i class="bi bi-reply mx-2 reply-button" data-id="{{this._id}}"></i>

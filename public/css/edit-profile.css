@@ -84,3 +84,9 @@ body{
     border-color: #a096d2;
     color: white;
 }
+
+.error-msg {
+    color: red;
+    font-size: 80%;
+    margin-bottom: 5px;
+}

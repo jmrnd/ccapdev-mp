@@ -14,12 +14,28 @@
                     </span>
                 </div>
                 <p class="card-text custom-truncate" id="postBody">{{{this.body}}}</p>
+                {{!-- <p>Current user: {{currentUser}}</p>
+                <p>Upvoters: {{upVoters}}</p>
+                <p>Downvoters: {{downVoters}}</p>
+                <p>hasVoted: {{hasVoted currentUser upVoters downVoters}}</p> --}}
                 <div class="d-flex align-items-center justify-content-between">
                     {{!-- ICON GRID --}}
                     <div class="flex-center iconGrid">
+                    {{#if (hasVoted currentUser upVoters downVoters)}} {{!-- User has voted on the post--}}
+                        {{#if (isUpvoter currentUser upVoters)}}
+                        <i id="upvoteIcon/{{this._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{this.totalVotes}}</span>
+                        <i id="downvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                        {{else}}
+                        <i id="upvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{this.totalVotes}}</span>
+                        <i id="downvoteIcon/{{this._id}}" class="bi bi-caret-down-fill iconGrid-downvote iconGrid-color postDownvote"></i>
+                        {{/if}}
+                    {{else}}
                         <i id="upvoteIcon/{{this._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
                         <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{this.totalVotes}}</span>
                         <i id="downvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
+                    {{/if}}
                         <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
                         <span class="iconGrid-text mx-1">{{this.totalComments}} comments</span>
                     </div>
