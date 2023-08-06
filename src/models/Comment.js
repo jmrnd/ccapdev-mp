@@ -9,7 +9,6 @@ const CommentSchema = new mongoose.Schema({
     replies: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}], // array of comments, self-referencing
     upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    isReply: Boolean,
 });
 
 export const Comment = mongoose.model("Comment", CommentSchema);

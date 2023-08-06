@@ -52,22 +52,6 @@
                             <span id="voteCount/{{this._id}}" class="iconGrid-text mx-1">{{totalVotes}}</span>
                             <i id="commentDownvoteIcon/{{this._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
                         {{/if}}
-                            <i class="bi bi-reply mx-2 reply-button" data-id="{{this._id}}"></i>
-                        </div>
-                        <!-- Reply form starts here -->
-                        <div class="reply-form" id="reply-form-{{this._id}}" data-id="{{this._id}}" style="display: none;">
-                            <!-- Change the action attribute to target the reply route -->
-                            <form action="/create_reply/{{this._id}}" method="post">
-                                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Reply to this comment..." id="ReplyBox"></textarea>
-                                <button type="submit" class="comment-button rounded">Reply</button>
-                            </form>
-                        </div>
-                        <!-- Reply form ends here -->
-                        <!-- Replies section -->
-                        <div class="replies">
-                            {{#each this.replies}}
-                                {{> replyPartial}} {{!-- Recursively call the partial for nested replies --}}
-                            {{/each}}   
                         </div>
                     </div>
                 </div>
