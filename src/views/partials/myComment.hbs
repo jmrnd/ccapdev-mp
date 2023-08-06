@@ -54,59 +54,11 @@
                         <!-- Reply form ends here -->
                         <!-- Replies section -->
                         <div class="replies">
+                            <!-- Reply form ends here for nested replies -->
                             {{#each this.replies}}
-                            
-                                <!-- Structure of reply -->
-                                <div class="card mt-2 mb-0">
-                                    <div class="card-body rounded">
-                                        <img
-                                            class="rounded-circle"
-                                            src="{{this.author.icon}}"
-                                            alt="profile_picture"
-                                            width="35"
-                                            height="35"
-                                        />
-                                        <span class="post-author ms-1 pt-2 fw-medium ms-2">
-                                            <a href="" class="link-unstyled">{{this.author.username}}</a>
-                                        </span>
-                                        <span class="post-author ms-1 pt-2 fw-sm">•
-                                            {{relativeTime this.commentDate}}</span>
-                                        <p class="comment-text">
-                                            {{{this.body}}}
-                                        </p>
-                                        <!-- Interaction icons for reply -->
-                                        <div class="flex-center iconGrid">
-                                            <i
-                                                id="upvoteIcon-{{this._id}}"
-                                                class="bi bi-caret-up iconGrid-upvote iconGrid-color"
-                                            ></i>
-                                            <span
-                                                id="voteCount-{{this._id}}"
-                                                class="iconGrid-text mx-1"
-                                            >3</span>
-                                            <i
-                                                id="downvoteIcon-{{this._id}}"
-                                                class="bi bi-caret-down iconGrid-downvote iconGrid-color"
-                                            ></i>
-                                            <!-- Reply button for nested replies -->
-                                            <i class="bi bi-reply mx-2 reply-button" data-id="{{this._id}}"></i>
-                                        </div>
-                                        <!-- Reply form starts here for nested replies -->
-                                        <div class="reply-form" id="reply-form-{{this._id}}" data-id="{{this._id}}" style="display: none;">
-                                            <!-- Change the action attribute to target the reply route -->
-                                            <form action="/create_reply/{{this._id}}" method="post">
-                                                <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Reply to this comment..." id="ReplyBox"></textarea>
-                                                <button type="submit" class="comment-button rounded">Reply</button>
-                                            </form>
-                                        </div>
-                                        <!-- Reply form ends here for nested replies -->
-                                        {{#each this.replies}}
-                                            {{> replyPartial}} {{!-- Recursively call the partial for nested replies --}}
-                                        {{/each}}
-                                        <!-- More fields can be added as needed -->
-                                    </div>
-                                </div>  
+                                {{> replyPartial parent=this reply=this}}
                             {{/each}}
+                            <!-- More fields can be added as needed -->
                         </div>
                         <!-- Replies section ends here -->    
                     </div>
