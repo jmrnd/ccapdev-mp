@@ -32,6 +32,8 @@ router.get("/", async function (req, res) {
                 }
             }).lean().exec();
 
+            console.log(currentUser);
+
             currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
 
@@ -63,6 +65,7 @@ router.get("/", async function (req, res) {
     } catch (error) {
       res.status(500).send("Internal Server Error");
     }
+    console.log("hi")
   });
 
 router.get("/home", (req, res) => {
