@@ -1,15 +1,16 @@
 # CCAPDEV-MP-WebForum
 Machine Project for CCAPDEV T3 2022-2023
 
-[inser render link here]
+## Foroom
+[insert render link here]
 
-## Members
+## Group Members
 - HIDALGO, FRANCISCO JOSE NANZAN
 - MIRANDA, JAMAR LANCE FERNANDEZ
 - SARMIENTO, RAFAEL MICHAEL RAMOS
 - SIMBAHON, JOOLZ RYANE CHAVEZ
 
-## Local Set Up
+## Local Setup
 - Ensure that MongoDB is installed - https://www.mongodb.com/try/download/community
 - Clone the repository or download the ZIP file of the repository and unzip.
 - Open a terminal in the directory of the unzipped folder.
@@ -17,7 +18,7 @@ Machine Project for CCAPDEV T3 2022-2023
 - To run the application, run the following command: `npm start`
 - To access the web application, go to your web browser and enter the following URL: `http://localhost:3000/`
 
-## Dependencies Used
+## Dependencies
 - `bcrypt` - https://www.npmjs.com/package/bcrypt
 - `body-parser` - https://www.npmjs.com/package/body-parser
 - `connect-mongodb-session` - https://www.npmjs.com/package/connect-mongodb-session
