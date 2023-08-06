@@ -13,16 +13,16 @@ postRouter.use(bodyParser.json());
 // renders the create post page
 postRouter.get("/create-post", async (req, res) => {
     try {
-        const userSession = await UserSession.findOne({}).populate("userID").exec();
+        const session = await UserSession.findOne({}).populate("userID").exec();
 
         console.log(req.body);
 
         const processCurrentUser = {
-            username: userSession.userID.username,
-            icon: userSession.userID.icon,
+            username: session.userID.username,
+            icon: session.userID.icon,
         };
 
-        if (userSession) {
+        if (session) {
             res.render("create-post", {
                 pageTitle: "Post to foroom",
                 userFound: true,
@@ -44,7 +44,6 @@ postRouter.post("/create_post", async (req, res) => {
         const userSession = await UserSession.findOne({}).populate("userID").exec();
         const currentUser = await User.findOne({ _id: userSession.userID }).lean().exec();
         
-        // Extract data from the form
         const { title, text } = req.body;
         
         const newPost = new Post({
@@ -52,7 +51,6 @@ postRouter.post("/create_post", async (req, res) => {
             body: text,
             author: currentUser,
             postDate: new Date(),
-            totalVotes: 0,
             comments: [],
             upVoters: [],
             downVoters: [],
@@ -70,7 +68,7 @@ postRouter.post("/create_post", async (req, res) => {
 // VIEW POST
 postRouter.get("/view-post/:postId", async (req, res) => {
     try {
-        const userSession = await UserSession.findOne({}).populate("userID").exec();
+        const session = await UserSession.findOne({}).populate("userID").exec();
         const postId = req.params.postId;
         const post = await Post.findOne({ _id: postId,}).populate("author").lean().exec();
         const comments = await Comment.find({ post: post._id })
@@ -90,44 +88,81 @@ postRouter.get("/view-post/:postId", async (req, res) => {
             .lean()
             .exec();
 
-        if (post) {
-            if (userSession) {
+            if (post) {
+                const processPost = {
+                    ...post.toObject(),
+                    totalVotes: (post.upVoters.length - post.downVoters.length),
+                    totalComments: post.comments.length
+                }
+                
                 res.render("view-post", {
-                    pageTitle: post.title,
-                    postId: postId,
                     userFound: true,
-                    currentUser: {
-                        username: userSession.userID.username,
-                        icon: userSession.userID.icon,
-                    },
-                    post: post,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: false,
+                    pageTitle: post.title,
+                    currentUser: currentUser,
+                    post: processPost,
                     postAuthor: {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-                    comments: comments,
-                    totalComments: comments.length,
+                    comments: commentsArray
                 });
             } else {
+                // No post found
                 res.render("view-post", {
-                    pageTitle: post.title,
-                    postId: postId,
-                    userFound: false,
-                    post: post,
-                    postAuthor: {
-                        username: post.author.username,
-                        icon: post.author.icon
-                    },
-                    comments: comments,
-                    totalComments: comments.length,
+                    userFound: true,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: true,
+                    pageTitle: "Post Not Found",
+                    currentUser: currentUser,
+                    comments: commentsArray
                 });
             }
         } else {
-            console.log("No post found");
-            res.status(404).send("Post not found");
+            const commentsArray = comments.map((comments) => {
+                return {
+                    ...comments.toObject(),
+                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
+                };
+            });
+
+            if (post) {
+                const processPost = {
+                    ...post.toObject(),
+                    totalVotes: (post.upVoters.length - post.downVoters.length),
+                    totalComments: post.comments.length
+                }
+
+                res.render("view-post", {
+                    userFound: false,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: false,
+                    pageTitle: post.title,
+                    post: processPost,
+                    postAuthor: {
+                        username: post.author.username,
+                        icon: post.author.icon
+                    },
+                    comments: commentsArray
+                })
+            } else {
+                // No post found
+                res.render("view-post", {
+                    userFound: false,
+                    isIndex: true,
+                    isPost: true,
+                    isDeleted: true,
+                    pageTitle: "Post Not Found",
+                    comments: commentsArray
+                })
+            }
         }
     } catch (error) {
-        console.error("Error occurred while retrieving user:", error);
+        console.error("Error occurred: ", error);
         res.status(500).send("Internal Server Error"); // To redirect to an error page
     }
 });
@@ -191,6 +226,7 @@ postRouter.get("/delete-post/:postId", async (req, res) => {
 
         // Find the post to delete
         const postToDelete = await Post.findOneAndDelete({ _id: postId });
+        //const commentsToDelete = await Comment.deleteMany({post: postId});
         res.redirect("/");
     } catch (error) {
         console.error("Error occurred while deleting post:", error);
@@ -223,7 +259,6 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
             commentDate: Date.now(),
             post: post._id,
             author: currentUser._id,
-            totalVotes: 0,
             upVoters: [],
             downVoters: [],
         });
@@ -245,7 +280,7 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 
 //renders edit comments hbs
 postRouter.patch("/edit-comment/:postId/:commentId", async (req, res) => {
-    console.log("PATCH RECIEVED");
+    console.log("PATCH RECEIVED");
     try {
         const comment = await Comment.findOneAndUpdate(
             { _id: req.body.commentId, post: req.body.postId },
@@ -286,117 +321,133 @@ postRouter.delete("/delete-comment/:postId/:commentId", async (req, res) => {
 postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    if (session) {
+        const post = await Post.findOne({ _id : idParam }).exec(); // get comment via ID
+        const hasVoted = post.upVoters.includes(session.userID._id);
 
-        if(currentUser) {
-            const post = await Post.findOne({ _id: idParam }); // get post via ID
-            const hasVoted = post.upVoters.includes(currentUser._id);
+        if (hasVoted === false) {
+            post.upVoters.push(session.userID._id);
+            await post.save();
+            const hasDownvoted = post.downVoters.includes(session.userID._id);
 
-            if(hasVoted === false) {
-                let incrementvoteCount = post.totalVotes + 1;
-                await Post.updateOne({ _id: idParam }, { totalVotes: incrementvoteCount }, {new: true});
-                post.upVoters.push(currentUser._id);
-                await post.save();
-                const hasDownvoted = post.downVoters.includes(currentUser._id);
-                if(hasDownvoted) {
-                    const updateDownvoters = post.downVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Post.updateOne({ _id: idParam }, { downVoters: updateDownvoters }, {new: true});
-                }
+            if (hasDownvoted) {
+                await Post.updateOne(
+                    { _id : idParam },
+                    { $pull : { downVoters : session.userID._id } },
+                    { new : true }
+                ).exec();
             }
+        } else {
+            await Post.updateOne(
+                { _id : idParam },
+                { $pull : { upVoters : session.userID._id} },
+                { new : true }
+            ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
-
 });
 
 // DOWNVOTINGS
 postRouter.patch("/downvoteIcon/:_id", async (req, res) => {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    if (session) {
+        const post = await Post.findOne({ _id: idParam }); // get post via ID
+        const hasDownvoted = post.downVoters.includes(session.userID._id);
 
-        if(currentUser) {
-            const post = await Post.findOne({ _id: idParam }); // get post via ID
-            const hasDownvoted = post.downVoters.includes(currentUser._id);
+        if(hasDownvoted === false) {
+            post.downVoters.push(session.userID._id);
+            await post.save();
+            const hasVoted = post.upVoters.includes(session.userID._id);
 
-            if(hasDownvoted === false) {
-                let decrementvoteCount = post.totalVotes - 1;
-                await Post.updateOne({ _id: idParam }, { totalVotes: decrementvoteCount }, {new: true});
-                post.downVoters.push(currentUser._id);
-                await post.save();
-                const hasVoted = post.upVoters.includes(currentUser._id);
-                if(hasVoted) {
-                    const updateUpvoters = post.upVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Post.updateOne({ _id: idParam }, { upVoters: updateUpvoters }, {new: true});
-                }
+            if (hasVoted) {
+                await Post.updateOne(
+                    { _id : idParam }, 
+                    { $pull : { upVoters : session.userID._id }},
+                    { new : true}
+                ).exec();
             }
+        } else {
+            await Post.updateOne(
+                { _id : idParam },
+                { $pull : { downVoters : session.userID._id } },
+                { new : true },
+            ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
 });
 
 // COMMENT UPVOTINGS
 postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-        if(currentUser) {
-            const comment = await Comment.findOne({ _id: idParam }); // get comment via ID
-            const hasVoted = comment.upVoters.includes(currentUser._id);
+    if (session) {
+        const comment = await Comment.findOne({ _id : idParam }).exec(); // get comment via ID
+        const hasVoted = comment.upVoters.includes(session.userID._id);
 
-            if(hasVoted === false) {
-                let incrementVoteCount = comment.totalVotes + 1;
-                await Comment.updateOne({_id: idParam} , {totalVotes: incrementVoteCount}, {new: true});
-                comment.upVoters.push(currentUser._id);
-                await comment.save();
-                const hasDownvoted = comment.downVoters.includes(currentUser._id);
-                if(hasDownvoted) {
-                    const updateDownvoters = comment.downVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Comment.updateOne({ _id: idParam }, { downVoters: updateDownvoters }, {new: true});
-                }
+        if (hasVoted === false) {
+            comment.upVoters.push(session.userID._id);
+            await comment.save();
+            const hasDownvoted = comment.downVoters.includes(session.userID._id);
+
+            if (hasDownvoted) {
+                await Comment.updateOne(
+                    { _id : idParam },
+                    { $pull : { downVoters : session.userID._id } },
+                    { new : true }
+                ).exec();
             }
+        } else {
+            await Comment.updateOne(
+                { _id : idParam },
+                { $pull : { upVoters : session.userID._id} },
+                { new : true }
+            ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
-})
+});
 
 // COMMENT DOWNVOTINGS
 postRouter.patch("/commentDownvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
+    const session = await UserSession.findOne({}).populate("userID").exec();
 
-    const session = await UserSession.findOne({});
-    if(session) {
-        const currentUser = await User.findOne({ _id: session.userID });
+    if (session) {
+        const comment = await Comment.findOne({ _id: idParam }); // get post via ID
+        const hasDownvoted = comment.downVoters.includes(session.userID._id);
 
-        if(currentUser) {
-            const comment = await Comment.findOne({ _id: idParam }); // get post via ID
-            const hasDownvoted = comment.downVoters.includes(currentUser._id);
+        if(hasDownvoted === false) {
+            comment.downVoters.push(session.userID._id);
+            await comment.save();
+            const hasVoted = comment.upVoters.includes(session.userID._id);
 
-            if(hasDownvoted === false) {
-                let decrementvoteCount = comment.totalVotes - 1;
-                await Comment.updateOne({ _id: idParam }, { totalVotes: decrementvoteCount }, {new: true});
-                comment.downVoters.push(currentUser._id);
-                await comment.save();
-                const hasVoted = comment.upVoters.includes(currentUser._id);
-                if(hasVoted) {
-                    const updateUpvoters = comment.upVoters.filter(voter => !voter.equals(currentUser._id));
-                    await Comment.updateOne({ _id: idParam }, { upVoters: updateUpvoters }, {new: true});
-                }
+            if (hasVoted) {
+                await Comment.updateOne(
+                    { _id : idParam }, 
+                    { $pull : { upVoters : session.userID._id }},
+                    { new : true}
+                ).exec();
             }
+        } else {
+            await Comment.updateOne(
+                { _id : idParam },
+                { $pull : { downVoters : session.userID._id } },
+                { new : true },
+            ).exec();
         }
+        res.sendStatus(200);
     }
-    res.sendStatus(200);
-})
+});
 
 postRouter.post("/create_reply/:commentId", async (req, res) => {
     try {

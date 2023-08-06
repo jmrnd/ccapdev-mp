@@ -23,10 +23,10 @@
             </div>
         </div>
 
-        <!-- User Latest Posts Card-->
         <div class="col-xl-10 col-lg-10 col-md-12">
+            <!-- User Latest Posts Card-->
             <div class="latest-post-card card p-4 rounded-2">
-                <h2 class="latest-post-card-title">Latest Posts</h2>
+                <h3 class="latest-post-card-title">Latest Posts</h3>
                 <!-- Post Cards -->
                 {{#each posts}}
                     {{#if (isEqual ../currentUser.username ../viewUser.username)}}
@@ -37,17 +37,50 @@
                 {{/each}}
                 <!-- View More Button -->
                 <div class="row d-flex flex-column">
-                    {{#if posts.length}}
+                    {{#if posts}}
                         <div class="col mt-3 text-end">
                             <a href="/view-all-posts/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
                         </div>
                     {{else}}
-                        <div class="col-md-8" style="color: white;">
-                            <br> Hmmm... This user has no posts yet. <br> <br>
-                        </div>
+                        {{#if (isEqual posts.length 0)}}
+                            <div class="col-md-8" style="color: white;">
+                                <br> Hmmm... This user has no posts yet.
+                            </div>
+                        {{/if}}
+                        <br> <br>
                     {{/if}}
                 </div>
             </div>
+            <br>
+
+            <!-- User Latest Comments Card-->
+            <div class="latest-post-card card p-4 rounded-2">
+                <h3 class="latest-post-card-title">Latest Comments</h3>
+                {{#each comments currentUser=currentUser._id}}
+                    {{#if (isEqual this.author.username ../currentUser.username)}}
+                        {{> myComment this isIndex=../isIndex}}
+                    {{else}}
+                        {{> otherComment this isIndex=../isIndex}}
+                    {{/if}}
+                {{/each}}
+                <!-- View More Button -->
+                <div class="row d-flex flex-column">
+                    {{#if comments}}
+                        <div class="col mt-3 text-end">
+                            <a href="/view-all-comments/{{ viewUser.username }}" class="btn view-more-btn">View all</a>
+                        </div>
+                    {{else}}
+                        {{#if (isEqual comments.length 0)}}
+                            <div class="col-md-8" style="color: white;">
+                                <br> Hmmm... This user has no comments yet.
+                            </div>
+                        {{/if}}
+                        <br> <br>
+                    {{/if}}
+                </div>
+            </div>
+
         </div>
+
     </div>
 </div>
