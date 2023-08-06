@@ -29,7 +29,7 @@ postRouter.get("/create-post", async (req, res) => {
             const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             res.render("create-post", {
-                pageTitle: "Post to foroom",
+                pageTitle: "Post to Foroom",
                 userFound: true,
                 currentUser: currentUser,
                 notifs: currentUser.notifications,

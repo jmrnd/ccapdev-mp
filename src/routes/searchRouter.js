@@ -47,7 +47,7 @@ searchRouter.get("/search", async (req, res) => {
                 res.render("search-results", {
                     isIndex: true,
                     userFound: true,
-                    pageTitle: "foroom",
+                    pageTitle: `Foroom | "${searchText}"`,
                     currentUser: currentUser,
                     posts: postsArray,
                     searchText: searchText,
@@ -61,7 +61,7 @@ searchRouter.get("/search", async (req, res) => {
             res.render("search-results", {
                 isIndex: true,
                 userFound: false,
-                pageTitle: "foroom",
+                pageTitle: `Foroom | "${searchText}"`,
                 icon: "/static/images/profile_pictures/pfp_temp.svg",
                 posts: postsArray,
                 searchText: searchText
