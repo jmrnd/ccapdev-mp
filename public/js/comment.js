@@ -80,23 +80,23 @@ document.addEventListener("DOMContentLoaded", ( event ) => {
             };
 
             const response = await fetch(get_path, {
-            method: 'DELETE',
-            body: JSON.stringify(data),
-            headers: {
-                'content-type': 'application/json',
-            },
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers: {
+                    'content-type': 'application/json',
+                },
             });
 
             if (response.status == 200) {
-            const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
-            commentElement.remove();
-            location.reload();
+                const commentElement = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+                commentElement.remove();
+                location.reload();
             }
         } catch (error) {
             console.error('Error deleting comment:', error);
         }
         } else {
-        console.log('Deletion canceled!');
+            console.log('Deletion canceled!');
         }
     });
     });

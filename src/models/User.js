@@ -6,8 +6,9 @@ const UserSchema = new mongoose.Schema({
     description: String,
     email: String,
     icon: String,
-    password: String, // TODO: password hashing for phase 3
+    password: String,
     joinDate: Date,
+    notifications: [{ type: mongoose.Schema.Types.ObjectId, ref: "Notification" }]
 });
 
 export const User = mongoose.model("User", UserSchema);

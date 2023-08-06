@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { User } from "../models/User.js";
 import { Post } from "../models/Post.js";
+import { Notification } from "../models/Notification.js"
 
 import profileRouter from "./profileRouter.js";
 import postRouter from "./postRouter.js";
@@ -22,9 +23,19 @@ router.get("/", async function (req, res) {
         });
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
 
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             if (currentUser) {
                 res.render("index", {
@@ -33,6 +44,8 @@ router.get("/", async function (req, res) {
                     pageTitle: "Foroom",
                     currentUser: currentUser,
                     posts: postsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             }
             else {
@@ -64,28 +77,61 @@ router.get("/about", async function (req, res) {
   try {
 
       if (req.isAuthenticated()) {
-        const currentUser = await User.findById(req.user._id).lean().exec();
+        const currentUser = await User.findById(req.user._id).populate({
+            path: "notifications",
+            populate: {
+                path: "fromUser",
+                model: "User",
+                select: "username icon"
+            }
+        }).lean().exec();
 
+        currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
         currentUser._id = currentUser._id.toString();
 
+        const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
+
         if (currentUser) {
-          res.render("about", {
-            pageTitle: "About",
-            userFound: true,
-            currentUser: currentUser,
-          });
+            res.render("about", {
+                pageTitle: "About",
+                userFound: true,
+                currentUser: currentUser,
+                notifs: currentUser.notifications,
+                newNotifs: newNotifs
+            });
         } else{
             res.status(404).send("User not found");
         }
     } else {
-      res.render("about", {
-        pageTitle: "About",
-        userFound: false,
-      });
+        res.render("about", {
+            pageTitle: "About",
+            userFound: false,
+        });
     }
   } catch (error) {
     res.status(500).send("Internal Server Error");
   }
+});
+
+router.post("/mark-notification-read/:notifId", async (req, res) => {
+    const notifId = req.params.notifId;
+    console.log(notifId);
+
+    try {
+        const notif = await Notification.findByIdAndUpdate(
+            notifId,
+            { isRead : true },
+            { new : true},
+        );
+
+        if (!notif) {
+            return res.status(404).send("Notification not found.");
+        }
+
+        res.status(200).send("Notification marked as read.");
+    } catch (err) {
+        res.status(500).send("Internal Server Error");
+    }
 });
 
 router.use(profileRouter);

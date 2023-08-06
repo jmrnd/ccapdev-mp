@@ -1,7 +1,6 @@
 // System-related packages
 import "dotenv/config";
 import { User } from "./src/models/User.js"
-import { UserSession } from "./src/models/UserSession.js";
 import { Post } from "./src/models/Post.js";
 import { Comment } from "./src/models/Comment.js";
 import mongoose from "mongoose";

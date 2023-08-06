@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
 import { Comment } from '../models/Comment.js';
+import { Notification } from "../models/Notification.js"
 import passwordUtils from '../userAuth/passwordHelpers.js';
 
 import { check, validationResult } from "express-validator";
@@ -149,8 +150,19 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
         });
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             const commentsArray = comments.map((comments) => {
                 return {
@@ -171,7 +183,9 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                     currentUser: currentUser,
                     viewUser: viewUser,
                     posts: postsArray,
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");
@@ -217,8 +231,19 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         });
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             if (currentUser) {
                 res.render("view-all-posts", {
@@ -227,7 +252,9 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
                     pageTitle: `Posts by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
-                    posts: postsArray
+                    posts: postsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");
@@ -255,8 +282,19 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
         const comments = await Comment.find({ author: viewUser._id}).populate("author").exec();
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             const commentsArray = comments.map((comments) => {
                 return {
@@ -274,7 +312,9 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
                     pageTitle: `Comments by ${usernameParam}`,
                     currentUser: currentUser,
                     viewUser: viewUser,
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");

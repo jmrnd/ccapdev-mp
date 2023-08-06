@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { User } from "../models/User.js";
 import { Post } from "../models/Post.js";
+import { Notification } from "../models/Notification.js"
 
 const searchRouter = Router();
 
@@ -28,7 +29,19 @@ searchRouter.get("/search", async (req, res) => {
         });
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
+            currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             if (currentUser) {
                 res.render("search-results", {
@@ -38,6 +51,8 @@ searchRouter.get("/search", async (req, res) => {
                     currentUser: currentUser,
                     posts: postsArray,
                     searchText: searchText,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 res.status(404).send("User not found");

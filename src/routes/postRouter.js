@@ -2,6 +2,7 @@ import { Router } from "express";
 import { User } from "../models/User.js";
 import { Post } from "../models/Post.js";
 import { Comment } from "../models/Comment.js";
+import { Notification } from "../models/Notification.js";
 import bodyParser from "body-parser";
 
 const postRouter = Router();
@@ -13,11 +14,26 @@ postRouter.use(bodyParser.json());
 postRouter.get("/create-post", async (req, res) => {
     try {
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
+            currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
+
             res.render("create-post", {
                 pageTitle: "Post to foroom",
                 userFound: true,
                 currentUser: currentUser,
+                notifs: currentUser.notifications,
+                newNotifs: newNotifs
             });
         } else {
             console.log("No user found");
@@ -63,8 +79,20 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         const comments = await Comment.find({ post: postId }).populate("author").exec();
 
         if (req.isAuthenticated()) {
-            const currentUser = await User.findById(req.user._id).lean().exec();
+            const currentUser = await User.findById(req.user._id).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
+
             const commentsArray = comments.map((comments) => {
                 return {
                     ...comments.toObject(),
@@ -92,7 +120,9 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 // No post found
@@ -250,6 +280,24 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
         post.comments.push(newComment);
         await post.save();
 
+        const notifRecipient = await User.findOne({ _id: post.author._id}).exec();
+
+        if (notifRecipient._id.toString() !== currentUser._id.toString()) {
+            const newNotif = new Notification({
+                recipient: notifRecipient,
+                fromUser: currentUser._id,
+                content: newComment.body,
+                link: `/view-post/${postId}`,
+                notifClass: 'Comment',
+                contentClass: 'Comment',
+                createdAt: newComment.commentDate
+            });
+
+            const savedNotif = await newNotif.save();
+            notifRecipient.notifications.push(savedNotif);
+            await notifRecipient.save();
+        }
+
         // Redirect to the updated post's view or any other desired action
         res.redirect(`/view-post/${postId}`);
     } catch (error) {
@@ -316,6 +364,25 @@ postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
                     { new : true }
                 ).exec();
             }
+
+            const notifRecipient = await User.findOne({ _id : post.author._id }).exec();
+
+            if (notifRecipient._id.toString() !== req.user._id.toString()) {
+                const newNotif = new Notification({
+                    recipient: notifRecipient,
+                    fromUser: req.user._id,
+                    content: post.body,
+                    link: `/view-post/${idParam}`,
+                    notifClass: 'Upvote',
+                    contentClass: 'Post',
+                    createdAt: new Date()
+                });
+
+                const savedNotif = await newNotif.save();
+                notifRecipient.notifications.push(savedNotif);
+                await notifRecipient.save();
+            }
+
         } else {
             await Post.updateOne(
                 { _id : idParam },
@@ -366,6 +433,8 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
         const comment = await Comment.findOne({ _id : idParam }).exec(); // get comment via ID
         const hasVoted = comment.upVoters.includes(req.user._id);
 
+        const notifRecipient = await User.findOne({ _id : comment.author }).exec();
+
         if (hasVoted === false) {
             comment.upVoters.push(req.user._id);
             await comment.save();
@@ -377,6 +446,22 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
                     { $pull : { downVoters : req.user._id } },
                     { new : true }
                 ).exec();
+            }
+
+            if (notifRecipient._id.toString() !== req.user._id.toString()) {
+                const newNotif = new Notification({
+                    recipient: notifRecipient,
+                    fromUser: req.user._id,
+                    content: comment.body,
+                    link: `/view-post/${comment.post}`,
+                    notifClass: 'Upvote',
+                    contentClass: 'Comment',
+                    createdAt: new Date()
+                })
+
+                const savedNotif = await newNotif.save();
+                notifRecipient.notifications.push(savedNotif);
+                await notifRecipient.save();
             }
         } else {
             await Comment.updateOne(

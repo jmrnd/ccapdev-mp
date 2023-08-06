@@ -20,22 +20,38 @@
                         <div class="d-inline-block mb-0 mt-1">
                             <i class="bi bi-bell-fill notification-bell"></i>
                             {{!-- UNREAD NOTIFICATIONS --}}
-                            <span class="position-absolute translate-middle badge rounded-pill bg-danger">3</span>
+                            {{#if newNotifs}}
+                            <span class="position-absolute translate-middle badge rounded-pill bg-danger" id="newNotifs">{{newNotifs}}</span>
+                            {{else}}
+                            <span class="position-absolute"></span>
+                            {{/if}}
                         </div>
                     </a>
-                    
+                    <ul class="dropdown-menu dropdown-menu-end notification-dropdown-menu">
+                        <span class="ms-3">Notifications</span>
+                        <hr class="dropdown-divider">
+                        {{#if notifs.length}}
+                            {{#each notifs}}
+                                {{> notification this}}
+                            {{/each}}
+                        {{else}}
+                        <div class="notification-message ms-2 p-2">
+                            <span class="fw-light fst-italic">Start engaging with others!</span>
+                        </div>
+                        {{/if}}
+                    </ul>
                 </li>
 
                 {{!-- CREATE A POST --}}
                 <a href="/create-post" class="nav-link p-0 pt-auto" role="button">
-                    <div class="d-inline-block mb-0 mt-1 me-0 ms-4">
+                    <div class="d-inline-block mb-0 mt-1 mx-4">
                         <i class="bi bi-pencil-square write-post"></i>
                     </div>
                 </a>
 
                 {{!-- ABOUT --}}
                 <a href="/about" class="nav-link p-0 pt-auto" role="button">
-                    <div class="d-inline-block mb-0 mt-1 me-0 ms-3">
+                    <div class="d-inline-block mb-0 mt-1">
                         <i class="bi bi-info-circle write-post"></i>
                     </div>
                 </a>

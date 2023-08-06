@@ -1,0 +1,19 @@
+<li class="notification-dropdown-item">
+    <a href="{{link}}" class="d-flex flex-row d-inline-block text-wrap ms-2 me-3 my-3 link-unstyled" onclick="markAsRead('{{this._id}}')" style="width: 20rem;">
+        <div class="mt-2">
+            <img src="{{fromUser.icon}}" class="notification-pfp mx-3" alt="profile_picture">
+        </div>
+        <div class="d-flex flex-column mt-1">
+            <span class="notification-header lh-base align-middle">{{fromUser.username}} {{getNotifHeader notifClass contentClass}}
+                <span class="fw-light notification-date mx-1">·</span>
+                <span class="fw-light notification-date">{{relativeTime createdAt}}</span>
+                {{#unless isRead}}
+                <span class="fs-sm notification-unread mx-1">●</span>
+                {{/unless}}
+            </span>
+            <span class="notification-body custom-truncate mt-1 fw-light me-3" style="max-width: 20rem;">
+                {{{content}}}
+            </span>
+        </div>
+    </a>
+</li>
