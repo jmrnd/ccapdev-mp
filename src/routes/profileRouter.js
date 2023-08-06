@@ -1,30 +1,25 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
-import { Comment } from '../models/Comment.js';
 import { UserSession } from '../models/UserSession.js';
-
-import { check, validationResult } from "express-validator";
-
-// Validation Rules
-const usernameValidation = check("username").isLength({ min: 5, max: 20 }).withMessage("usernameFormat");
-const displayNameValidation = check("displayName").isLength({ min: 0, max: 20 }).withMessage("displayNameFormat");
-const descriptionValidation = check("description").isLength({ min: 0, max: 100 }).withMessage("descriptionFormat");
-const emailValidation = check("email").isEmail().withMessage("emailFormat");
-const passwordValidation = check("password").isLength({ min: 6, max: 15 }).withMessage("passwordFormat");
-
 const profileRouter = Router();
 
 // Retrieve edit profile page
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
         const session = await UserSession.findOne({}).exec();
-        if (session) {
+        if(session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
             if (currentUser) {
+                // User found
                 res.render("edit-profile", {
                     layout: 'profile.hbs',
-                    currentUser: currentUser,
+                    username: currentUser.username,
+                    displayName: currentUser.displayName,
+                    password: currentUser.password,
+                    email: currentUser.email,
+                    description: currentUser.description,
+                    icon: currentUser.icon
                 });
             } else {
                 res.status(404).send("User Not Found");
@@ -33,142 +28,69 @@ profileRouter.get("/edit-profile", async (req, res) => {
             res.status(404).send("Session Not Found");
         }
     } catch (error) {
-        console.error("Error occurred:" + error);
-        res.status(500).send("Internal Server Error");
+        console.error("Error occurred while retrieving user:", error);
+        res.status(500).send("Internal Server Error"); // To redirect to an error page
     }
 });
 
 // Edit profile
-profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation, descriptionValidation, emailValidation, passwordValidation], async (req, res) => {
-    
-    // If the input data fails format validation rules, the error data is stored in the errorsArray
-    const errors = validationResult(req);
-    let errorsArray = errors.array();
-
-    const session = await UserSession.findOne({}).exec();
-    const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
-    const existingUserWithUsername = await User.findOne({ username: req.body.username }).exec();
-    const existingUserWithEmail = await User.findOne({ email: req.body.email }).exec();
-
-    // Check if username is taken
-    if(existingUserWithUsername) {
-        // Checks if username is taken by another user who is not the current user
-        if(currentUser.username !== req.body.username) {
-            // Create usernameExists error data
-            const usernameExistsErr = {
-                type: 'field',
-                value: req.body.username,
-                msg: 'usernameExists',
-                path: 'username'
-            }
-            // usernameExists error data is pushed to errorsArray
-            errorsArray.push(usernameExistsErr);
-        }
+profileRouter.patch("/edit-profile", async (req, res) => {
+    console.log("PATCH request received for /users");
+    try {
+        const session = await UserSession.findOne({}).exec();
+        const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
+        res.sendStatus(200);
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(500);
     }
-
-    // Check if email is taken
-    if(existingUserWithEmail) {
-        // Checks if email is taken by another user who is not the current user
-        if(currentUser.email !== req.body.email) {
-            // Create usernameExists error data
-            const emailExistsErr = {
-                type: 'field',
-                value: req.body.email,
-                msg: 'emailExists',
-                path: 'email'
-            }
-            // emailExists error data is pushed to errorsArray
-            errorsArray.push(emailExistsErr);
-        }
-    }
-
-    if(errorsArray.length > 0) {
-        // Sends errorsArray as JSON to frontend to display respective form validation messages
-        res.status(422).json({ errors: errorsArray });
-    } else {
-        // Input data is validated and used to update profile details
-        try {
-            const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
-            res.sendStatus(200);
-        } catch (error) {
-            console.error("Error occurred:" + error);
-            res.status(500).send("Internal Server Error");
-        }
-    }
-
 });
 
 // View profile
 profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
-        const session = await UserSession.findOne({}).populate("userID").exec();
-        
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
-        const posts = await Post.find({ author: viewUser._id}).populate("author").sort({ postDate: -1 }).limit(3).exec();
-        const comments = await Comment.find({ author: viewUser._id}).populate("author").sort({ commentDate: -1 }).limit(3).exec();
-        
+        const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
+
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
-                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });
 
+        const session = await UserSession.findOne({}).exec();
+
+        console.log(session);
         // Checks if user is logged in
-        if (session) {
-            const currentUser = await User.findOne({ _id : session.userID }).lean().exec();
-            currentUser._id = currentUser._id.toString();
-
-            const commentsArray = comments.map((comments) => {
-                return {
-                    ...comments.toObject(),
-                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                    currentUser: currentUser._id
-                }
-            });
-
+        if(session) {
+            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
             if (currentUser) {
                 // User found
                 res.render("view-profile", {
-                    isIndex: false,
-                    isPost: false,
                     pageTitle: viewUser.username,
                     userFound: true,
                     isIndex: false,
                     currentUser: currentUser,
                     viewUser: viewUser,
                     posts: postsArray,
-                    comments: commentsArray
                 });
             } else {
                 res.status(404).send("User not found");
             }
         } else {
-
-            const commentsArray = comments.map((comments) => {
-                return {
-                    ...comments.toObject(),
-                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                }
-            });
-
             // If no logged in user, render page with unregistered navbar
             res.render("view-profile", {
-                isIndex: false,
-                isPost: false,
-                pageTitle: viewUser.username,
                 userFound: false,
                 isIndex: false,
-                viewUser: viewUser,
+                viewUser: viewUserData,
                 posts: postsArray,
-                comments: commentsArray
             });
         }
       } catch (error) {
-          console.error("Error occurred:" + error);
-          res.status(500).send("Internal Server Error");
+          console.error("Error occurred while retrieving user:", error);
+          res.status(500).send("Internal Server Error"); // or redirect to an error page
       }
 });
 
@@ -176,30 +98,30 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
 profileRouter.get("/view-all-posts/:username", async (req, res) => {
     try {
         const usernameParam = req.params.username;
-        const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
-        const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
-        const session = await UserSession.findOne({}).exec();
+        const viewUser = await User.findOne({ username: usernameParam});
+        const posts = await Post.find({ author: viewUser._id}).populate({
+            path: 'author',
+            select: 'username',
+        }).lean().exec();
 
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
-                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });
+        
+        const session = await UserSession.findOne({}).exec();
 
-        if (session) {
+        if(session) {
             const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
-            currentUser._id = currentUser._id.toString();
 
             if (currentUser) {
                 res.render("view-all-posts", {
-                    isIndex: true, 
+                    isIndex: true, // This is for adjusting post-width
                     userFound: true,
-                    pageTitle: `Posts by ${usernameParam}`,
                     currentUser: currentUser,
-                    viewUser: viewUser,
-                    posts: postsArray
+                    posts: posts,
                 });
             } else {
                 res.status(404).send("User not found");
@@ -208,69 +130,11 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
             res.render("view-all-posts", {
                 isIndex: true,
                 userFound: false,
-                pageTitle: `Posts by ${usernameParam}`,
-                viewUser: viewUser,
-                posts: postsArray
+                posts: posts
             });
         }
       } catch (error) {
-        console.error("Error occurred: ", error);
-        res.status(500).send("Internal Server Error");
-      }
-});
-
-// View all comments
-profileRouter.get("/view-all-comments/:username", async (req, res) => {
-    try {
-        const usernameParam = req.params.username;
-        const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
-        const comments = await Comment.find({ author: viewUser._id}).populate("author").exec();
-
-        const session = await UserSession.findOne({}).exec();
-
-        if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
-            currentUser._id = currentUser._id.toString();
-
-            const commentsArray = comments.map((comments) => {
-                return {
-                    ...comments.toObject(),
-                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                    currentUser: currentUser._id
-                }
-            });
-
-            if (currentUser) {
-                res.render("view-all-comments", {
-                    isIndex: true,
-                    isPost: false, 
-                    userFound: true,
-                    pageTitle: `Comments by ${usernameParam}`,
-                    currentUser: currentUser,
-                    viewUser: viewUser,
-                    comments: commentsArray
-                });
-            } else {
-                res.status(404).send("User not found");
-            }
-        } else {
-            const commentsArray = comments.map((comments) => {
-                return {
-                    ...comments.toObject(),
-                    totalVotes: (comments.upVoters.length - comments.downVoters.length),
-                }
-            });
-            res.render("view-all-comments", {
-                isIndex: true,
-                isPost: false,
-                userFound: false,
-                pageTitle: `Comments by ${usernameParam}`,
-                viewUser: viewUser,
-                comments: commentsArray
-            });
-        }
-      } catch (error) {
-        console.error("Error occurred:" + error);
+        console.error("Error finding user", error);
         res.status(500).send("Internal Server Error");
       }
 });

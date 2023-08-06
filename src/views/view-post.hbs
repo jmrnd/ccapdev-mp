@@ -3,29 +3,6 @@
     <div class="col-md-7">
         <div class="card mt-4 mb-0">
             <div class="card-body rounded">
-            {{#if isDeleted}}
-                {{!-- POST HEADER --}}
-                <div class="d-flex justify-content-between mt-2 mb-4">
-                     <div>
-                        <img class="rounded-circle ms-3" src="/static/images/profile_pictures/pfp_temp.svg" alt="profile_picture" width="40" height="40">
-                        <span class="post-author pt-0">
-                        [Deleted]
-                        </span>
-                    </div>
-                </div>
-                {{!-- POST CONTENT --}}
-                <div class="post-content">
-                    <div id="postTitleDisplay">
-                        <p class="post-title">[Deleted]</p>
-                    </div>
-                    <div id="postBodyDisplay">
-                        This post has been deleted by the author.
-                    </div><br>
-                    <hr style="width: 100%">
-                    <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
-                    <span class="iconGrid-text mx-1">{{comments.length}} comments</span>
-                </div>
-            {{else}}
                 {{!-- POST HEADER --}}
                 <div class="d-flex justify-content-between mt-2">
                      <div>
@@ -39,7 +16,6 @@
                         <span class="post-author mx-1 pt-1 fw-sm fs-7">• Posted {{relativeTime post.postDate}}</span>
                         {{/if}}
                     </div>
-                    
                     {{!-- MORE OPTIONS --}}
                     <div class="d-flex align-items-center">
                         {{#if (isEqual postAuthor.username currentUser.username)}}
@@ -49,12 +25,12 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <li>
-                                        <a class="dropdown-item edit-post-btn" href="/edit-post/{{post._id}}">
+                                        <a class="dropdown-item edit-post-btn" href="/edit-post/{{postId}}">
                                             <i class="bi bi-pencil me-2"></i>Edit Post
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item delete-post-btn" href="/delete-post/{{post._id}}">
+                                        <a class="dropdown-item delete-post-btn" href="/delete-post/{{postId}}">
                                             <i class="bi bi-trash me-2"></i>Delete
                                         </a>
                                     </li>
@@ -72,45 +48,26 @@
                     <div id="postBodyDisplay">
                         {{{post.body}}}
                     </div><br>
-                    {{!-- <p>Current user: {{currentUser._id}}</p>
-                    <p>Upvoters: {{post.upVoters}}</p>
-                    <p>Downvoters: {{post.downVoters}}</p>
-                    <p>hasVoted: {{hasVoted currentUser._id post.upVoters post.downVoters}}</p> --}}
                     <div class="flex-center iconGrid">
-                    {{#if (hasVoted currentUser._id post.upVoters post.downVoters)}} {{!-- User has voted on the post--}}
-                        {{#if (isUpvoter currentUser._id post.upVoters)}}
-                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up-fill iconGrid-upvote iconGrid-color postUpvote"></i>
-                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
-                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
-                        {{else}}
-                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
-                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
-                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down-fill iconGrid-downvote iconGrid-color postDownvote"></i>
-                        {{/if}}
-                    {{else}}
-                        <i id="upvoteIcon/{{post._id}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
-                        <span id="voteCount/{{post._id}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
-                        <i id="downvoteIcon/{{post._id}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote"></i>
-                    {{/if}}
+                        <i id="upvoteIcon/{{postId}}" class="bi bi-caret-up iconGrid-upvote iconGrid-color postUpvote"></i>
+                        <span id="voteCount/{{postId}}" class="iconGrid-text mx-1">{{post.totalVotes}}</span>
+                        <i id="downvoteIcon/{{postId}}" class="bi bi-caret-down iconGrid-downvote iconGrid-color postDownvote" ></i>
                         <i class="bi bi-chat-right-text ms-3 iconGrid-comment iconGrid-color"></i>
-                        <span class="iconGrid-text mx-1">{{post.totalComments}} comments</span>
+                        <span class="iconGrid-text mx-1">{{totalComments}} comments</span>
                     </div>
-                    
+
+                    <hr style="width: 100%">
                     <!-- COMMENT BOX -->
                     {{#if userFound}}
-                    <hr style="width: 100%">
                     <div class="comment-box-container">
                         <span class="post-author ms-1 pt-2" id="commenting-as">Comment as {{ currentUser.username }}</span>
-                        <form action="/create_comment/{{post._id}}" method="POST">
+                        <form action="/create_comment/{{postId}}" method="post">
                             <textarea class="comment-box card col-md-12 mt-2 mb-0" name="comment" placeholder="Leave a comment ..." id="commentBox"></textarea>
                             <br><button type="submit" class="comment-button rounded">Comment</button>
                         </form>
                     </div>
                     {{/if}}
-
-            
                 </div>
-            {{/if}}
             </div>
         </div>
     </div>

@@ -18,22 +18,19 @@ const customHelpers = {
         return JSON.parse(object);
     },
     hasVoted: function (currentUser, upVoters, downVoters) {
-        let upVoter = upVoters.some((user) => user == currentUser);
-        let downVoter = downVoters.some((user) => user == currentUser);
-        if (upVoter || downVoter) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    isUpvoter: function (currentUser, upVoters) {
-        let upVoter = upVoters.some((user) => user == currentUser);
+        let upVoter = upVoters.some((user) => user.username === currentUser.username);
+        let downVoter = downVoters.some((user) => user.username === currentUser.username);
         if (upVoter) {
-            return true;
+            return "upvoter";
+        } else if (downVoter) {
+            return "downvoter";
         } else {
             return false;
         }
     },
+    isUpvoter: function (hasVotedResponse) {
+        return hasVotedResponse === "upvoter";
+    }
 };
 
 export default customHelpers;

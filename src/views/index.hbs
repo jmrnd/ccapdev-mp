@@ -6,15 +6,15 @@
 {{/if}}
 
 {{!-- POST FILTERS --}}
-{{> filterPostBox}}
+{{> filterBox}}
 
 {{!-- POSTS --}}
 <div class="container" id="postsContainer">
     {{#each posts}}
         {{#if (isEqual this.author.username ../currentUser.username)}}
-            {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
+            {{> myPostCard this isIndex=../isIndex}}
         {{else}}
-            {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
+            {{> otherPostCard this isIndex=../isIndex}}
         {{/if}}
     {{/each}}
 </div>

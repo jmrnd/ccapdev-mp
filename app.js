@@ -14,6 +14,7 @@ import router from "./src/routes/indexRouter.js";
 // Custom hbs helpers
 import customHelpers from "./src/hbs-helpers/helpers.js";
 
+// TO DO: Move to separate file, db.js
 const mongoURI = process.env.MONGODB_URI;
 mongoose.connect(mongoURI).then(() => console.log("Connected to DB!"));
 

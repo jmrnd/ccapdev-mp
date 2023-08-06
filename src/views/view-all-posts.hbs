@@ -1,16 +1,3 @@
-<div class="container">
-    <div class="row d-flex justify-content-center">
-            <div class="col-md-7 mt-2">
-                <div class="rounded d-flex justify-content-start align-items-center py-1 mt-2">
-                    <h3 class="fw-bolder my-4" id="searchResultsHeading">Posts by {{viewUser.username}}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{{> filterPostBox}}
-
 <div class="container" id="postsContainer">
     {{#each posts}}
         {{#if (isEqual this.author.username @root.currentUser.username)}}

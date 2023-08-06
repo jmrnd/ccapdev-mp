@@ -6,6 +6,7 @@ const CommentSchema = new mongoose.Schema({
     body: String,
     commentDate: Date,
     editDate: Date,
+    totalVotes: Number,
     replies: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}], // array of comments, self-referencing
     upVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     downVoters: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],

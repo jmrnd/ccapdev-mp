@@ -24,7 +24,6 @@ searchRouter.get("/search", async (req, res) => {
         const postsArray = posts.map((post) => {
             return {
                 ...post.toObject(),
-                totalVotes: (post.upVoters.length - post.downVoters.length),
                 totalComments: post.comments.length,
             };
         });
@@ -45,13 +44,12 @@ searchRouter.get("/search", async (req, res) => {
                 res.status(404).send("User not found");
             }
         } else {
-            res.render("search-results", {
+            res.render("index", {
                 isIndex: true,
                 userFound: false,
                 pageTitle: "foroom",
                 icon: "/static/images/profile_pictures/pfp_temp.svg",
                 posts: postsArray,
-                searchText: searchText
             });
         }
     } catch (error) {
