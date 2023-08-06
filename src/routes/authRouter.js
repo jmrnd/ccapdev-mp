@@ -1,11 +1,10 @@
 import { Router } from 'express';
 import { User } from '../models/User.js';
-import { UserSession } from "../models/UserSession.js";
-
-import express from 'express';
+import passport from 'passport';
 
 const authRouter = Router();
 
+// View Sign Up Page
 authRouter.get("/sign-up", async (req, res) => {
     try {
         res.render("sign-up", {
@@ -18,13 +17,33 @@ authRouter.get("/sign-up", async (req, res) => {
     }
 })
 
+// Registering an account
 authRouter.post("/sign-up",  async (req, res) => {
+    const validateUser = await User.find({}, {username: true, email: true});
+
     try{
-        await User.create(req.body);
-        res.redirect("/login")
+
+        // Hash Proces
+        const hashedPassword = passwordUtils.generatePassword(req.body.password);
+
+        // Process Data
+        const processData = {
+            username: req.body.username,
+            email: req.body.email,
+            password: hashedPassword,
+            joinDate: req.body.joinDate,
+            icon: req.body.icon,
+        }
+
+        //Store in MongoDB
+        const result = await User.create(processData);
+
+        console.log(result);
     }
     catch(error) {
-        console.log(error);
+        console.log("Username or Email is already taken");
+        console.log("Error: " + error)
+        res.json(validateUser); // Send the username and email
     }
 });
 
@@ -35,38 +54,29 @@ authRouter.get("/login", async(req, res) => {
     console.log("Currently in: Login Page")
 });
 
-authRouter.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+authRouter.get("/login", async (req, res) => {
+    res.render("login");
+    console.log("Currently in: Login Page")
+})
 
-authRouter.post("/login", async (req, res) => {
-    const {email, password} = req.body; // Get email and password
-    const user = await User.findOne({email: email}).exec(); // Find email in User
+// passport.autheticate('local') = use local strategy
+authRouter.post('/login', passport.authenticate('local', { failureRedirect: '/sign-up', successRedirect: '/'}));
 
-    // console.log(email, password);
-    // console.log(user);
 
-    // Check if email already Registered
-    if(!user){
-        res.redirect("/sign-up")
-        console.log( email + " is not found");
-    }
-    else{
-        // Check password
-        if(password != user.password){
-            console.log("Wrong password")
-            res.redirect("/sign-up")
+authRouter.post("/logout", async (req, res, next) => {
+
+    /*
+    *   Logout from passport and Destroy Session for security
+    */
+
+    req.logout(function(err) {
+        if (err) {
+            return next(err);
         }
-        else{
-            console.log("Login Successfuly")
-            await UserSession.create({userID: user.id})
-            res.redirect("/");
-        }
-    }
+        res.redirect('/');
+    });
+
 });
 
-authRouter.get("/logout", async(req, res) => {
-    const session = await UserSession.findOneAndDelete({}).exec();
-    console.log("Just Logged out");
-    res.redirect("/");
-})
 
 export default authRouter;

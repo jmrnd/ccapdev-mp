@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { User } from '../models/User.js';
 import { Post } from '../models/Post.js';
 import { Comment } from '../models/Comment.js';
-import { UserSession } from '../models/UserSession.js';
 
 import { check, validationResult } from "express-validator";
 
@@ -18,9 +17,8 @@ const profileRouter = Router();
 // Retrieve edit profile page
 profileRouter.get("/edit-profile", async (req, res) => {
     try {
-        const session = await UserSession.findOne({}).exec();
-        if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+        if (req.isAuthenticated()) {
+            const currentUser = await User.findById(req.user._id).lean().exec();
             if (currentUser) {
                 res.render("edit-profile", {
                     layout: 'profile.hbs',
@@ -45,8 +43,7 @@ profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation,
     const errors = validationResult(req);
     let errorsArray = errors.array();
 
-    const session = await UserSession.findOne({}).exec();
-    const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+    const currentUser = await User.findById(req.user._id).lean().exec();
     const existingUserWithUsername = await User.findOne({ username: req.body.username }).exec();
     const existingUserWithEmail = await User.findOne({ email: req.body.email }).exec();
 
@@ -88,7 +85,7 @@ profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation,
     } else {
         // Input data is validated and used to update profile details
         try {
-            const data = await User.findOneAndUpdate({ _id: session.userID }, req.body, { new: true });
+            const data = await User.findOneAndUpdate({ _id: req.user._id }, req.body, { new: true });
             res.sendStatus(200);
         } catch (error) {
             console.error("Error occurred:" + error);
@@ -101,8 +98,6 @@ profileRouter.patch("/edit-profile", [usernameValidation, displayNameValidation,
 // View profile
 profileRouter.get("/view-profile/:username", async (req, res) => {
     try {
-        const session = await UserSession.findOne({}).populate("userID").exec();
-        
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const posts = await Post.find({ author: viewUser._id}).populate("author").sort({ postDate: -1 }).limit(3).exec();
@@ -116,9 +111,8 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
             };
         });
 
-        // Checks if user is logged in
-        if (session) {
-            const currentUser = await User.findOne({ _id : session.userID }).lean().exec();
+        if (req.isAuthenticated()) {
+            const currentUser = await User.findById(req.user._id).lean().exec();
             currentUser._id = currentUser._id.toString();
 
             const commentsArray = comments.map((comments) => {
@@ -146,7 +140,6 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                 res.status(404).send("User not found");
             }
         } else {
-
             const commentsArray = comments.map((comments) => {
                 return {
                     ...comments.toObject(),
@@ -154,7 +147,6 @@ profileRouter.get("/view-profile/:username", async (req, res) => {
                 }
             });
 
-            // If no logged in user, render page with unregistered navbar
             res.render("view-profile", {
                 isIndex: false,
                 isPost: false,
@@ -178,7 +170,6 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
         const usernameParam = req.params.username;
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const posts = await Post.find({ author: viewUser._id}).populate("author").exec();
-        const session = await UserSession.findOne({}).exec();
 
         const postsArray = posts.map((post) => {
             return {
@@ -188,8 +179,8 @@ profileRouter.get("/view-all-posts/:username", async (req, res) => {
             };
         });
 
-        if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+        if (req.isAuthenticated()) {
+            const currentUser = await User.findById(req.user._id).lean().exec();
             currentUser._id = currentUser._id.toString();
 
             if (currentUser) {
@@ -226,10 +217,8 @@ profileRouter.get("/view-all-comments/:username", async (req, res) => {
         const viewUser = await User.findOne({ username: usernameParam}).lean().exec();
         const comments = await Comment.find({ author: viewUser._id}).populate("author").exec();
 
-        const session = await UserSession.findOne({}).exec();
-
-        if (session) {
-            const currentUser = await User.findOne({ _id: session.userID }).lean().exec();
+        if (req.isAuthenticated()) {
+            const currentUser = await User.findById(req.user._id).lean().exec();
             currentUser._id = currentUser._id.toString();
 
             const commentsArray = comments.map((comments) => {

@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { User } from "../models/User.js";
-import { UserSession } from "../models/UserSession.js";
 import { Post } from "../models/Post.js";
 
 import profileRouter from "./profileRouter.js";
@@ -12,7 +11,6 @@ const router = Router();
 
 router.get("/", async function (req, res) {
     try {
-        const checkSession = await UserSession.findOne({}).populate("userID").exec();
         const posts = await Post.find({}).populate("author").exec();
 
         const postsArray = posts.map((post) => {
@@ -23,9 +21,8 @@ router.get("/", async function (req, res) {
             };
         });
 
-        if (checkSession) {
-            const currentSession = await UserSession.findOne({}).populate("userID").exec();
-            const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+        if (req.isAuthenticated()) {
+            const currentUser = await User.findById(req.user._id).lean().exec();
 
             currentUser._id = currentUser._id.toString();
 
@@ -33,7 +30,6 @@ router.get("/", async function (req, res) {
                 res.render("index", {
                     isIndex: true,
                     userFound: true,
-                    activeUserSession: currentSession,
                     pageTitle: "Foroom",
                     currentUser: currentUser,
                     posts: postsArray,
@@ -46,13 +42,12 @@ router.get("/", async function (req, res) {
             res.render("index", {
                 isIndex: true,
                 userFound: false,
-                pageTitle: "foroom",
+                pageTitle: "Foroom",
                 icon: "/static/images/profile_pictures/pfp_temp.svg",
                 posts: postsArray,
             });
         }
     } catch (error) {
-      console.error("Error finding user", error);
       res.status(500).send("Internal Server Error");
     }
   });
@@ -67,11 +62,9 @@ router.get("/homepage", (req, res) => {
 
 router.get("/about", async function (req, res) {
   try {
-      const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
-      if (checkSession) {
-        const currentSession = await UserSession.findOne({}).populate("userID").exec();
-        const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+      if (req.isAuthenticated()) {
+        const currentUser = await User.findById(req.user._id).lean().exec();
 
         currentUser._id = currentUser._id.toString();
 
