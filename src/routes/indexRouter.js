@@ -25,8 +25,7 @@ router.get("/", async function (req, res) {
         });
 
         if (checkSession) {
-            const currentSession = await UserSession.findOne({}).populate("userID").exec();
-            const currentUser = await User.findOne({ _id: currentSession.userID }).populate({
+            const currentUser = await User.findOne({ _id: checkSession.userID }).populate({
                 path: "notifications",
                 populate: {
                     path: "fromUser",
@@ -45,7 +44,6 @@ router.get("/", async function (req, res) {
                 res.render("index", {
                     isIndex: true,
                     userFound: true,
-                    activeUserSession: currentSession,
                     pageTitle: "foroom",
                     currentUser: currentUser,
                     posts: postsArray,
@@ -84,25 +82,36 @@ router.get("/about", async function (req, res) {
       const checkSession = await UserSession.findOne({}).populate("userID").exec();
 
       if (checkSession) {
-        const currentSession = await UserSession.findOne({}).populate("userID").exec();
-        const currentUser = await User.findOne({ _id: currentSession.userID }).lean().exec();
+        const currentUser = await User.findOne({ _id: checkSession.userID }).populate({
+            path: "notifications",
+            populate: {
+                path: "fromUser",
+                model: "User",
+                select: "username icon"
+            }
+        }).lean().exec();
 
+        currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
         currentUser._id = currentUser._id.toString();
 
+        const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
+
         if (currentUser) {
-          res.render("about", {
-            pageTitle: "About",
-            userFound: true,
-            currentUser: currentUser,
-          });
+            res.render("about", {
+                pageTitle: "About",
+                userFound: true,
+                currentUser: currentUser,
+                notifs: currentUser.notifications,
+                newNotifs: newNotifs
+            });
         } else{
             res.status(404).send("User not found");
         }
     } else {
-      res.render("about", {
-        pageTitle: "About",
-        userFound: false,
-      });
+        res.render("about", {
+            pageTitle: "About",
+            userFound: false,
+        });
     }
   } catch (error) {
     res.status(500).send("Internal Server Error");

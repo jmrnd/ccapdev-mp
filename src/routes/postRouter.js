@@ -24,10 +24,26 @@ postRouter.get("/create-post", async (req, res) => {
         };
 
         if (session) {
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
+            currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
+
             res.render("create-post", {
                 pageTitle: "Post to foroom",
                 userFound: true,
-                currentUser: processCurrentUser,
+                currentUser: currentUser,
+                notifs: currentUser.notifications,
+                newNotifs: newNotifs
             });
         } else {
             console.log("No user found");
@@ -81,8 +97,19 @@ postRouter.get("/view-post/:postId", async (req, res) => {
         }
 
         if (session) {
-            const currentUser = await User.findOne({ _id : session.userID._id }).lean().exec();
+            const currentUser = await User.findOne({ _id: session.userID }).populate({
+                path: "notifications",
+                populate: {
+                    path: "fromUser",
+                    model: "User",
+                    select: "username icon"
+                }
+            }).lean().exec();
+
+            currentUser.notifications.sort((a, b) => b.createdAt - a.createdAt);
             currentUser._id = currentUser._id.toString();
+
+            const newNotifs = await Notification.countDocuments({ recipient : currentUser._id, isRead : false });
 
             if (post) {
                 const commentsArray = comments.map((comments) => {
@@ -104,7 +131,9 @@ postRouter.get("/view-post/:postId", async (req, res) => {
                         username: post.author.username,
                         icon: post.author.icon
                     },
-                    comments: commentsArray
+                    comments: commentsArray,
+                    notifs: currentUser.notifications,
+                    newNotifs: newNotifs
                 });
             } else {
                 console.log("No post found.");
@@ -241,7 +270,10 @@ postRouter.post("/create_comment/:postId", async (req, res) => {
 
         const notifRecipient = await User.findOne({ _id: post.author._id}).exec();
 
-        if (!(notifRecipient === currentUser)) { // prevents users from sending notifs to themselves
+        const notifRecipientString = notifRecipient._id.toString();
+        const currentUserString = session.userID._id.toString();
+
+        if (notifRecipientString !== currentUserString) { // prevents users from sending notifs to themselves
             const newNotif = new Notification({
                 recipient: notifRecipient,
                 fromUser: currentUser._id,
@@ -308,7 +340,6 @@ postRouter.delete("/delete-comment/:postId/:commentId", async (req, res) => {
 postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
     const idParam = req.params._id;
     const session = await UserSession.findOne({}).populate("userID").exec();
-    const currentUser = await User.findOne({ _id : session.userID._id}).exec();
 
     if (session) {
         const post = await Post.findOne({ _id : idParam }).exec(); // get comment via ID
@@ -329,7 +360,10 @@ postRouter.patch("/upvoteIcon/:_id", async (req, res) => {
 
             const notifRecipient = await User.findOne({ _id : post.author._id }).exec();
 
-            if (!(notifRecipient === currentUser)) {
+            const notifRecipientString = notifRecipient._id.toString();
+            const currentUserString = session.userID._id.toString();
+
+            if (notifRecipientString !== currentUserString) {
                 const newNotif = new Notification({
                     recipient: notifRecipient,
                     fromUser: session.userID,
@@ -393,7 +427,6 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
     console.log("PATCH RECIEVED");
     const idParam = req.params._id;
     const session = await UserSession.findOne({}).populate("userID").exec();
-    const currentUser = await User.findOne({ _id : session.userID._id}).exec();
 
     if (session) {
         const comment = await Comment.findOne({ _id : idParam }).exec(); // get comment via ID
@@ -414,7 +447,10 @@ postRouter.patch("/commentUpvoteIcon/:_id", async (req,res)=> {
 
             const notifRecipient = await User.findOne({ _id : comment.author }).exec();
 
-            if (!(notifRecipient === currentUser)) {
+            const notifRecipientString = notifRecipient._id.toString();
+            const currentUserString = session.userID._id.toString();
+
+            if (notifRecipientString !== currentUserString) {
                 const newNotif = new Notification({
                     recipient: notifRecipient,
                     fromUser: session.userID,
