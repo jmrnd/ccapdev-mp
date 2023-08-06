@@ -30,9 +30,9 @@
                 <!-- Post Cards -->
                 {{#each posts}}
                     {{#if (isEqual ../currentUser.username ../viewUser.username)}}
-                        {{> myPostCard this isIndex=../isIndex}}
+                        {{> myPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
                     {{else}}
-                        {{> otherPostCard this isIndex=../isIndex}}
+                        {{> otherPostCard this isIndex=../isIndex currentUser=../currentUser._id}}
                     {{/if}}
                 {{/each}}
                 <!-- View More Button -->
