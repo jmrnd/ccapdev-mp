@@ -18,13 +18,13 @@ https://ccapdev-mp-webforum.onrender.com
 
 ## Setting Server Port
 - Locate the `main()` function in your `app.js` file.
-- Find the line of code that looks like this
+- Find the line of code that looks like this:
 ```
 app.listen(process.env.PORT, () => {
     console.log("Express app now listening...");
 });
 ```
-- Replace process.env.PORT with process.env.SERVER_PORT, like so:
+- Replace `process.env.PORT` with `process.env.SERVER_PORT`, like so:
 ```
 app.listen(process.env.SERVER_PORT, () => {
     console.log("Express app now listening...");
