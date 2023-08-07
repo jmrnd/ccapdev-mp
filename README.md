@@ -1,5 +1,6 @@
 # CCAPDEV-MP-WebForum
-Machine Project for CCAPDEV T3 2022-2023
+- Machine Project for CCAPDEV T3 2022-2023
+- S13 Group 2
 
 ## Foroom
 https://ccapdev-mp-webforum.onrender.com
@@ -12,7 +13,7 @@ https://ccapdev-mp-webforum.onrender.com
 
 ## .env Setup
 - `MONGODB_URI=mongodb://0.0.0.0:27017/foroom`
-- `PORT=3000`
+- `SERVER_PORT=3000`
 - `SECRET_KEY=keep-this-a-secret`
 
 ## Setting Server Port
